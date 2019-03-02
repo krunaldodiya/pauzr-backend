@@ -23,14 +23,14 @@ class Role extends Resource
      */
     public static $title = 'name';
 
+    public static $globallySearchable = false;
+
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-    public static $search = [
-        'id', 'name', 'label'
-    ];
+    public static $search = [];
 
     /**
      * Get the fields displayed by the resource.
@@ -45,13 +45,6 @@ class Role extends Resource
             Text::make('name'),
             Text::make('label'),
         ];
-    }
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        // return $query->whereHas('store.merchant', function ($query) use ($request) {
-        //     $query->where('user_id', $request->user()->id);
-        // });
     }
 
     /**

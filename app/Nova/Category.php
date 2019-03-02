@@ -52,13 +52,6 @@ class Category extends Resource
             Text::make('Name')->sortable(),
         ];
     }
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        // return $query->whereHas('store.merchant', function ($query) use ($request) {
-        //     $query->where('user_id', $request->user()->id);
-        // });
-    }
     
     /**
      * Get the cards available for the request.

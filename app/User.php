@@ -9,10 +9,11 @@ use App\Events\UserWasCreated;
 
 use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -78,6 +79,11 @@ class User extends Authenticatable implements JWTSubject
     public function isMerchant()
     {
         return $this->merchant()->count();
+    }
+
+    public function searchableAs()
+    {
+        return 'name';
     }
 
     /**

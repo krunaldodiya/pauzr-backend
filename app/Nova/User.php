@@ -33,6 +33,16 @@ class User extends Resource
      */
     public static $title = 'name';
 
+    public function title()
+    {
+        return $this->name;
+    }
+
+    public function subtitle()
+    {
+        return $this->status ? "Verified" : "Pending";
+    }
+
     /**
      * The columns that should be searched.
      *

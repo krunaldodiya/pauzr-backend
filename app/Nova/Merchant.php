@@ -45,6 +45,11 @@ class Merchant extends Resource
         return $this->user['name'];
     }
 
+    public function subtitle()
+    {
+        return $this->user['name'];
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
