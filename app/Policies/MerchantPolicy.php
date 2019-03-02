@@ -35,7 +35,9 @@ class MerchantPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return false;
+        
+        // return $user->isAdmin();
     }
 
     /**

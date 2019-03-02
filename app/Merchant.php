@@ -4,8 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Laravel\Nova\Actions\Actionable;
+
 class Merchant extends Model
 {
+    use Actionable;
+    
     protected $fillable = [
         'user_id', 'is_active', 'status'
     ];

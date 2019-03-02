@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 
-use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;

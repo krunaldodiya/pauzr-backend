@@ -53,11 +53,16 @@ class Store extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make("Merchant")->hideWhenUpdating(),
+
             HiddenField::make('Store', 'merchant_id')
+                ->onlyOnForms()
                 ->default($request->user()->merchant->id)
                 ->canSee(function ($request) {
                     return $request->user()->isMerchant();
                 }),
+
+            Avatar::make('Logo'),
 
             Text::make('Name'),
 
@@ -67,19 +72,16 @@ class Store extends Resource
                 ->canSee(function ($request) {
                     return $request->user()->isAdmin();
                 })
+                ->sortable()
                 ->hideWhenUpdating(),
-
-            BelongsTo::make("Merchant")->hideWhenUpdating(),
 
             HasMany::make('Coupons'),
 
             Trix::make('Description'),
 
+            Place::make('City')->onlyCities()->countries(['IN'])->sortable(),
+
             Text::make('Website')->withMeta(['placeholder' => 'https://www.google.com']),
-
-            Place::make('City')->onlyCities()->countries(['IN']),
-
-            Avatar::make('Logo'),
         ];
     }
 

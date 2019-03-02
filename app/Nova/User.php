@@ -5,17 +5,16 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\File;
 use OwenMelbz\RadioField\RadioButton;
 use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\HasOne;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Actions\CreateMerchant;
 
 class User extends Resource
 {
@@ -160,7 +159,14 @@ class User extends Resource
     public function actions(Request $request)
     {
         return [
-            new DownloadExcel
+            (new DownloadExcel)
+                ->onlyOnIndex()
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                })
+                ->onlyOnIndex(),
+
+            (new CreateMerchant)->onlyOnDetail()
         ];
     }
 }
