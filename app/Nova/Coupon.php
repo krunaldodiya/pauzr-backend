@@ -4,12 +4,13 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Trix;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\Date;
 
 class Coupon extends Resource
 {
@@ -65,13 +66,15 @@ class Coupon extends Resource
 
             Text::make('Coupon Code', 'coupon'),
 
+            Avatar::make('Logo'),
+
             Text::make('Link')->hideFromIndex(),
 
             Text::make('Aff Link')->hideFromIndex(),
 
-            DateTime::make('Start Date', 'created_at'),
+            Date::make('Start Date'),
 
-            DateTime::make('Expiry Date')
+            Date::make('Expiry Date')
         ];
     }
 

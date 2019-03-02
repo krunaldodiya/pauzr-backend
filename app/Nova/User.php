@@ -14,6 +14,7 @@ use OwenMelbz\RadioField\RadioButton;
 use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\HasOne;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Laravel\Nova\Fields\Avatar;
 
 class User extends Resource
 {
@@ -51,8 +52,6 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
-
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
@@ -78,7 +77,7 @@ class User extends Resource
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
-            File::make('Avatar'),
+            Avatar::make('Avatar'),
 
             RadioButton::make('Gender')
                 ->options(['Male' => 'Male', 'Female' => 'Female'])

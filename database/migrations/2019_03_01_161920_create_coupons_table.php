@@ -21,11 +21,14 @@ class CreateCouponsTable extends Migration
 
             $table->string('title');
             $table->text('description');
-            $table->string('coupon')->nullable();
             $table->string('type')->default('discount');
+            $table->string('coupon')->nullable();
+            $table->string('logo')->nullable();
             $table->text('link')->nullable();
             $table->text('aff_link')->nullable();
-            $table->dateTime('expiry_date');
+            
+            $table->date('start_date');
+            $table->date('expiry_date');
             
             $table->timestamps();
         });

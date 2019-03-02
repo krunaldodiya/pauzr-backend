@@ -96,7 +96,8 @@ class CouponRepository implements CouponRepositoryInterface
                 'link' => $all_coupon->LINK,
                 'aff_link' => $all_coupon->AFF_LINK,
                 'expiry_date' => Carbon::createFromTimestamp($all_coupon->VALIDITY_UNIX),
-                'created_at' => Carbon::createFromFormat("Y-m-d", $all_coupon->CREATED_DATE),
+                'start_date' => Carbon::createFromFormat("Y-m-d", $all_coupon->CREATED_DATE),
+                'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
 
