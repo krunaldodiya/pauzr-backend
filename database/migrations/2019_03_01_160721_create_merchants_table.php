@@ -19,9 +19,6 @@ class CreateMerchantsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('merchant_email')->nullable();
-            $table->string('merchant_password')->nullable();
-
             $table->boolean('is_active')->default(false);
             $table->string('status')->default('pending');
 

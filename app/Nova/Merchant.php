@@ -61,13 +61,6 @@ class Merchant extends Resource
         return [
             ID::make()->sortable(),
 
-            GeneratePassword::make('Merchant Password', 'merchant_password')
-                ->sortable()
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8')
-                ->length(12),
-
             Boolean::make('Is Active')->sortable(),
 
             Select::make('Status')
