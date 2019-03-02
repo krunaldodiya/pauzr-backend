@@ -25,7 +25,7 @@ class CreateCouponsTable extends Migration
             $table->string('type')->default('discount');
             $table->text('link')->nullable();
             $table->text('aff_link')->nullable();
-            $table->timestamp('expiry_date');
+            $table->dateTime('expiry_date');
             
             $table->timestamps();
         });
