@@ -11,6 +11,7 @@ use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Merchant extends Resource
 {
@@ -74,6 +75,15 @@ class Merchant extends Resource
 
             HasMany::make('Stores')
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isAdmin()) {
+            return true;
+        }
+
+        return $query->where('user_id', $request->user()->id);
     }
 
     /**

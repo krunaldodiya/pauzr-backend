@@ -11,6 +11,8 @@ use Laravel\Nova\Fields\Trix;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsToMany;
 
 class Coupon extends Resource
 {
@@ -66,6 +68,9 @@ class Coupon extends Resource
             BelongsTo::make("Store")
                 ->hideWhenUpdating(),
 
+            BelongsToMany::make("Categories")
+                ->hideWhenUpdating(),
+
             Text::make('Coupon Code', 'coupon'),
 
             Avatar::make('Logo'),
@@ -81,8 +86,14 @@ class Coupon extends Resource
             Date::make('Expiry Date')
                 ->sortable()
                 ->rules('required', 'size:10')
-
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        // return $query->whereHas('store.merchant', function ($query) use ($request) {
+        //     $query->where('user_id', $request->user()->id);
+        // });
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Role extends Resource
 {
@@ -44,6 +45,13 @@ class Role extends Resource
             Text::make('name'),
             Text::make('label'),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        // return $query->whereHas('store.merchant', function ($query) use ($request) {
+        //     $query->where('user_id', $request->user()->id);
+        // });
     }
 
     /**

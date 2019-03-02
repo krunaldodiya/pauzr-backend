@@ -65,6 +65,21 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Merchant::class);
     }
 
+    public function isAdminOrMerchant()
+    {
+        return $this->isAdmin() || $this->isMerchant();
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles->contains('name', 'admin');
+    }
+
+    public function isMerchant()
+    {
+        return $this->merchant->count();
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

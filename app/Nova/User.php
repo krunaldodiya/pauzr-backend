@@ -15,6 +15,7 @@ use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\HasOne;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class User extends Resource
 {
@@ -92,6 +93,19 @@ class User extends Resource
             Boolean::make('Merchant')
                 ->exceptOnForms(),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isAdmin()) {
+            return true;
+        }
+
+        if ($request->user()->isMerchant()) {
+            return $query->where('id', $request->user()->id);
+        }
+
+        return false;
     }
 
     /**

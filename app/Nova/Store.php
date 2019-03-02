@@ -8,10 +8,12 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\HasMany;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Outhebox\NovaHiddenField\HiddenField;
+use Laravel\Nova\Fields\Avatar;
 
 class Store extends Resource
 {
@@ -51,11 +53,20 @@ class Store extends Resource
         return [
             ID::make()->sortable(),
 
+            HiddenField::make('Store', 'merchant_id')
+                ->default($request->user()->merchant->id)
+                ->canSee(function ($request) {
+                    return $request->user()->isMerchant();
+                }),
+
             Text::make('Name'),
 
             RadioButton::make('Store Type', 'type')
                 ->options(['offline' => 'Offline', 'online' => 'Online'])
                 ->default('offline')
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                })
                 ->hideWhenUpdating(),
 
             BelongsTo::make("Merchant")->hideWhenUpdating(),
@@ -68,8 +79,19 @@ class Store extends Resource
 
             Place::make('City')->onlyCities()->countries(['IN']),
 
-            File::make('Logo'),
+            Avatar::make('Logo'),
         ];
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isAdmin()) {
+            return true;
+        }
+
+        return $query->whereHas('merchant', function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        });
     }
 
     /**

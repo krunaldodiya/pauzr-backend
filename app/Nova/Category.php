@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Category extends Resource
 {
@@ -52,6 +53,13 @@ class Category extends Resource
         ];
     }
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        // return $query->whereHas('store.merchant', function ($query) use ($request) {
+        //     $query->where('user_id', $request->user()->id);
+        // });
+    }
+    
     /**
      * Get the cards available for the request.
      *

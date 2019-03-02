@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4934e1f1bc63192d618d76331eded84d",
+    "content-hash": "3ded42f3c41d1c7f1a9de970d7c8f284",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -1798,6 +1798,57 @@
                 "serialize"
             ],
             "time": "2019-02-22T10:30:00+00:00"
+        },
+        {
+            "name": "outhebox/nova-hidden-field",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MohmmedAshraf/nova-hidden-field.git",
+                "reference": "7880e5377b27db92a641149959443b5062486797"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MohmmedAshraf/nova-hidden-field/zipball/7880e5377b27db92a641149959443b5062486797",
+                "reference": "7880e5377b27db92a641149959443b5062486797",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Outhebox\\NovaHiddenField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Outhebox\\NovaHiddenField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Ashraf",
+                    "email": "cupo.ashraf@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova Hidden field.",
+            "keywords": [
+                "field",
+                "laravel",
+                "nova",
+                "nova default value",
+                "nova hidden field"
+            ],
+            "time": "2018-11-14T08:40:31+00:00"
         },
         {
             "name": "owenmelbz/nova-radio-field",
