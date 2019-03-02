@@ -10,6 +10,11 @@ class CouponPolicy
 {
     use HandlesAuthorization;
 
+    public function viewAny(User $user)
+    {
+        return $user->isAdminOrMerchant();
+    }
+
     /**
      * Determine whether the user can view the coupon.
      *
@@ -19,7 +24,7 @@ class CouponPolicy
      */
     public function view(User $user, Coupon $coupon)
     {
-        //
+        return $user->isAdminOrMerchant();
     }
 
     /**
@@ -30,7 +35,7 @@ class CouponPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdminOrMerchant();
     }
 
     /**
@@ -42,7 +47,7 @@ class CouponPolicy
      */
     public function update(User $user, Coupon $coupon)
     {
-        //
+        return $user->isAdminOrMerchant();
     }
 
     /**
@@ -54,7 +59,7 @@ class CouponPolicy
      */
     public function delete(User $user, Coupon $coupon)
     {
-        //
+        return $user->isAdminOrMerchant();
     }
 
     /**
@@ -66,7 +71,7 @@ class CouponPolicy
      */
     public function restore(User $user, Coupon $coupon)
     {
-        //
+        return $user->isAdminOrMerchant();
     }
 
     /**
@@ -78,6 +83,6 @@ class CouponPolicy
      */
     public function forceDelete(User $user, Coupon $coupon)
     {
-        //
+        return $user->isAdminOrMerchant();
     }
 }

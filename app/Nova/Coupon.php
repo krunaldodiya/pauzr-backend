@@ -91,9 +91,17 @@ class Coupon extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        // return $query->whereHas('store.merchant', function ($query) use ($request) {
-        //     $query->where('user_id', $request->user()->id);
-        // });
+        if ($request->user()->isAdmin()) {
+            return true;
+        }
+
+        if ($request->user()->isMerchant()) {
+            return $query->whereHas('store.merchant', function ($query) use ($request) {
+                $query->where('user_id', $request->user()->id);
+            });
+        }
+
+        return false;
     }
 
     /**

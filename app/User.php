@@ -77,7 +77,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function isMerchant()
     {
-        return $this->merchant->count();
+        return $this->merchant()->count();
     }
 
     /**

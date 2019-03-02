@@ -10,6 +10,11 @@ class StorePolicy
 {
     use HandlesAuthorization;
 
+    public function viewAny(User $user)
+    {
+        return $user->isAdminOrMerchant();
+    }
+
     /**
      * Determine whether the user can view the store.
      *
