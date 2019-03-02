@@ -12,6 +12,11 @@ class Store extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class);
+    }
+
     public function merchant()
     {
         return $this->belongsTo(Merchant::class);

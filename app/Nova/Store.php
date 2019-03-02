@@ -10,6 +10,7 @@ use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Place;
+use Laravel\Nova\Fields\HasMany;
 
 class Store extends Resource
 {
@@ -57,6 +58,8 @@ class Store extends Resource
                 ->hideWhenUpdating(),
 
             BelongsTo::make("Merchant")->hideWhenUpdating(),
+
+            HasMany::make('Coupons'),
 
             Trix::make('Description'),
 
