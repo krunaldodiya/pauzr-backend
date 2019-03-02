@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\HasMany;
 use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Merchant extends Resource
 {
@@ -116,6 +117,8 @@ class Merchant extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new DownloadExcel
+        ];
     }
 }

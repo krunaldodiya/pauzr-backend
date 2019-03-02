@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Text;
 use OwenMelbz\RadioField\RadioButton;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Trix;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Coupon extends Resource
 {
@@ -115,6 +116,8 @@ class Coupon extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new DownloadExcel
+        ];
     }
 }

@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\File;
 use OwenMelbz\RadioField\RadioButton;
 use Naif\GeneratePassword\GeneratePassword;
 use Laravel\Nova\Fields\HasOne;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class User extends Resource
 {
@@ -135,6 +136,8 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new DownloadExcel
+        ];
     }
 }

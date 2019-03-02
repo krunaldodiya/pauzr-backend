@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\HasMany;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Store extends Resource
 {
@@ -112,6 +113,8 @@ class Store extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new DownloadExcel
+        ];
     }
 }
