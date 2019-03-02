@@ -11,7 +11,10 @@
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
+        "laravel/nova": "*",
         "laravel/tinker": "^1.0",
+        "naif/generate-password": "^1.3",
+        "owenmelbz/nova-radio-field": "^0.0.5",
         "tymon/jwt-auth": "^1.0.0-rc.3"
     },
     "require-dev": {
@@ -22,6 +25,12 @@
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.5"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./nova"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
