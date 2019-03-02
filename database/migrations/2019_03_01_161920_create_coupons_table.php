@@ -26,10 +26,10 @@ class CreateCouponsTable extends Migration
             $table->string('logo')->nullable();
             $table->text('link')->nullable();
             $table->text('aff_link')->nullable();
-            
-            $table->date('start_date');
-            $table->date('expiry_date');
-            
+
+            $table->string('start_date');
+            $table->string('expiry_date');
+
             $table->timestamps();
         });
     }

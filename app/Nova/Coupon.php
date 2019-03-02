@@ -34,7 +34,7 @@ class Coupon extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title', 'type', 'start_date', 'expiry_date'
     ];
 
     public static $with = ['store'];
@@ -51,7 +51,11 @@ class Coupon extends Resource
             ID::make()->sortable(),
 
             Text::make('Title')
-                ->sortable(),
+                ->sortable()
+                ->rules('required'),
+
+            Trix::make('Description')
+                ->rules('required'),
 
             RadioButton::make('Coupon Type', 'type')
                 ->sortable()
@@ -62,19 +66,22 @@ class Coupon extends Resource
             BelongsTo::make("Store")
                 ->hideWhenUpdating(),
 
-            Trix::make('Description'),
-
             Text::make('Coupon Code', 'coupon'),
 
             Avatar::make('Logo'),
 
-            Text::make('Link')->hideFromIndex(),
+            Text::make('Link')->hideFromIndex()->exceptOnForms(),
 
-            Text::make('Aff Link')->hideFromIndex(),
+            Text::make('Aff Link')->hideFromIndex()->exceptOnForms(),
 
-            Date::make('Start Date'),
+            Date::make('Start Date')
+                ->sortable()
+                ->rules('required', 'size:10'),
 
             Date::make('Expiry Date')
+                ->sortable()
+                ->rules('required', 'size:10')
+
         ];
     }
 
