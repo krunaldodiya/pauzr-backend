@@ -68,6 +68,8 @@ class Coupon extends Resource
 
             Text::make('Aff Link')->hideFromIndex(),
 
+            DateTime::make('Start Date', 'created_at'),
+
             DateTime::make('Expiry Date')
         ];
     }
