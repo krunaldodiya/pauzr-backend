@@ -14,6 +14,8 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Select;
+use App\Category;
+use App\Store;
 
 class Coupon extends Resource
 {
@@ -50,6 +52,11 @@ class Coupon extends Resource
      */
     public function fields(Request $request)
     {
+        $categories = Category::where('parent_id', 0)->pluck('name', 'id');
+        $stores = Store::whereHas('merchant.user', function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->pluck('name', 'id');
+
         return [
             ID::make()->sortable(),
 
@@ -66,7 +73,9 @@ class Coupon extends Resource
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
-            Select::make('Store', 'store_id')->options($request->user()->merchant->stores),
+            Select::make('Category', 'category_id')->options($categories),
+
+            Select::make('Store', 'store_id')->options($stores),
 
             Text::make('Coupon Code', 'coupon'),
 
