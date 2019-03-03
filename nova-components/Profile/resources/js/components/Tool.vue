@@ -1,26 +1,121 @@
 <template>
-  <div>
-    <heading class="mb-6">Profile</heading>
+  <div v-if="!loading && user">
+    <div class="profile">
+      <heading class="mb-6">Profile</heading>
 
-    <button @click="hello()">click me</button>
+      <div class="card mb-6 py-3 px-6">
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">ID</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.id"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Name</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.name"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Email</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.email"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Mobile</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.mobile"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Birthdate</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.dob"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Gender</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.gender"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Avatar</div>
+          <div class="w-3/4 py-4" style="max-width: 320px">
+            <img :src="`/storage/${user.avatar}`">
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Verified</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.status ? 'Yes': 'No'"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="merchant" v-if="user.merchant">
+      <heading class="mb-6">Merchant</heading>
+
+      <div class="card mb-6 py-3 px-6">
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">ID</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.merchant.id"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Status</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.merchant.status"></span>
+          </div>
+        </div>
+
+        <div class="flex border-b border-40">
+          <div class="w-1/4 py-4">Active</div>
+          <div class="w-3/4 py-4">
+            <span v-text="user.merchant.is_active ? 'Yes':'No'"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   mounted() {
-    console.log(this.data);
+    this.getAuthUser();
+  },
+
+  data() {
+    return {
+      loading: false,
+      user: null
+    };
   },
 
   methods: {
-    hello() {
+    getAuthUser() {
+      this.loading = true;
+
       Nova.request()
         .post("/nova-vendor/profile/test")
         .then(({ data }) => {
-          console.log(data);
+          this.loading = false;
+          this.user = data.user;
         })
         .catch(error => {
-          console.log(error);
+          this.loading = false;
         });
     }
   }

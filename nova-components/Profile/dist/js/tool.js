@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -640,21 +640,117 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log(this.data);
+    this.getAuthUser();
+  },
+  data: function data() {
+    return {
+      loading: false,
+      user: null
+    };
   },
 
 
   methods: {
-    hello: function hello() {
+    getAuthUser: function getAuthUser() {
+      var _this = this;
+
+      this.loading = true;
+
       Nova.request().post("/nova-vendor/profile/test").then(function (_ref) {
         var data = _ref.data;
 
-        console.log(data);
+        _this.loading = false;
+        _this.user = data.user;
       }).catch(function (error) {
-        console.log(error);
+        _this.loading = false;
       });
     }
   }
@@ -668,25 +764,156 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("heading", { staticClass: "mb-6" }, [_vm._v("Profile")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              return _vm.hello()
-            }
-          }
-        },
-        [_vm._v("click me")]
-      )
-    ],
-    1
-  )
+  return !_vm.loading && _vm.user
+    ? _c("div", [
+        _c(
+          "div",
+          { staticClass: "profile" },
+          [
+            _c("heading", { staticClass: "mb-6" }, [_vm._v("Profile")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card mb-6 py-3 px-6" }, [
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("ID")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", { domProps: { textContent: _vm._s(_vm.user.id) } })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", {
+                    domProps: { textContent: _vm._s(_vm.user.name) }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", {
+                    domProps: { textContent: _vm._s(_vm.user.email) }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Mobile")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", {
+                    domProps: { textContent: _vm._s(_vm.user.mobile) }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Birthdate")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", {
+                    domProps: { textContent: _vm._s(_vm.user.dob) }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Gender")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", {
+                    domProps: { textContent: _vm._s(_vm.user.gender) }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Avatar")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "w-3/4 py-4",
+                    staticStyle: { "max-width": "320px" }
+                  },
+                  [_c("img", { attrs: { src: "/storage/" + _vm.user.avatar } })]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex border-b border-40" }, [
+                _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("Verified")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-3/4 py-4" }, [
+                  _c("span", {
+                    domProps: {
+                      textContent: _vm._s(_vm.user.status ? "Yes" : "No")
+                    }
+                  })
+                ])
+              ])
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm.user.merchant
+          ? _c(
+              "div",
+              { staticClass: "merchant" },
+              [
+                _c("heading", { staticClass: "mb-6" }, [_vm._v("Merchant")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card mb-6 py-3 px-6" }, [
+                  _c("div", { staticClass: "flex border-b border-40" }, [
+                    _c("div", { staticClass: "w-1/4 py-4" }, [_vm._v("ID")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-3/4 py-4" }, [
+                      _c("span", {
+                        domProps: { textContent: _vm._s(_vm.user.merchant.id) }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex border-b border-40" }, [
+                    _c("div", { staticClass: "w-1/4 py-4" }, [
+                      _vm._v("Status")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-3/4 py-4" }, [
+                      _c("span", {
+                        domProps: {
+                          textContent: _vm._s(_vm.user.merchant.status)
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex border-b border-40" }, [
+                    _c("div", { staticClass: "w-1/4 py-4" }, [
+                      _vm._v("Active")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-3/4 py-4" }, [
+                      _c("span", {
+                        domProps: {
+                          textContent: _vm._s(
+                            _vm.user.merchant.is_active ? "Yes" : "No"
+                          )
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ],
+              1
+            )
+          : _vm._e()
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
