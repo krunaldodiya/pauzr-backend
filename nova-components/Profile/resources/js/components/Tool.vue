@@ -57,6 +57,10 @@
         <div class="flex border-b border-40">
           <div class="w-1/4 py-4">Verified</div>
           <div class="w-3/4 py-4">
+            <span
+              class="inline-block rounded-full w-2 h-2 mr-1"
+              :class="[user.status ? 'bg-success': 'bg-danger']"
+            ></span>
             <span v-text="user.status ? 'Yes': 'No'"></span>
           </div>
         </div>
@@ -84,6 +88,10 @@
         <div class="flex border-b border-40">
           <div class="w-1/4 py-4">Active</div>
           <div class="w-3/4 py-4">
+            <span
+              class="inline-block rounded-full w-2 h-2 mr-1"
+              :class="[user.merchant.is_active ? 'bg-success': 'bg-danger']"
+            ></span>
             <span v-text="user.merchant.is_active ? 'Yes':'No'"></span>
           </div>
         </div>

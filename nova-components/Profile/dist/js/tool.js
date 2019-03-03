@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -726,6 +726,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -858,6 +866,11 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "w-3/4 py-4" }, [
                   _c("span", {
+                    staticClass: "inline-block rounded-full w-2 h-2 mr-1",
+                    class: [_vm.user.status ? "bg-success" : "bg-danger"]
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
                     domProps: {
                       textContent: _vm._s(_vm.user.status ? "Yes" : "No")
                     }
@@ -907,6 +920,15 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "w-3/4 py-4" }, [
+                      _c("span", {
+                        staticClass: "inline-block rounded-full w-2 h-2 mr-1",
+                        class: [
+                          _vm.user.merchant.is_active
+                            ? "bg-success"
+                            : "bg-danger"
+                        ]
+                      }),
+                      _vm._v(" "),
                       _c("span", {
                         domProps: {
                           textContent: _vm._s(
