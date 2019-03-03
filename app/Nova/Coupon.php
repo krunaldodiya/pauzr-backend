@@ -66,7 +66,7 @@ class Coupon extends Resource
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
-            Select::make('Store', 'store_id')->options($request->user()->stores),
+            Select::make('Store', 'store_id')->options($request->user()->merchant->stores),
 
             Text::make('Coupon Code', 'coupon'),
 
