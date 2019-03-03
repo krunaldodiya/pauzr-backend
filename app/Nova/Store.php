@@ -60,7 +60,7 @@ class Store extends Resource
                 ->canSee(function ($request) {
                     return $request->user()->isMerchant();
                 })
-                ->default($request->user()->merchant->id),
+                ->default($request->user()->isMerchant() ? $request->user()->merchant->id : null),
 
             Avatar::make('Logo'),
 
