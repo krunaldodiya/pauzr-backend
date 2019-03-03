@@ -1,3 +1,3 @@
 <p class="text-center w-full">
-    {{ env('APP_NAME') }}
+    {{ env('APP_NAME') }} | Admin
 </p>
