@@ -8,11 +8,10 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 use Illuminate\Http\Request;
 
-class CreateMerchant extends Action implements ShouldQueue
+class CreateMerchant extends Action
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -27,9 +26,11 @@ class CreateMerchant extends Action implements ShouldQueue
      */
     public function handle(ActionFields $fields, Collection $users)
     {
-        $users->filter(function ($user) {
+        foreach ($users as $user) {
             $user->merchant()->updateOrCreate(['user_id' => $user->id], ['status' => 'Approved', 'is_active' => true]);
-        });
+        };
+
+        return Action::message('User is now a merchant.');
     }
 
     public function authorizedToSee(Request $request)
