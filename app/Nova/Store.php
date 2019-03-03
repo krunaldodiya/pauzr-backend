@@ -57,10 +57,10 @@ class Store extends Resource
 
             HiddenField::make('Store', 'merchant_id')
                 ->onlyOnForms()
-                ->default($request->user()->merchant->id)
                 ->canSee(function ($request) {
                     return $request->user()->isMerchant();
-                }),
+                })
+                ->default($request->user()->merchant->id),
 
             Avatar::make('Logo'),
 
