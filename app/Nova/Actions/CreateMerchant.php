@@ -28,14 +28,13 @@ class CreateMerchant extends Action implements ShouldQueue
         return ['hello' => $models];
     }
 
-    public function authorizedToRun(Request $request, $user)
-    {
-        return !$user->isMerchant();
-    }
-
     public function authorizedToSee(Request $request)
     {
-        return $request->user()->isAdmin();
+        if ($request->user()->isAdmin()) {
+            return !$request->findModelOrFail()->isMerchant();
+        }
+
+        return false;
     }
 
     /**
