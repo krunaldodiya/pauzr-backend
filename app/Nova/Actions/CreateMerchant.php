@@ -16,6 +16,8 @@ class CreateMerchant extends Action implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
+    public $onlyOnDetail = true;
+
     /**
      * Perform the action on the given models.
      *
@@ -23,18 +25,16 @@ class CreateMerchant extends Action implements ShouldQueue
      * @param  \Illuminate\Support\Collection  $models
      * @return mixed
      */
-    public function handle(ActionFields $fields, Collection $models)
+    public function handle(ActionFields $fields, Collection $users)
     {
-        return ['hello' => $models];
+        $users->filter(function ($user) {
+            $user->merchant()->updateOrCreate(['user_id' => $user->id], ['status' => 'Approved', 'is_active' => true]);
+        });
     }
 
     public function authorizedToSee(Request $request)
     {
-        if ($request->user()->isAdmin()) {
-            return !$request->findModelOrFail()->isMerchant();
-        }
-
-        return false;
+        return $request->user()->isAdmin();
     }
 
     /**
@@ -44,6 +44,6 @@ class CreateMerchant extends Action implements ShouldQueue
      */
     public function fields()
     {
-        return [];
+        //
     }
 }

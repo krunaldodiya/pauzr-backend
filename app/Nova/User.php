@@ -153,7 +153,7 @@ class User extends Resource
                 })
                 ->onlyOnIndex(),
 
-            (new CreateMerchant)->onlyOnDetail()
+            new CreateMerchant
         ];
     }
 }
