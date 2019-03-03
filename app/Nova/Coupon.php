@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Select;
 
 class Coupon extends Resource
 {
@@ -65,11 +66,7 @@ class Coupon extends Resource
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
-            BelongsTo::make("Store")
-                ->hideWhenUpdating(),
-
-            BelongsToMany::make("Categories")
-                ->hideWhenUpdating(),
+            Select::make('Store', 'store_id')->options($request->user()->stores),
 
             Text::make('Coupon Code', 'coupon'),
 
