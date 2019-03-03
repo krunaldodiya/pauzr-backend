@@ -10,7 +10,7 @@ class Coupon extends Model
         'store_id', 'title', 'description', 'type', 'coupon', 'logo', 'link', 'aff_link', 'start_date', 'expiry_date'
     ];
 
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['start_date', 'expiry_date', 'created_at', 'updated_at'];
 
     protected $casts = [
         'start_date' => 'datetime',

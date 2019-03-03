@@ -24,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'name', 'email', 'email_verified_at', 'password', 'avatar', 'mobile', 'dob', 'gender', 'status', 'remember_token'
     ];
 
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['dob', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.
