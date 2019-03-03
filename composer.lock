@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c843aec732c320e626e394a23107649",
+    "content-hash": "e7e7b00df43e0a46727d778cd16b8406",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -761,6 +761,39 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "krunaldodiya/profile",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/Profile",
+                "reference": "657979e357a43d63d9ca5acf78286e37b7516843"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Krunaldodiya\\Profile\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Krunaldodiya\\Profile\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
         },
         {
             "name": "laravel/framework",

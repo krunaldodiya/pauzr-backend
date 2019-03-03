@@ -104,19 +104,6 @@ class User extends Resource
         ];
     }
 
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        if ($request->user()->isAdmin()) {
-            return true;
-        }
-
-        if ($request->user()->isMerchant()) {
-            return $query->where('id', $request->user()->id);
-        }
-
-        return false;
-    }
-
     /**
      * Get the cards available for the request.
      *
