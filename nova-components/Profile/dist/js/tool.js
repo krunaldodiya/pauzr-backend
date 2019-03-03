@@ -169,7 +169,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -642,9 +642,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log(this.data);
+  mounted: function mounted() {
+    console.log(this.data);
+  },
+
+
+  methods: {
+    hello: function hello() {
+      Nova.request().post("/nova-vendor/profile/test").then(function (_ref) {
+        var data = _ref.data;
+
+        console.log(data);
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -659,7 +672,18 @@ var render = function() {
     "div",
     [
       _c("heading", { staticClass: "mb-6" }, [_vm._v("Profile")]),
-      _vm._v("\n\n    hello\n")
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              return _vm.hello()
+            }
+          }
+        },
+        [_vm._v("click me")]
+      )
     ],
     1
   )

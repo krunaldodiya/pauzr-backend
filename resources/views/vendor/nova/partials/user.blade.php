@@ -14,7 +14,7 @@
 <dropdown-menu slot="menu" width="200" direction="rtl">
     <ul class="list-reset">
         <li>
-            <a href="/nova/resources/users/{{$user->id}}" class="block no-underline text-90 hover:bg-30 p-3">
+            <a href="/nova/profile" class="block no-underline text-90 hover:bg-30 p-3">
                 {{ __('Profile') }}
             </a>
 

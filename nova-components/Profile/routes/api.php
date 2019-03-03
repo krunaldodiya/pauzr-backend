@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/endpoint', function (Request $request) {
-//     //
-// });
+Route::post('/test', function (Request $request) {
+    return ['success' => auth()->user()];
+});
