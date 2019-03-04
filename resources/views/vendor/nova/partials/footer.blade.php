@@ -1,3 +1,3 @@
 <p class="mt-8 text-center text-xs text-80">
-    <a href="{{env('APP_URL')}}" class="text-primary dim no-underline">{{env('APP_NAME')}}</a>
+    <a href="{{config('app.url')}}" class="text-primary dim no-underline">{{config('app.url')}}</a>
 </p>

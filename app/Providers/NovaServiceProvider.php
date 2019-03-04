@@ -7,6 +7,7 @@ use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Krunaldodiya\Profile\Profile;
+use Vyuldashev\NovaPermission\NovaPermissionTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -43,7 +44,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return $user->isAdmin() || in_array($user->email, ['kunal.dodiya1@gmail.com']);
+            return $user->isAdmin();
         });
     }
 
@@ -67,7 +68,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new Profile
+            new Profile,
+            NovaPermissionTool::make(),
         ];
     }
 

@@ -5,15 +5,22 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use App\Events\UserWasCreated;
 
 use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Scout\Searchable;
 
-class User extends Authenticatable implements JWTSubject
+use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Traits\HasWallets;
+
+use Spatie\Permission\Traits\HasRoles;
+
+class User extends Authenticatable implements JWTSubject, Wallet
 {
-    use Notifiable, Searchable;
+    use HasWallet, HasWallets, HasRoles, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,11 +63,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->dob ? Carbon::parse($this->dob)->age : 0;
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
     public function merchant()
     {
         return $this->hasOne(Merchant::class);
@@ -73,7 +75,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function isAdmin()
     {
-        return $this->roles->contains('name', 'admin');
+        return $this->roles->contains('name', 'admin') || in_array($this->email, ['kunal.dodiya1@gmail.com']);
     }
 
     public function isMerchant()

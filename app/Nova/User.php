@@ -15,6 +15,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Actions\CreateMerchant;
+use Laravel\Nova\Fields\MorphToMany;
 
 class User extends Resource
 {
@@ -93,14 +94,16 @@ class User extends Resource
                 ->options(['Male' => 'Male', 'Female' => 'Female'])
                 ->default('Male'),
 
-            BelongsToMany::make('Roles'),
-
-            HasOne::make('Merchant'),
-
             Boolean::make('Verified', 'status'),
 
             Boolean::make('Merchant')
                 ->exceptOnForms(),
+
+            MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
+
+            MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+
+            HasOne::make('Merchant'),
         ];
     }
 

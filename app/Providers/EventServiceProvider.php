@@ -8,7 +8,6 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\UserWasCreated;
-use App\Listeners\CreateUserRole;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         UserWasCreated::class => [
-            CreateUserRole::class,
+            //
         ],
     ];
 

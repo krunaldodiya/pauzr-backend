@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Role;
-use App\User;
 
 class HomeController extends Controller
 {
-    public function test()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $user = User::with('roles')->where('email', 'kunal.dodiya1@gmail.com')->first();
-        $roles = Role::get();
+        $this->middleware('auth');
+    }
 
-        $is_admin = $user->roles->contains('name', ['admin', 'user']);
-        return compact('is_admin', 'user', 'roles');
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
     }
 }
