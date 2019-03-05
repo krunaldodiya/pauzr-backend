@@ -103,9 +103,7 @@ class CouponRepository implements CouponRepositoryInterface
 
             $category_ids = explode(",", $all_coupon->FINAL_CAT_LIST);
             foreach ($category_ids as $category_id) {
-                if (intval($category_id) > 0) {
-                    $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
-                }
+                $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
             }
         }
 
@@ -140,9 +138,7 @@ class CouponRepository implements CouponRepositoryInterface
 
             $category_ids = explode(",", $all_coupon->FINAL_CAT_LIST);
             foreach ($category_ids as $category_id) {
-                if (intval($category_id) > 0) {
-                    $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
-                }
+                $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
             }
         }
 
