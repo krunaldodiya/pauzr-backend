@@ -18,9 +18,11 @@ use Bavix\Wallet\Traits\HasWallets;
 
 use Spatie\Permission\Traits\HasRoles;
 
+use Laravel\Nova\Actions\Actionable;
+
 class User extends Authenticatable implements JWTSubject, Wallet
 {
-    use HasWallet, HasWallets, HasRoles, Notifiable, Searchable;
+    use Actionable, HasWallet, HasWallets, HasRoles, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -68,19 +70,24 @@ class User extends Authenticatable implements JWTSubject, Wallet
         return $this->hasOne(Merchant::class);
     }
 
+    public function stores()
+    {
+        return $this->hasManyThrough(Store::class, Merchant::class);
+    }
+
     public function isAdminOrMerchant()
     {
-        return $this->isAdmin() || $this->isMerchant();
+        return $this->hasAnyRole(['Administrator', 'Merchant']);
     }
 
     public function isAdmin()
     {
-        return $this->roles->contains('name', 'admin') || in_array($this->email, ['kunal.dodiya1@gmail.com']);
+        return $this->hasRole(['Administrator']) || in_array($this->email, ['kunal.dodiya1@gmail.com']);
     }
 
     public function isMerchant()
     {
-        return $this->merchant()->count();
+        return $this->hasRole(['Merchant']);
     }
 
     public function searchableAs()

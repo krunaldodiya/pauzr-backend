@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Krunaldodiya\Profile\Profile;
 use Vyuldashev\NovaPermission\NovaPermissionTool;
+use Illuminate\Http\Request;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -69,7 +70,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new Profile,
-            NovaPermissionTool::make(),
+            NovaPermissionTool::make()->canSee(function (Request $request) {
+                return $request->user()->hasRole('Administrator');
+            }),
         ];
     }
 

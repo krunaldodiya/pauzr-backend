@@ -5,7 +5,6 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use OwenMelbz\RadioField\RadioButton;
@@ -16,6 +15,7 @@ use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Actions\CreateMerchant;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\HasMany;
 
 class User extends Resource
 {
@@ -102,6 +102,8 @@ class User extends Resource
             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
 
             MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+
+            HasMany::make('Stores'),
 
             HasOne::make('Merchant'),
         ];

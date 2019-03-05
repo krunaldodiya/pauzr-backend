@@ -25,4 +25,17 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function getInitialData(Request $request)
+    {
+        $categories = Category::get();
+        $stores = Store::where('active', true)->get();
+
+        return ['categories' => $categories, 'stores' => $stores];
+    }
+
+    public function terms(Request $request)
+    {
+        return view('terms', ['lite' => $request->has('lite')]);
+    }
 }
