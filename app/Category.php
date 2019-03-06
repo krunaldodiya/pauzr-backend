@@ -16,7 +16,7 @@ class Category extends Model
 
     public function coupons()
     {
-        return $this->belongsToMany(Coupon::class);
+        return $this->belongsToMany(Coupon::class, 'category_coupon');
     }
 
     public function parent_category()

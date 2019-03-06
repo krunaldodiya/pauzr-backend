@@ -9,7 +9,6 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use OwenMelbz\RadioField\RadioButton;
 use Naif\GeneratePassword\GeneratePassword;
-use Laravel\Nova\Fields\HasOne;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -85,6 +84,9 @@ class User extends Resource
                 ->creationRules('unique:users'),
 
             Date::make('Dob')
+                ->resolveUsing(function ($date) {
+                    return $date->format('d/m/Y');
+                })
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
@@ -96,16 +98,13 @@ class User extends Resource
 
             Boolean::make('Verified', 'status'),
 
-            Boolean::make('Merchant')
-                ->exceptOnForms(),
+            Boolean::make('Is Merchant'),
 
             MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
 
             MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
 
             HasMany::make('Stores'),
-
-            HasOne::make('Merchant'),
         ];
     }
 

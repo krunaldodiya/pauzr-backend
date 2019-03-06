@@ -27,7 +27,7 @@ class CreateMerchant extends Action
     public function handle(ActionFields $fields, Collection $users)
     {
         foreach ($users as $user) {
-            $user->merchant()->updateOrCreate(['user_id' => $user->id], ['status' => 'Approved', 'is_active' => true]);
+            $user->update(['is_merchant' => true]);
         };
 
         return Action::message('User is now a merchant.');

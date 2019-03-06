@@ -30,7 +30,7 @@ class User extends Authenticatable implements JWTSubject, Wallet
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'password', 'avatar', 'mobile', 'dob', 'gender', 'status', 'remember_token'
+        'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'city', 'status', 'is_merchant', 'remember_token'
     ];
 
     protected $dates = ['dob', 'created_at', 'updated_at'];
@@ -65,19 +65,14 @@ class User extends Authenticatable implements JWTSubject, Wallet
         return $this->dob ? Carbon::parse($this->dob)->age : 0;
     }
 
-    public function merchant()
-    {
-        return $this->hasOne(Merchant::class);
-    }
-
     public function stores()
     {
-        return $this->hasManyThrough(Store::class, Merchant::class);
+        return $this->hasMany(Store::class);
     }
 
     public function isAdminOrMerchant()
     {
-        return $this->hasAnyRole(['Administrator', 'Merchant']);
+        return $this->isAdmin() || $this->isMerchant();
     }
 
     public function isAdmin()
@@ -87,7 +82,7 @@ class User extends Authenticatable implements JWTSubject, Wallet
 
     public function isMerchant()
     {
-        return $this->hasRole(['Merchant']);
+        return $this->is_merchant;
     }
 
     public function searchableAs()

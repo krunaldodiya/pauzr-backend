@@ -11,7 +11,7 @@ class Store extends Model
     use Actionable;
 
     protected $fillable = [
-        'merchant_id', 'type', 'name', 'description', 'website', 'logo', 'city', 'active'
+        'user_id', 'type', 'name', 'description', 'website', 'logo', 'city', 'active'
     ];
 
     protected $dates = ['created_at', 'updated_at'];
@@ -21,8 +21,8 @@ class Store extends Model
         return $this->hasMany(Coupon::class);
     }
 
-    public function merchant()
+    public function user()
     {
-        return $this->belongsTo(Merchant::class);
+        return $this->belongsTo(User::class);
     }
 }

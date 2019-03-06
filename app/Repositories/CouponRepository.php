@@ -78,6 +78,18 @@ class CouponRepository implements CouponRepositoryInterface
     {
         $all_coupons = $this->_getAllCoupons();
 
+        return $this->getData($all_coupons);
+    }
+
+    public function getStoreCoupons($store_id)
+    {
+        $all_coupons = $this->_getStoreCoupons($store_id);
+
+        return $this->getData($all_coupons);
+    }
+
+    public function getData($all_coupons)
+    {
         if (!count($all_coupons)) {
             return ['coupons' => null, 'coupon_categories' => null];
         }
@@ -103,42 +115,9 @@ class CouponRepository implements CouponRepositoryInterface
 
             $category_ids = explode(",", $all_coupon->FINAL_CAT_LIST);
             foreach ($category_ids as $category_id) {
-                $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
-            }
-        }
-
-        return ['coupons' => $coupons, 'coupon_categories' => $coupon_categories];
-    }
-
-    public function getStoreCoupons($store_id)
-    {
-        $all_coupons = $this->_getStoreCoupons($store_id);
-
-        if (!count($all_coupons)) {
-            return ['coupons' => null, 'coupon_categories' => null];
-        }
-
-        $coupons = [];
-        $coupon_categories = [];
-
-        foreach ($all_coupons as $all_coupon) {
-            $coupons[] = [
-                'id' => $all_coupon->CM_CID,
-                'store_id' => $all_coupon->STORE_ID,
-                'title' => $all_coupon->TITLE,
-                'description' => $all_coupon->DESCRIPTION,
-                'coupon' => $all_coupon->COUPON,
-                'type' => $all_coupon->TYPE,
-                'link' => $all_coupon->LINK,
-                'aff_link' => $all_coupon->AFF_LINK,
-                'expiry_date' => Carbon::createFromTimestamp($all_coupon->VALIDITY_UNIX),
-                'created_at' => Carbon::createFromFormat("Y-m-d", $all_coupon->CREATED_DATE),
-                'updated_at' => Carbon::now(),
-            ];
-
-            $category_ids = explode(",", $all_coupon->FINAL_CAT_LIST);
-            foreach ($category_ids as $category_id) {
-                $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
+                if (intval($category_id) > 100) {
+                    $coupon_categories[] = ['coupon_id' => $all_coupon->CM_CID, 'category_id' => $category_id];
+                }
             }
         }
 
@@ -157,9 +136,9 @@ class CouponRepository implements CouponRepositoryInterface
         })->pluck('id');
 
         Coupon::whereIn('id', $coupon_ids)->delete();
-        DB::table('category_coupon')->whereIn('coupon_id', $coupon_ids)->delete();
-
         Coupon::insert($coupons);
+
+        DB::table('category_coupon')->whereIn('coupon_id', $coupon_ids)->delete();
         DB::table('category_coupon')->insert($coupon_categories);
     }
 

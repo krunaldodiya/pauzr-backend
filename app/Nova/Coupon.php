@@ -6,7 +6,6 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use OwenMelbz\RadioField\RadioButton;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Trix;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
@@ -16,6 +15,8 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Select;
 use App\Category;
 use App\Store;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 
 class Coupon extends Resource
 {
@@ -42,7 +43,7 @@ class Coupon extends Resource
         'id', 'title', 'type', 'start_date', 'expiry_date'
     ];
 
-    public static $with = ['store'];
+    public static $with = ['store', 'categories'];
 
     /**
      * Get the fields displayed by the resource.
@@ -53,8 +54,10 @@ class Coupon extends Resource
     public function fields(Request $request)
     {
         $categories = Category::where('parent_id', 0)->pluck('name', 'id');
-        $stores = Store::whereHas('merchant.user', function ($query) use ($request) {
-            $query->where('user_id', $request->user()->id);
+        $stores = Store::where('type', 'offline')->where(function ($query) use ($request) {
+            if (!$request->user()->isAdmin()) {
+                $query->where('user_id', $request->user()->id);
+            }
         })->pluck('name', 'id');
 
         return [
@@ -73,7 +76,7 @@ class Coupon extends Resource
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
-            Select::make('Category', 'category_id')->options($categories),
+            BelongsToMany::make('Category', 'categories')->searchable(),
 
             Select::make('Store', 'store_id')->options($stores),
 
@@ -86,10 +89,16 @@ class Coupon extends Resource
             Text::make('Aff Link')->hideFromIndex()->exceptOnForms(),
 
             Date::make('Start Date')
+                ->resolveUsing(function ($date) {
+                    return $date->format('d/m/Y');
+                })
                 ->sortable()
                 ->rules('required', 'size:10'),
 
             Date::make('Expiry Date')
+                ->resolveUsing(function ($date) {
+                    return $date->format('d/m/Y');
+                })
                 ->sortable()
                 ->rules('required', 'size:10')
         ];
@@ -102,9 +111,7 @@ class Coupon extends Resource
         }
 
         if ($request->user()->isMerchant()) {
-            return $query->whereHas('store.merchant', function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id);
-            });
+            return $query->where('user_id', $request->user()->id);
         }
 
         return false;

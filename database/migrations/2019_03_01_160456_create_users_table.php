@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('dob')->nullable();
             $table->string('gender')->default('Male');
             $table->string('avatar')->nullable();
+            $table->string('city')->nullable();
+            $table->boolean('is_merchant')->default(false);
             $table->boolean('status')->default(false);
             $table->rememberToken();
 

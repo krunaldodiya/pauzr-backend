@@ -71,7 +71,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             new Profile,
             NovaPermissionTool::make()->canSee(function (Request $request) {
-                return $request->user()->hasRole('Administrator');
+                return $request->user()->isAdmin();
             }),
         ];
     }

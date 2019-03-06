@@ -16,8 +16,7 @@ use App\User;
 */
 
 Route::post('/test', function (Request $request) {
-    $user = User::with('merchant')
-        ->where('id', auth()->user()->id)
+    $user = User::where('id', auth()->user()->id)
         ->first();
 
     return ['user' => $user];

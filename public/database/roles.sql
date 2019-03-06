@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 8.0.13)
 # Database: pauzr
-# Generation Time: 2019-03-04 16:29:08 +0000
+# Generation Time: 2019-03-06 05:59:57 +0000
 # ************************************************************
 
 
@@ -30,8 +30,7 @@ LOCK TABLES `roles` WRITE;
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`)
 VALUES
 	(1,'Normal User','web','2019-03-04 15:29:35','2019-03-04 15:29:35'),
-	(2,'Administrator','web','2019-03-04 15:29:45','2019-03-04 15:29:45'),
-	(3,'Merchant','web','2019-03-04 15:31:38','2019-03-04 15:31:38');
+	(2,'Administrator','web','2019-03-04 15:29:45','2019-03-04 15:29:45');
 
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;

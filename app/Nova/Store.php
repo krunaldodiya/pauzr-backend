@@ -40,7 +40,7 @@ class Store extends Resource
         'id', 'name', 'type', 'city'
     ];
 
-    public static $with = ['merchant'];
+    public static $with = ['user'];
 
     /**
      * Get the fields displayed by the resource.
@@ -53,14 +53,14 @@ class Store extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make("Merchant")->hideWhenUpdating(),
+            BelongsTo::make("User")->hideWhenUpdating(),
 
-            HiddenField::make('Store', 'merchant_id')
+            HiddenField::make('Store', 'user_id')
                 ->onlyOnForms()
                 ->canSee(function ($request) {
                     return $request->user()->isMerchant();
                 })
-                ->default($request->user()->isMerchant() ? $request->user()->merchant->id : null),
+                ->default($request->user()->isMerchant() ? $request->user()->id : null),
 
             Avatar::make('Logo'),
 
@@ -91,7 +91,7 @@ class Store extends Resource
             return true;
         }
 
-        return $query->whereHas('merchant', function ($query) use ($request) {
+        return $query->whereHas('user', function ($query) use ($request) {
             $query->where('user_id', $request->user()->id);
         });
     }

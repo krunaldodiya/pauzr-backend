@@ -34,6 +34,8 @@ class Category extends Resource
         'id', 'name'
     ];
 
+    public static $with = ['coupons'];
+
     /**
      * Get the fields displayed by the resource.
      *
