@@ -11,9 +11,7 @@ use OwenMelbz\RadioField\RadioButton;
 use Naif\GeneratePassword\GeneratePassword;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Actions\CreateMerchant;
-use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\HasMany;
 
 class User extends Resource
@@ -98,11 +96,9 @@ class User extends Resource
 
             Boolean::make('Verified', 'status'),
 
-            Boolean::make('Is Merchant'),
+            Boolean::make('Merchant', 'is_merchant'),
 
-            MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
-
-            MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+            Boolean::make('Admin', 'is_admin'),
 
             HasMany::make('Stores'),
         ];

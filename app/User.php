@@ -16,13 +16,11 @@ use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Traits\HasWallets;
 
-use Spatie\Permission\Traits\HasRoles;
-
 use Laravel\Nova\Actions\Actionable;
 
 class User extends Authenticatable implements JWTSubject, Wallet
 {
-    use Actionable, HasWallet, HasWallets, HasRoles, Notifiable, Searchable;
+    use Actionable, HasWallet, HasWallets, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,10 +28,10 @@ class User extends Authenticatable implements JWTSubject, Wallet
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'city', 'status', 'is_merchant', 'remember_token'
+        'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'city', 'status', 'is_merchant', 'is_admin', 'remember_token'
     ];
 
-    protected $dates = ['dob', 'created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -50,7 +48,7 @@ class User extends Authenticatable implements JWTSubject, Wallet
      * @var array
      */
     protected $casts = [
-        'dob' => 'date',
+        'dob' => 'date:d-m-Y',
         'email_verified_at' => 'datetime',
     ];
 
@@ -77,7 +75,7 @@ class User extends Authenticatable implements JWTSubject, Wallet
 
     public function isAdmin()
     {
-        return $this->hasRole(['Administrator']) || in_array($this->email, ['kunal.dodiya1@gmail.com']);
+        return $this->is_admin || in_array($this->email, ['kunal.dodiya1@gmail.com']);
     }
 
     public function isMerchant()
