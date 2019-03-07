@@ -96,9 +96,9 @@ class User extends Resource
 
             Boolean::make('Verified', 'status'),
 
-            Boolean::make('Merchant', 'is_merchant'),
+            Boolean::make('Merchant', 'is_merchant')->exceptOnForms(),
 
-            Boolean::make('Admin', 'is_admin'),
+            Boolean::make('Admin', 'is_admin')->exceptOnForms(),
 
             HasMany::make('Stores'),
         ];

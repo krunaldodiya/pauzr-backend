@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\User;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+
 use App\Repositories\UserRepository;
 
 class AuthController extends Controller
@@ -21,8 +21,6 @@ class AuthController extends Controller
     public function __construct(UserRepository $user)
     {
         $this->user = $user;
-
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -73,7 +71,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function me()
-    {        
+    {
         $user = $this->user->getUserById(auth('api')->user()->id);
 
         return response()->json($user);
