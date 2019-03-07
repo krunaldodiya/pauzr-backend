@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Krunaldodiya\Profile\Profile;
 use Illuminate\Http\Request;
+use App\Nova\Metrics\NewUsers;
+use App\Nova\Metrics\PopularStores;
+use App\Nova\Metrics\VerifiedUsers;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -56,7 +59,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help,
+            // new Help,
+            (new NewUsers)->width('1/3'),
+            (new PopularStores)->width('1/3'),
+            (new VerifiedUsers)->width('1/3'),
         ];
     }
 

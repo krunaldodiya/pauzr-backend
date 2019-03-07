@@ -13,6 +13,9 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Fields\Avatar;
 use App\Nova\Actions\CreateMerchant;
 use Laravel\Nova\Fields\HasMany;
+use App\Nova\Filters\UserType;
+use App\Nova\Metrics\NewUsers;
+use App\Nova\Metrics\VerifiedUsers;
 
 class User extends Resource
 {
@@ -112,7 +115,10 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            new NewUsers,
+            (new VerifiedUsers)->width('2/3'),
+        ];
     }
 
     /**
@@ -123,7 +129,9 @@ class User extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new UserType
+        ];
     }
 
     /**
