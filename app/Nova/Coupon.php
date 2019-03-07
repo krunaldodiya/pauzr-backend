@@ -53,7 +53,6 @@ class Coupon extends Resource
      */
     public function fields(Request $request)
     {
-        $categories = Category::where('parent_id', 0)->pluck('name', 'id');
         $stores = Store::where('type', 'offline')->where(function ($query) use ($request) {
             if (!$request->user()->isAdmin()) {
                 $query->where('user_id', $request->user()->id);
@@ -75,8 +74,6 @@ class Coupon extends Resource
                 ->options(['coupon' => 'Coupon', 'discount' => 'Discount'])
                 ->default('coupon')
                 ->hideWhenUpdating(),
-
-            BelongsToMany::make('Category', 'categories')->searchable(),
 
             Select::make('Store', 'store_id')->options($stores),
 
@@ -100,7 +97,10 @@ class Coupon extends Resource
                     return $date->format('d/m/Y');
                 })
                 ->sortable()
-                ->rules('required', 'size:10')
+                ->rules('required', 'size:10'),
+
+            BelongsToMany::make('Categories')
+                ->searchable(),
         ];
     }
 

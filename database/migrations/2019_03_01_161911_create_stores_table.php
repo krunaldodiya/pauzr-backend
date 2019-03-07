@@ -19,7 +19,7 @@ class CreateStoresTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             
-            $table->string('type')->default('offline');
+            $table->enum('type', ['Offline', 'Online'])->default('Offline');
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('website')->nullable();

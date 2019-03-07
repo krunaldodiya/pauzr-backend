@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile', 10)->unique()->nullable();
             $table->string('password');
             $table->timestamp('dob')->nullable();
-            $table->string('gender')->default('Male');
+            $table->enum('gender', ['Male', 'Female'])->default('Male');
             $table->string('avatar')->nullable();
             $table->string('city')->nullable();
             $table->boolean('is_admin')->default(false);

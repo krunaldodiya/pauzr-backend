@@ -21,12 +21,11 @@ class CreateCouponsTable extends Migration
 
             $table->string('title');
             $table->text('description');
-            $table->string('type')->default('discount');
+            $table->enum('type', ['Coupon', 'Discount'])->default('Coupon');
             $table->string('coupon')->nullable();
             $table->string('logo')->nullable();
             $table->text('link')->nullable();
             $table->text('aff_link')->nullable();
-
             $table->timestamp('start_date')->nullable();
             $table->timestamp('expiry_date')->nullable();
 
