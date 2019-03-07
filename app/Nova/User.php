@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\HasMany;
 use App\Nova\Filters\UserType;
 use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\VerifiedUsers;
+use App\Nova\Lenses\MerchantList;
 
 class User extends Resource
 {
@@ -142,7 +143,9 @@ class User extends Resource
      */
     public function lenses(Request $request)
     {
-        return [];
+        return [
+            new MerchantList,
+        ];
     }
 
     /**
