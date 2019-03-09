@@ -18,9 +18,12 @@ use Bavix\Wallet\Traits\HasWallets;
 
 use Laravel\Nova\Actions\Actionable;
 
+use Rinvex\Subscriptions\Traits\HasSubscriptions;
+use Rinvex\Subscriptions\Traits\BelongsToPlan;
+
 class User extends Authenticatable implements JWTSubject, Wallet
 {
-    use Actionable, HasWallet, HasWallets, Notifiable, Searchable;
+    use Actionable, HasWallet, HasWallets, Notifiable, Searchable, HasSubscriptions, BelongsToPlan;
 
     /**
      * The attributes that are mass assignable.

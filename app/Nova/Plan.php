@@ -4,32 +4,29 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\BelongsTo;
-use OwenMelbz\RadioField\RadioButton;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Place;
-use Laravel\Nova\Fields\HasMany;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Currency;
 use Outhebox\NovaHiddenField\HiddenField;
-use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\HasMany;
 
-class Store extends Resource
+class Plan extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Store';
+    public static $model = 'Rinvex\Subscriptions\Models\Plan';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -37,10 +34,8 @@ class Store extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'type', 'city'
+        'id',
     ];
-
-    public static $with = ['user'];
 
     /**
      * Get the fields displayed by the resource.
@@ -53,40 +48,36 @@ class Store extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make("User")->hideWhenUpdating(),
+            HiddenField::make('Currency')
+                ->onlyOnForms()
+                ->default("INR"),
 
-            Avatar::make('Logo'),
+            HiddenField::make('Invoice Interval')
+                ->onlyOnForms()
+                ->default("month"),
+
+            HiddenField::make('Trial Interval')
+                ->onlyOnForms()
+                ->default("day"),
 
             Text::make('Name'),
 
-            RadioButton::make('Store Type', 'type')
-                ->options(['offline' => 'Offline', 'online' => 'Online'])
-                ->default('offline')
-                ->canSee(function ($request) {
-                    return $request->user()->isAdmin();
-                })
-                ->sortable()
-                ->hideWhenUpdating(),
-
-            HasMany::make('Coupons'),
-
             Trix::make('Description'),
 
-            Place::make('City')->onlyCities()->countries(['IN'])->sortable(),
+            Currency::make('Price')->format('%.2n'),
 
-            Text::make('Website')->withMeta(['placeholder' => 'https://www.google.com']),
+            Currency::make('Signup Fee')->format('%.2n'),
+
+            Text::make('Trial Days', 'trial_period'),
+
+            Select::make('Plan Duration', 'invoice_period')->options([
+                3 => "3 Months",
+                6 => "6 Months",
+                12 => "12 Months",
+            ]),
+
+            HasMany::make('PlanFeatures', 'features')
         ];
-    }
-
-    public static function indexQuery(NovaRequest $request, $query)
-    {
-        if ($request->user()->isAdmin()) {
-            return true;
-        }
-
-        return $query->whereHas('user', function ($query) use ($request) {
-            $query->where('user_id', $request->user()->id);
-        });
     }
 
     /**
@@ -130,8 +121,6 @@ class Store extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new DownloadExcel
-        ];
+        return [];
     }
 }

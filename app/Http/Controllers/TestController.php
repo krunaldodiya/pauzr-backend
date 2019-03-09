@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
 use App\Repositories\CouponRepository;
-use App\Coupon;
 
 class TestController extends Controller
 {
@@ -19,6 +17,19 @@ class TestController extends Controller
 
     public function test(Request $request)
     {
-        return Coupon::with('categories')->first();
+        $plan = app('rinvex.subscriptions.plan')->create([
+            'name' => 'Pro',
+            'description' => 'Pro plan',
+            'price' => 9.99,
+            'signup_fee' => 1.99,
+            'invoice_period' => 1,
+            'invoice_interval' => 'month',
+            'trial_period' => 15,
+            'trial_interval' => 'day',
+            'sort_order' => 1,
+            'currency' => 'USD',
+        ]);
+        
+        return $plan;
     }
 }
