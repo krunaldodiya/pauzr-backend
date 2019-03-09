@@ -2751,16 +2751,16 @@
         },
         {
             "name": "rinvex/laravel-cacheable",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rinvex/laravel-cacheable.git",
-                "reference": "7112fc4375e39f7876fe82df1f0a4bde4702f90b"
+                "reference": "d6b8a48ab6fa3e018f2eda05930915f6870339e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rinvex/laravel-cacheable/zipball/7112fc4375e39f7876fe82df1f0a4bde4702f90b",
-                "reference": "7112fc4375e39f7876fe82df1f0a4bde4702f90b",
+                "url": "https://api.github.com/repos/rinvex/laravel-cacheable/zipball/d6b8a48ab6fa3e018f2eda05930915f6870339e0",
+                "reference": "d6b8a48ab6fa3e018f2eda05930915f6870339e0",
                 "shasum": ""
             },
             "require": {
@@ -2816,7 +2816,7 @@
                 "rinvex",
                 "trait"
             ],
-            "time": "2019-03-06T11:38:54+00:00"
+            "time": "2019-03-07T20:56:43+00:00"
         },
         {
             "name": "rinvex/laravel-subscriptions",
