@@ -2,9 +2,9 @@
 
 Route::get('/test', 'TestController@test');
 
-Route::get('login/google', 'TestController@redirectToProvider');
+Route::get('login/{driver}', 'TestController@redirectToProvider');
 
-Route::get('callback', 'TestController@handleProviderCallback');
+Route::get('callback/{driver}', 'TestController@handleProviderCallback');
 
 Auth::routes();
 
