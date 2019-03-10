@@ -25,6 +25,6 @@ class TestController extends Controller
     {
         $user = Socialite::driver('github')->user();
 
-        $user->token;
+        return ['user' => $user];
     }
 }
