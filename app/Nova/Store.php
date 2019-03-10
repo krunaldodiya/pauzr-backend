@@ -24,6 +24,8 @@ class Store extends Resource
      */
     public static $model = 'App\Store';
 
+    public static $group = 'Merchant';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

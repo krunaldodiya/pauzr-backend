@@ -21,6 +21,8 @@ class Plan extends Resource
      */
     public static $model = 'Rinvex\Subscriptions\Models\Plan';
 
+    public static $group = 'Subscription';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

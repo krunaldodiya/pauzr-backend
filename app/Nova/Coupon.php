@@ -27,6 +27,8 @@ class Coupon extends Resource
      */
     public static $model = 'App\Coupon';
 
+    public static $group = 'Merchant';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

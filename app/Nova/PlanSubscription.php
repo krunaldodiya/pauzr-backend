@@ -4,18 +4,16 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class PlanFeature extends Resource
+class PlanSubscription extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'Rinvex\Subscriptions\Models\PlanFeature';
+    public static $model = 'Rinvex\Subscriptions\Models\PlanSubscription';
 
     public static $group = 'Subscription';
 
@@ -45,15 +43,6 @@ class PlanFeature extends Resource
     {
         return [
             ID::make()->sortable(),
-
-            Select::make('Plan', 'plan_id')
-                ->options(app('rinvex.subscriptions.plan')->pluck('name', 'id')),
-
-            Text::make('Name'),
-
-            Text::make('Value'),
-
-            Trix::make('Description'),
         ];
     }
 

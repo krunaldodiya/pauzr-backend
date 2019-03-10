@@ -17,6 +17,7 @@ use App\Nova\Filters\UserType;
 use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\VerifiedUsers;
 use App\Nova\Lenses\MerchantList;
+use Laravel\Nova\Fields\BelongsTo;
 
 class User extends Resource
 {
@@ -26,6 +27,8 @@ class User extends Resource
      * @var string
      */
     public static $model = 'App\\User';
+
+    public static $group = 'User';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -105,6 +108,11 @@ class User extends Resource
             Boolean::make('Admin', 'is_admin')->exceptOnForms(),
 
             HasMany::make('Stores'),
+
+            HasMany::make('PlanSubscriptions', 'subscriptions'),
+
+            BelongsTo::make('Plan'),
+
         ];
     }
 
