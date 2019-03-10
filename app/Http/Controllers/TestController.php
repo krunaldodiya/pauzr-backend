@@ -23,7 +23,7 @@ class TestController extends Controller
 
     public function handleProviderCallback(Request $request)
     {
-        $user = Socialite::driver('github')->user();
+        $user = Socialite::driver('google')->user();
 
         return ['user' => $user];
     }
