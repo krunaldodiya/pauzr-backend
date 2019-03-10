@@ -18,12 +18,9 @@ use Bavix\Wallet\Traits\HasWallets;
 
 use Laravel\Nova\Actions\Actionable;
 
-use Rinvex\Subscriptions\Traits\HasSubscriptions;
-use Rinvex\Subscriptions\Traits\BelongsToPlan;
-
 class User extends Authenticatable implements JWTSubject, Wallet
 {
-    use Actionable, HasWallet, HasWallets, Notifiable, Searchable, HasSubscriptions, BelongsToPlan;
+    use Actionable, HasWallet, HasWallets, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -69,6 +66,16 @@ class User extends Authenticatable implements JWTSubject, Wallet
     public function stores()
     {
         return $this->hasMany(Store::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(PlanSubscription::class);
     }
 
     public function isAdminOrMerchant()

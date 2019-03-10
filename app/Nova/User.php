@@ -17,7 +17,7 @@ use App\Nova\Filters\UserType;
 use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\VerifiedUsers;
 use App\Nova\Lenses\MerchantList;
-use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasOne;
 
 class User extends Resource
 {
@@ -109,10 +109,9 @@ class User extends Resource
 
             HasMany::make('Stores'),
 
-            HasMany::make('PlanSubscriptions', 'subscriptions'),
+            HasOne::make('PlanSubscriptions', 'subscription'),
 
-            BelongsTo::make('Plan'),
-
+            HasOne::make('Plan'),
         ];
     }
 

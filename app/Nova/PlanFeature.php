@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\BelongsTo;
+use App\Plan;
 
 class PlanFeature extends Resource
 {
@@ -15,7 +17,7 @@ class PlanFeature extends Resource
      *
      * @var string
      */
-    public static $model = 'Rinvex\Subscriptions\Models\PlanFeature';
+    public static $model = 'App\PlanFeature';
 
     public static $group = 'Subscription';
 
@@ -46,14 +48,15 @@ class PlanFeature extends Resource
         return [
             ID::make()->sortable(),
 
-            Select::make('Plan', 'plan_id')
-                ->options(app('rinvex.subscriptions.plan')->pluck('name', 'id')),
+            Select::make('Plan', 'plan_id')->options(Plan::pluck('name', 'id')),
 
             Text::make('Name'),
 
             Text::make('Value'),
 
             Trix::make('Description'),
+
+            Text::make('Sort Order'),
         ];
     }
 

@@ -4,11 +4,9 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Currency;
-use Outhebox\NovaHiddenField\HiddenField;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 
@@ -19,7 +17,7 @@ class Plan extends Resource
      *
      * @var string
      */
-    public static $model = 'Rinvex\Subscriptions\Models\Plan';
+    public static $model = 'App\Plan';
 
     public static $group = 'Subscription';
 
@@ -50,35 +48,27 @@ class Plan extends Resource
         return [
             ID::make()->sortable(),
 
-            HiddenField::make('Currency')
-                ->onlyOnForms()
-                ->default("INR"),
-
-            HiddenField::make('Invoice Interval')
-                ->onlyOnForms()
-                ->default("month"),
-
-            HiddenField::make('Trial Interval')
-                ->onlyOnForms()
-                ->default("day"),
-
             Text::make('Name'),
 
             Trix::make('Description'),
 
             Currency::make('Price')->format('%.2n'),
 
-            Currency::make('Signup Fee')->format('%.2n'),
+            Text::make('Trial Days', 'trial_days'),
 
-            Text::make('Trial Days', 'trial_period'),
-
-            Select::make('Plan Duration', 'invoice_period')->options([
-                3 => "3 Months",
-                6 => "6 Months",
-                12 => "12 Months",
+            Select::make('Subscription Period')->options([
+                "Weekly" => "Weekly",
+                "Monthly" => "Monthly",
+                "Quarterly" => "Quarterly",
+                "Biannually" => "Biannually",
+                "Annually" => "Annually",
             ]),
 
-            HasMany::make('PlanFeatures', 'features')
+            Text::make('Sort Order'),
+
+            HasMany::make('PlanFeature', 'features'),
+
+            HasMany::make('PlanSubscription', 'subscribers'),
         ];
     }
 

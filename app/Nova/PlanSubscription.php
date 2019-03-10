@@ -4,7 +4,12 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Select;
+use App\User;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
+use App\Plan;
+use Laravel\Nova\Fields\DateTime;
 
 class PlanSubscription extends Resource
 {
@@ -13,7 +18,7 @@ class PlanSubscription extends Resource
      *
      * @var string
      */
-    public static $model = 'Rinvex\Subscriptions\Models\PlanSubscription';
+    public static $model = 'App\PlanSubscription';
 
     public static $group = 'Subscription';
 
@@ -43,6 +48,38 @@ class PlanSubscription extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            Select::make('Plan', 'plan_id')->options(Plan::where('active', true)->pluck('name', 'id')),
+
+            Select::make('User', 'user_id')->options(User::where('is_merchant', true)->pluck('name', 'id')),
+
+            Text::make('Name'),
+
+            Trix::make('Description'),
+
+            Select::make('Subscription Status')->options([
+                "active" => "Active",
+                "expired" => "Expired",
+                "canceled" => "Canceled",
+            ]),
+
+            Select::make('Payment Type')->options([
+                "cash" => "Cash",
+                "card" => "Card",
+                "e_wallet" => "E Wallet",
+                "net_banking" => "Net Banking"
+            ]),
+
+            Select::make('Payment Status')->options([
+                "pending" => "Pending",
+                "paid" => "Paid",
+            ]),
+
+            DateTime::make('Trial Ends At'),
+
+            DateTime::make('Subscription Starts At'),
+
+            DateTime::make('Subscription Ends At'),
         ];
     }
 
