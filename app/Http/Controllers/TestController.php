@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Repositories\CouponRepository;
+use Laravel\Socialite\Facades\Socialite;
 
 class TestController extends Controller
 {
@@ -17,6 +18,6 @@ class TestController extends Controller
 
     public function test(Request $request)
     {
-        //
+        return Socialite::driver('google')->redirectUrl(config('services.google.redirect'))->redirect();
     }
 }
