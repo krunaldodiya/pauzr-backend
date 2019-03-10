@@ -18,13 +18,13 @@ class TestController extends Controller
 
     public function redirectToProvider(Request $request)
     {
-        $driver = $request->get('driver');
+        $driver = $request->driver;
         return Socialite::driver($driver)->redirect();
     }
 
     public function handleProviderCallback(Request $request)
     {
-        $driver = $request->get('driver');
+        $driver = $request->driver;        
         $user = Socialite::driver($driver)->user();
 
         return ['user' => $user];
