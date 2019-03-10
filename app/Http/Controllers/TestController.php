@@ -16,7 +16,12 @@ class TestController extends Controller
         $this->coupon = $coupon;
     }
 
-    public function test(Request $request)
+    public function redirectToProvider(Request $request)
+    {
+        return Socialite::driver('google')->redirectUrl(config('services.google.redirect'))->redirect();
+    }
+
+    public function handleProviderCallback(Request $request)
     {
         return Socialite::driver('google')->redirectUrl(config('services.google.redirect'))->redirect();
     }
