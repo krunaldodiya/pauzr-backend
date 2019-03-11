@@ -43,17 +43,17 @@ class SocialController extends Controller
 
     public function registerViaSocialNetwork($data)
     {
-        dd($data->avatar);
+        dd(isset($data->user['gender']) ? $data->user['gender'] : null);
 
         $user = $this->user->register([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name' => $data->name,
+            'email' => $data->email,
             'password' => bcrypt(str_random(8)),
-            'gender' => isset($data['user']['gender']) ? $data['user']['gender'] : null,
-            'avatar' => $data['avatar'],
+            'gender' => isset($data->user['gender']) ? $data->user['gender'] : null,
+            'avatar' => $data->avatar,
         ]);
 
-        return $this->user->login($user);        
+        return $this->user->login($user);
     }
 
     public function me()
