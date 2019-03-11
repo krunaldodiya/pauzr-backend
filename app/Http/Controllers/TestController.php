@@ -25,12 +25,8 @@ class TestController extends Controller
     public function handleProviderCallback(Request $request)
     {
         $driver = $request->driver;
-        // $user = Socialite::driver($driver)->stateless()->user();
+        $user = Socialite::driver($driver)->stateless()->user();
 
-        $token = $request->code;
-        $user = Socialite::driver($driver)->userFromToken($token);
-
-
-        return ['user' => $user];
+        return view('response', ['user' => $user]);
     }
 }
