@@ -43,6 +43,8 @@ class SocialController extends Controller
 
     public function registerViaSocialNetwork($data)
     {
+        dd($data);
+        
         $user = $this->user->register([
             'name' => $data['name'],
             'email' => $data['email'],
