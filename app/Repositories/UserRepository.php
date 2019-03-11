@@ -16,7 +16,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function login($user)
     {
-        if (!$token = auth('api')->attempt($user)) {
+        if (!$token = auth('api')->login($user)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
