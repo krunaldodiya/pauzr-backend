@@ -4,6 +4,6 @@
 
 @section('content')
     <div class="container">
-        {{ $user->name }}
+        Loading...
     </div>
 @endsection
