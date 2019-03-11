@@ -2,9 +2,10 @@
 
 Route::get('/test', 'TestController@test');
 
-Route::get('login/{driver}', 'TestController@redirectToProvider');
-
-Route::get('callback/{driver}', 'TestController@handleProviderCallback');
+Route::group(['namespace' => 'App\Http\Controllers\Api\V1'], function ($router) {
+    Route::get('login/{driver}', 'SocialController@redirectToProvider');
+    Route::get('callback/{driver}', 'SocialController@handleProviderCallback');
+});
 
 Auth::routes();
 
