@@ -18,8 +18,13 @@ class TestController extends Controller
 
     public function redirectToProvider(Request $request)
     {
+        $scopes = [
+            'facebook' => ['user_birthday', 'email'],
+            'google' => ['profile', 'email'],
+        ];
+
         $driver = $request->driver;
-        return Socialite::driver($driver)->redirect();
+        return Socialite::driver($driver)->scopes($scopes[$driver])->redirect();
     }
 
     public function handleProviderCallback(Request $request)
