@@ -19,8 +19,12 @@ class TestController extends Controller
     public function redirectToProvider(Request $request)
     {
         $scopes = [
-            'facebook' => ['user_birthday', 'email'],
-            'google' => ['profile', 'email'],
+            'facebook' => ['public_profile', 'email'],
+            'google' => [
+                'https://www.googleapis.com/auth/plus.me',
+                'https://www.googleapis.com/auth/plus.login',
+                'https://www.googleapis.com/auth/plus.profile.emails.read'
+            ],
         ];
 
         $driver = $request->driver;
