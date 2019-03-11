@@ -20,7 +20,7 @@ class UserRepository implements UserRepositoryInterface
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->_respondWithToken($token);
+        return $this->_respondWithToken($token, $user);
     }
 
     public function register($data)
@@ -30,13 +30,11 @@ class UserRepository implements UserRepositoryInterface
 
     public function refreshToken()
     {
-        return $this->_respondWithToken(auth('api')->refresh());
+        return $this->_respondWithToken(auth('api')->refresh(), auth('api')->user());
     }
 
-    protected function _respondWithToken($token)
+    protected function _respondWithToken($token, $user)
     {
-        $user = $this->getUserById(auth('api')->user()->id);
-
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
