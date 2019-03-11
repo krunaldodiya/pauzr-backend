@@ -28,7 +28,7 @@ class TestController extends Controller
         ];
 
         $driver = $request->driver;
-        return Socialite::driver($driver)->scopes($scopes[$driver])->redirect();
+        return Socialite::driver($driver)->redirect();
     }
 
     public function handleProviderCallback(Request $request)
