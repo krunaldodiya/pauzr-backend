@@ -2,7 +2,7 @@
 
 Route::get('/test', 'TestController@test');
 
-Route::group(['namespace' => 'App\Http\Controllers\Api\V1'], function ($router) {
+Route::group(['namespace' => 'Api\V1'], function ($router) {
     Route::get('login/{driver}', 'SocialController@redirectToProvider');
     Route::get('callback/{driver}', 'SocialController@handleProviderCallback');
 });
