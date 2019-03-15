@@ -14,11 +14,11 @@ class UserController extends Controller
     {
         $this->user = $user;
     }
-    
+
     public function me()
     {
         $user = $this->user->getUserById(auth('api')->user()->id);
 
-        return response()->json($user);
+        return ['user' => $user];
     }
 }

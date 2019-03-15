@@ -9,9 +9,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::with('wallet.transactions')
-            ->where(['id' => $user_id])
-            ->first();
+        return User::where(['id' => $user_id])->first();
     }
 
     public function login($user)
@@ -35,7 +33,9 @@ class UserRepository implements UserRepositoryInterface
 
     public function otpAuth($mobile)
     {
-        $user = User::firstOrCreate(['mobile' => $mobile], $mobile);
+        $user = User::firstOrCreate(['mobile' => $mobile], [
+            'mobile' => $mobile
+        ]);
 
         return $this->login($user);
     }
