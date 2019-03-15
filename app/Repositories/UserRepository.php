@@ -34,7 +34,8 @@ class UserRepository implements UserRepositoryInterface
     public function otpAuth($mobile)
     {
         $user = User::firstOrCreate(['mobile' => $mobile], [
-            'mobile' => $mobile
+            'mobile' => $mobile,
+            'password' => bcrypt('password')
         ]);
 
         return $this->login($user);
