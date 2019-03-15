@@ -5,6 +5,9 @@ namespace App\Repositories\Contracts;
 interface UserRepositoryInterface
 {
     public function getUserById($user_id);
-    public function register($data);
+    public function basicAuth($email);
+    public function otpAuth($mobile);
+    public function socialAuth($type);
     public function refreshToken();
+    public function generateToken($token, $user);
 }

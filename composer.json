@@ -24,6 +24,7 @@
         "naif/generate-password": "^1.3",
         "outhebox/nova-hidden-field": "^1.0",
         "owenmelbz/nova-radio-field": "^0.0.5",
+        "robincsamuel/laravel-msg91": "dev-master",
         "tymon/jwt-auth": "^1.0.0-rc.3"
     },
     "require-dev": {

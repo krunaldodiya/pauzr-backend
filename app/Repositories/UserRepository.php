@@ -20,20 +20,37 @@ class UserRepository implements UserRepositoryInterface
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->_respondWithToken($token, $user);
+        return $this->generateToken($token, $user);
     }
 
-    public function register($data)
+    public function basicAuth($email, $password)
     {
-        return User::firstOrCreate(['email' => $data['email']], $data);
+        $user = User::firstOrCreate(['email' => $email], [
+            'email' => $email,
+            'password' => $password
+        ]);
+
+        return $this->login($user);
+    }
+
+    public function otpAuth($mobile)
+    {
+        $user = User::firstOrCreate(['mobile' => $mobile], $mobile);
+
+        return $this->login($user);
+    }
+
+    public function socialAuth($type)
+    {
+        return $type;
     }
 
     public function refreshToken()
     {
-        return $this->_respondWithToken(auth('api')->refresh(), auth('api')->user());
+        return $this->generateToken(auth('api')->refresh(), auth('api')->user());
     }
 
-    protected function _respondWithToken($token, $user)
+    public function generateToken($token, $user)
     {
         return response()->json([
             'access_token' => $token,

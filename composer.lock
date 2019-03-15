@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de92753a66a25254aeffbb0562bd4c88",
+    "content-hash": "76d1bd58aee16077dbba67f84d6eaa16",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2875,6 +2875,54 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "robincsamuel/laravel-msg91",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robincsamuel/laravel-msg91.git",
+                "reference": "71120cbabbb9ee2655476b7882ec2ff1e1837b48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robincsamuel/laravel-msg91/zipball/71120cbabbb9ee2655476b7882ec2ff1e1837b48",
+                "reference": "71120cbabbb9ee2655476b7882ec2ff1e1837b48",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "psr-4": {
+                    "RobinCSamuel\\LaravelMsg91\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin C Samuel",
+                    "email": "hi@robinz.in"
+                }
+            ],
+            "description": "Package for MSG91 sms API",
+            "keywords": [
+                "laravel package",
+                "laravel sms package",
+                "laravel-msg91",
+                "msg91 laravel",
+                "msg91 laravel package",
+                "sms api",
+                "text api"
+            ],
+            "time": "2019-01-27T08:56:04+00:00"
         },
         {
             "name": "spatie/once",
@@ -6172,7 +6220,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "robincsamuel/laravel-msg91": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

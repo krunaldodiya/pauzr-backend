@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Repositories\CouponRepository;
-use Laravel\Socialite\Facades\Socialite;
 
 class TestController extends Controller
 {
@@ -14,5 +13,10 @@ class TestController extends Controller
     public function __construct(CouponRepository $coupon)
     {
         $this->coupon = $coupon;
+    }
+
+    public function test(Request $request)
+    {
+        //
     }
 }
