@@ -61,7 +61,7 @@ class OtpController extends Controller
             $verifyOtp = $this->otpAuth($mobile, $otp, 'verify', $production);
 
             if ($verifyOtp->message == 'otp_verified') {
-                return $this->userRepo->otpAuth(['mobile' => $mobile]);
+                return $this->userRepo->otpAuth($mobile);
             }
 
             throw new OtpVerificationFailed($verifyOtp->message);
