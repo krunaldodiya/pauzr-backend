@@ -43,7 +43,7 @@
                             <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
 
                             <div class="col-md-6">
-                                <input id="mobile" type="password" class="form-control" name="mobile" required>
+                                <input id="mobile" type="text" class="form-control" name="mobile" required>
                             </div>
                         </div>
 
