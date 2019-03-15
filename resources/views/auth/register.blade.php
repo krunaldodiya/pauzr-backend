@@ -40,6 +40,14 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="mobile" type="password" class="form-control" name="mobile" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
