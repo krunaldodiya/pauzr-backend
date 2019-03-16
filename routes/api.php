@@ -9,6 +9,11 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/me', 'UserController@me');
 });
 
+Route::group(['prefix' => 'locations', 'middleware' => 'auth:api'], function () {
+    Route::post('/list', 'HomeController@getLocations');
+});
+
 Route::post('testing', function () {
     return ['testing' => 'testing'];
 });
+
