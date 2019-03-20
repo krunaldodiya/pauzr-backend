@@ -19,13 +19,6 @@ class RequestOtp extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'mobile.required' => 'Mobile is required',
-        ];
-    }
-
     public function response(array $errors)
     {
         return new JsonResponse($errors, 422);

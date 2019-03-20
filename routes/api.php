@@ -7,6 +7,7 @@ Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/me', 'UserController@me');
+    Route::post('/update', 'UserController@update');
 });
 
 Route::group(['prefix' => 'locations', 'middleware' => 'auth:api'], function () {
@@ -16,4 +17,3 @@ Route::group(['prefix' => 'locations', 'middleware' => 'auth:api'], function () 
 Route::post('testing', function () {
     return ['testing' => 'testing'];
 });
-

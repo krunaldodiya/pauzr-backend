@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 
-class Login extends FormRequest
+class UpdateUser extends FormRequest
 {
     public function authorize()
     {
@@ -15,7 +15,10 @@ class Login extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'location_id' => 'required|number',
+            'dob' => 'required|min:3',
         ];
     }
 
