@@ -12,7 +12,16 @@ class UserRepository implements UserRepositoryInterface
         return User::where(['id' => $user_id])->first();
     }
 
-    public function login($user)
+    protected function register($mobile)
+    {
+        $authUser = User::create(['mobile' => $mobile, 'password' => str_random(8)]);
+
+        $user = $this->getUserById($authUser->id);
+
+        return $this->login($user);
+    }
+
+    protected function login($user)
     {
         if (!$token = auth('api')->login($user)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -33,12 +42,13 @@ class UserRepository implements UserRepositoryInterface
 
     public function otpAuth($mobile)
     {
-        $user = User::firstOrCreate(['mobile' => $mobile], [
-            'mobile' => $mobile,
-            'password' => bcrypt('password')
-        ]);
+        $user = User::where(['mobile' => $mobile])->first();
 
-        return $this->login($user);
+        if($user) {
+            return $this->login($user);
+        }
+
+        return $this->register($mobile);
     }
 
     public function socialAuth($type)
