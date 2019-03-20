@@ -16,8 +16,9 @@ class UpdateUser extends FormRequest
     {
         return [
             'name' => 'required|min:3',
+            'gender' => 'required',
             'email' => 'required|email',
-            'location_id' => 'required|number',
+            'location' => 'required',
             'dob' => 'required|min:3',
         ];
     }

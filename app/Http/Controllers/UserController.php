@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Repositories\UserRepository;
 use App\Http\Requests\UpdateUser;
+use App\User;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -25,9 +27,18 @@ class UserController extends Controller
 
     public function update(UpdateUser $request)
     {
-        $update = auth('api')->user()->update($request->all());
+        $user_id = auth('api')->user()->id;
 
-        $user = $this->user->getUserById(auth('api')->user()->id);
+        User::where('id', $user_id)->update([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'dob' => Carbon::create($request->dob),
+            'email' => $request->email,
+            'location_id' => $request->location['id'],
+            'status' => true
+        ]);
+
+        $user = $this->user->getUserById($user_id);
 
         return ['user' => $user];
     }

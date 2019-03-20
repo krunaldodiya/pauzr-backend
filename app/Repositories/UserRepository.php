@@ -9,7 +9,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::where(['id' => $user_id])->first();
+        return User::with('location')->where(['id' => $user_id])->first();
     }
 
     protected function register($mobile)
@@ -44,7 +44,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $user = User::where(['mobile' => $mobile])->first();
 
-        if($user) {
+        if ($user) {
             return $this->login($user);
         }
 

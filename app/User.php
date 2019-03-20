@@ -80,7 +80,7 @@ class User extends Authenticatable implements JWTSubject, Wallet
 
     public function location()
     {
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function isAdminOrMerchant()
