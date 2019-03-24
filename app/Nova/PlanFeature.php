@@ -6,9 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\BelongsTo;
-use App\Plan;
 
 class PlanFeature extends Resource
 {
@@ -47,8 +45,6 @@ class PlanFeature extends Resource
     {
         return [
             ID::make()->sortable(),
-
-            // Select::make('Plan', 'plan_id')->options(Plan::pluck('name', 'id')),
 
             BelongsTo::make('Plan', 'plan_id'),
 

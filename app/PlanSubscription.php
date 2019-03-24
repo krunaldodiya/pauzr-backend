@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlanSubscription extends Model
 {
-    protected $table = "plan_subscriptions";
-
     protected $fillable = [
         'user_id', 'plan_id', 'name', 'description', 'trial_ends_at', 'subscription_starts_at', 'subscription_ends_at',
         'payment_type', 'payment_status', 'subscription_status'
@@ -28,11 +26,11 @@ class PlanSubscription extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function plan()
     {
-        $this->belongsTo(Plan::class);
+        return $this->belongsTo(Plan::class);
     }
 }

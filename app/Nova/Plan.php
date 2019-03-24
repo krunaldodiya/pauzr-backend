@@ -68,7 +68,7 @@ class Plan extends Resource
 
             HasMany::make('PlanFeature', 'features'),
 
-            // HasMany::make('PlanSubscription', 'subscribers'),
+            HasMany::make('PlanSubscription', 'subscriptions'),
         ];
     }
 

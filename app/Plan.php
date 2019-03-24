@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
-    public function subscribers()
+    protected $fillable = ['name', 'description', 'price', 'trial_days', 'subscription_period', 'sort_order', 'active'];
+
+    protected $dates = ['created_at', 'updated_at'];
+
+    public function subscriptions()
     {
-        $this->hasMany(PlanSubscription::class);
+        return $this->hasMany(PlanSubscription::class);
     }
 
     public function features()
     {
-        $this->hasMany(PlanFeature::class);
+        return $this->hasMany(PlanFeature::class);
     }
 }
