@@ -52,16 +52,16 @@ class User extends Authenticatable implements JWTSubject, Wallet
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['age'];
+    // protected $appends = ['age'];
 
     protected $dispatchesEvents = [
         'created' => UserWasCreated::class
     ];
 
-    public function getAgeAttribute()
-    {
-        return $this->dob ? Carbon::parse($this->dob)->age : 0;
-    }
+    // public function getAgeAttribute()
+    // {
+    //     return $this->dob ? Carbon::parse($this->dob)->age : 0;
+    // }
 
     public function stores()
     {

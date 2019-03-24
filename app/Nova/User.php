@@ -90,9 +90,6 @@ class User extends Resource
                 ->creationRules('unique:users'),
 
             Date::make('Dob')
-                ->resolveUsing(function ($date) {
-                    return $date->format('d/m/Y');
-                })
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
