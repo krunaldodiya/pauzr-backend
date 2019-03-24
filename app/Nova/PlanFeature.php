@@ -48,7 +48,9 @@ class PlanFeature extends Resource
         return [
             ID::make()->sortable(),
 
-            Select::make('Plan', 'plan_id')->options(Plan::pluck('name', 'id')),
+            // Select::make('Plan', 'plan_id')->options(Plan::pluck('name', 'id')),
+
+            BelongsTo::make('Plan', 'plan_id'),
 
             Text::make('Name'),
 

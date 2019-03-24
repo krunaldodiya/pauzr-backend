@@ -8,6 +8,13 @@ class PlanSubscription extends Model
 {
     protected $table = "plan_subscriptions";
 
+    protected $fillable = [
+        'user_id', 'plan_id', 'name', 'description', 'trial_ends_at', 'subscription_starts_at', 'subscription_ends_at',
+        'payment_type', 'payment_status', 'subscription_status'
+    ];
+
+    protected $dates = ['created_at', 'updated_at'];
+
     /**
      * The attributes that should be cast to native types.
      *
