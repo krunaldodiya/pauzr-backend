@@ -94,6 +94,8 @@ class User extends Resource
                 ->hideFromIndex(),
 
             BelongsTo::make('Location')->searchable(),
+            
+            BelongsTo::make('Profession')->searchable(),
 
             Avatar::make('Avatar'),
 

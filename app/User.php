@@ -52,16 +52,16 @@ class User extends Authenticatable implements JWTSubject, Wallet
         'email_verified_at' => 'datetime',
     ];
 
-    // protected $appends = ['age'];
+    protected $appends = ['age'];
 
     protected $dispatchesEvents = [
         'created' => UserWasCreated::class
     ];
 
-    // public function getAgeAttribute()
-    // {
-    //     return $this->dob ? Carbon::parse($this->dob)->age : 0;
-    // }
+    public function getAgeAttribute()
+    {
+        return $this->dob ? Carbon::parse($this->dob)->age : 0;
+    }
 
     public function stores()
     {
@@ -81,6 +81,11 @@ class User extends Authenticatable implements JWTSubject, Wallet
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function profession()
+    {
+        return $this->belongsTo(Profession::class);
     }
 
     public function isAdminOrMerchant()
