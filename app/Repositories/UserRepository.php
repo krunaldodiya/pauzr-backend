@@ -14,7 +14,10 @@ class UserRepository implements UserRepositoryInterface
 
     protected function register($mobile)
     {
-        $authUser = User::create(['mobile' => $mobile, 'password' => str_random(8)]);
+        $authUser = User::create([
+            'mobile' => $mobile,
+            'password' => bcrypt(str_random(8))
+        ]);
 
         $user = $this->getUserById($authUser->id);
 

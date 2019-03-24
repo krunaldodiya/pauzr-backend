@@ -18,6 +18,7 @@ use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\VerifiedUsers;
 use App\Nova\Lenses\MerchantList;
 use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\BelongsTo;
 
 class User extends Resource
 {
@@ -94,6 +95,8 @@ class User extends Resource
                 })
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
+
+            BelongsTo::make('Location')->searchable(),
 
             Avatar::make('Avatar'),
 
