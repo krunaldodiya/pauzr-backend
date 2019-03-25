@@ -36,6 +36,8 @@ class TopBrands extends Lens
             ID::make('ID', 'id')->sortable(),
 
             Text::make('Name')->sortable(),
+
+            Text::make('Sort Order')->sortable(),
         ];
     }
 
