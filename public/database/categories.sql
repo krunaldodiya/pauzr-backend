@@ -5,9 +5,9 @@
 # https://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 8.0.13)
+# Host: 127.0.0.1 (MySQL 8.0.15)
 # Database: pauzr
-# Generation Time: 2019-03-03 06:35:49 +0000
+# Generation Time: 2019-03-25 13:44:07 +0000
 # ************************************************************
 
 
@@ -23,6 +23,17 @@ SET NAMES utf8mb4;
 
 # Dump of table categories
 # ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE `categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) unsigned DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
@@ -112,7 +123,8 @@ VALUES
 	(181,173,'Deutsche Bank','2019-03-03 06:33:43','2019-03-03 06:33:43'),
 	(182,173,'IndusInd Bank','2019-03-03 06:33:43','2019-03-03 06:33:43'),
 	(183,173,'Standard Chartered','2019-03-03 06:33:43','2019-03-03 06:33:43'),
-	(184,173,' Yes Bank','2019-03-03 06:33:43','2019-03-03 06:33:43');
+	(184,173,' Yes Bank','2019-03-03 06:33:43','2019-03-03 06:33:43'),
+	(185,0,'Most Used','2019-03-25 19:12:29','2019-03-25 19:12:29');
 
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
