@@ -27,6 +27,7 @@ class CreateStoresTable extends Migration
             $table->string('city')->nullable();
             $table->boolean('active')->default(false);
             $table->boolean('top_brand')->default(false);
+            $table->tinyInteger('sort_order')->default(0);
 
             $table->timestamps();
         });

@@ -81,6 +81,8 @@ class Store extends Resource
             Text::make('Website')->withMeta(['placeholder' => 'https://www.google.com']),
 
             Boolean::make('Top Brand', 'top_brand')->sortable(),
+
+            Text::make('Sort Order')->sortable(),
         ];
     }
 
