@@ -15,6 +15,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Outhebox\NovaHiddenField\HiddenField;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Boolean;
+use App\Nova\Lenses\TopBrands;
 
 class Store extends Resource
 {
@@ -79,7 +80,7 @@ class Store extends Resource
 
             Text::make('Website')->withMeta(['placeholder' => 'https://www.google.com']),
 
-            Boolean::make('Top Brand', 'top_brand'),
+            Boolean::make('Top Brand', 'top_brand')->sortable(),
         ];
     }
 
@@ -124,7 +125,9 @@ class Store extends Resource
      */
     public function lenses(Request $request)
     {
-        return [];
+        return [
+            new TopBrands
+        ];
     }
 
     /**

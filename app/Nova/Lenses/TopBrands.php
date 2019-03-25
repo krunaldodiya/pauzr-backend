@@ -8,7 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Lenses\Lens;
 use Laravel\Nova\Http\Requests\LensRequest;
 
-class MerchantList extends Lens
+class TopBrands extends Lens
 {
     /**
      * Get the query builder / paginator for the lens.
@@ -20,7 +20,7 @@ class MerchantList extends Lens
     public static function query(LensRequest $request, $query)
     {
         return $request->withOrdering($request->withFilters(
-            $query->withCount('stores')->where('is_merchant', true)
+            $query->where('top_brand', true)
         ));
     }
 
@@ -34,8 +34,8 @@ class MerchantList extends Lens
     {
         return [
             ID::make('ID', 'id')->sortable(),
+
             Text::make('Name')->sortable(),
-            Text::make('Stores Count')->sortable(),
         ];
     }
 
@@ -68,6 +68,6 @@ class MerchantList extends Lens
      */
     public function uriKey()
     {
-        return 'merchant-list';
+        return 'top-brands';
     }
 }
