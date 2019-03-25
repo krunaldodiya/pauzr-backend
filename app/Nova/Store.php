@@ -14,6 +14,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Outhebox\NovaHiddenField\HiddenField;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\Boolean;
 
 class Store extends Resource
 {
@@ -77,6 +78,8 @@ class Store extends Resource
             Place::make('City')->onlyCities()->countries(['IN'])->sortable(),
 
             Text::make('Website')->withMeta(['placeholder' => 'https://www.google.com']),
+
+            Boolean::make('Top Brand', 'top_brand'),
         ];
     }
 
