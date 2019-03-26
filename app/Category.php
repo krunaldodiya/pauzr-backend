@@ -31,6 +31,6 @@ class Category extends Model
 
     public function best_offers()
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id');
+        return $this->belongsToMany(Store::class);
     }
 }

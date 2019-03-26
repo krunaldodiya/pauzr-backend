@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Plan;
+use App\Category;
 
 class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $plans = Plan::with('features', 'subscriptions')->get();
+        $categories = Category::with('stores')->get();
 
-        return compact('plans');
+        return compact('categories');
     }
 }
