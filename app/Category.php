@@ -29,7 +29,7 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
-    public function best_offers()
+    public function stores()
     {
         return $this->belongsToMany(Store::class);
     }

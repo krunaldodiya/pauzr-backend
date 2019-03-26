@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsToMany;
 
 class Category extends Resource
 {
@@ -50,6 +51,8 @@ class Category extends Resource
             ID::make()->sortable(),
 
             Select::make('Parent Category', 'parent_id')->sortable()->options($categories),
+
+            BelongsToMany::make('Best Offers', 'stores', Store::class)->searchable(),
 
             Text::make('Name')->sortable(),
         ];
