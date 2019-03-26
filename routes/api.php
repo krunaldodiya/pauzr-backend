@@ -14,6 +14,10 @@ Route::group(['prefix' => 'locations', 'middleware' => 'auth:api'], function () 
     Route::post('/list', 'HomeController@getLocations');
 });
 
+Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
+    Route::post('/init', 'HomeController@getInitialData');
+});
+
 Route::post('testing', function () {
     return ['testing' => 'testing'];
 });

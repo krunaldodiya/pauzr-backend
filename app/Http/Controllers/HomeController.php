@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Location;
+use App\Category;
+use App\Store;
+use App\Banner;
 
 class HomeController extends Controller
 {
@@ -36,10 +39,11 @@ class HomeController extends Controller
 
     public function getInitialData(Request $request)
     {
-        $categories = Category::get();
-        $stores = Store::where('active', true)->get();
+        $top_categories = Category::with('best_offers')->where('parent_id', 0)->get();
+        $top_brands = Store::where('top_brand', true)->get();
+        $banners = Banner::get();
 
-        return ['categories' => $categories, 'stores' => $stores];
+        return ['top_categories' => $top_categories, 'top_brands' => $top_brands, 'banners' => $banners];
     }
 
     public function terms(Request $request)

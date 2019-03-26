@@ -28,4 +28,9 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
     }
+
+    public function best_offers()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
 }
