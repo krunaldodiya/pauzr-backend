@@ -78,9 +78,6 @@ class Coupon extends Resource
             Text::make('Aff Link')->hideFromIndex()->exceptOnForms(),
 
             Date::make('Start Date')
-                ->resolveUsing(function ($date) {
-                    return $date->format('d/m/Y');
-                })
                 ->sortable()
                 ->rules('required', 'size:10'),
 
@@ -94,7 +91,7 @@ class Coupon extends Resource
             BelongsToMany::make('Categories')
                 ->searchable(),
 
-            Text::make('Sort Order')->sortable(),
+            Text::make('Sort Order', 'sort_order')->sortable(),
         ];
     }
 
