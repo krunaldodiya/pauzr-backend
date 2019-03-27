@@ -93,6 +93,8 @@ class Coupon extends Resource
 
             BelongsToMany::make('Categories')
                 ->searchable(),
+
+            Text::make('Sort Order')->sortable(),
         ];
     }
 
