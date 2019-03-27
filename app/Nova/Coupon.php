@@ -12,11 +12,7 @@ use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\Select;
-use App\Category;
-use App\Store;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
 
 class Coupon extends Resource
 {
@@ -55,12 +51,6 @@ class Coupon extends Resource
      */
     public function fields(Request $request)
     {
-        $stores = Store::where('type', 'offline')->where(function ($query) use ($request) {
-            if (!$request->user()->isAdmin()) {
-                $query->where('user_id', $request->user()->id);
-            }
-        })->pluck('name', 'id');
-
         return [
             ID::make()->sortable(),
 
@@ -77,7 +67,7 @@ class Coupon extends Resource
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
-            Select::make('Store', 'store_id')->options($stores),
+            BelongsTo::make("Store")->searchable(),
 
             Text::make('Coupon Code', 'coupon'),
 
