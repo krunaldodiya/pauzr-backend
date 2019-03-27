@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     public function getInitialData(Request $request)
     {
-        $best_offers = Category::with('stores')->where('parent_id', 0)->get();
+        $best_offers = Category::with('coupons.store')->where('parent_id', 0)->get();
         $top_brands = Store::where('top_brand', true)->get();
         $banners = Banner::get();
 
