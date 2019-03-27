@@ -11,7 +11,7 @@ class Coupon extends Model
     use Actionable;
 
     protected $fillable = [
-        'store_id', 'title', 'description', 'type', 'coupon', 'logo', 'link', 'aff_link', 'start_date', 'expiry_date'
+        'store_id', 'title', 'description', 'type', 'coupon', 'logo', 'link', 'aff_link', 'start_date', 'expiry_date', 'sort_order'
     ];
 
     protected $dates = ['created_at', 'updated_at'];
