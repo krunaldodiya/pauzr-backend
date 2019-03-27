@@ -52,7 +52,7 @@ class Category extends Resource
 
             Select::make('Parent Category', 'parent_id')->sortable()->options($categories),
 
-            BelongsToMany::make('Best Offers', 'stores', Store::class)->searchable(),
+            BelongsToMany::make('Best Offers', 'coupons', Coupon::class)->searchable(),
 
             Text::make('Name')->sortable(),
         ];
