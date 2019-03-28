@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
 use App\Http\Requests\UpdateUser;
+
 use App\User;
 use App\Profession;
+use App\Location;
 
 use Carbon\Carbon;
 
