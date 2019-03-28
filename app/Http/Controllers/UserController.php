@@ -44,12 +44,4 @@ class UserController extends Controller
 
         return ['user' => $user];
     }
-
-    public function getInitialData()
-    {
-        $professions = Profession::get();
-        $locations = Location::get();
-    
-        return ['professions' => $professions, 'locations' => $locations];
-    }
 }

@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //
     }
 
     /**
@@ -33,11 +33,14 @@ class HomeController extends Controller
 
     public function getInitialData(Request $request)
     {
+        $professions = Profession::get();
+        $locations = Location::get();
+
         $best_offers = Category::with('coupons.store')->where('parent_id', 0)->get();
         $top_brands = Store::where('top_brand', true)->get();
         $banners = Banner::get();
 
-        return ['best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
+        return ['professions' => $professions, 'locations' => $locations, 'best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
     }
 
     public function terms(Request $request)

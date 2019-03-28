@@ -8,10 +8,9 @@ Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
 Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/me', 'UserController@me');
     Route::post('/update', 'UserController@update');
-    Route::post('/init', 'UserController@getInitialData');
 });
 
-Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'home'], function () {
     Route::post('/init', 'HomeController@getInitialData');
 });
 
