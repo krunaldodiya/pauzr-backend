@@ -19,6 +19,7 @@ class UpdateUser extends FormRequest
             'gender' => 'required',
             'email' => 'required|email',
             'location' => 'required',
+            'profession_id' => 'required',
             'dob' => 'required|min:3',
         ];
     }
