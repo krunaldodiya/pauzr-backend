@@ -7,6 +7,7 @@ use App\Location;
 use App\Category;
 use App\Store;
 use App\Banner;
+use App\Profession;
 
 class HomeController extends Controller
 {
@@ -28,13 +29,6 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
-    }
-
-    public function getLocations(Request $request)
-    {
-        $locations = Location::get();
-
-        return ['locations' => $locations];
     }
 
     public function getInitialData(Request $request)
