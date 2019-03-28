@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Repositories\UserRepository;
 use App\Http\Requests\UpdateUser;
 use App\User;
+use App\Profession;
+
 use Carbon\Carbon;
 
 class UserController extends Controller
