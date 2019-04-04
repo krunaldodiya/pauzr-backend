@@ -53,7 +53,7 @@ window.Echo = new Echo({
     broadcaster: "pusher",
     wsHost: window.location.hostname,
     wsPort: 6001,
-    key: "myKey",
-    cluster: 'mt1',
+    key: "myAppKey",
+    cluster: "mt1",
     encrypted: true
 });
