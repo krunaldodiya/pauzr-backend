@@ -13,7 +13,7 @@ class TestController extends Controller
             [
                 "key" => "color",
                 "type" => "MaterialColor",
-                "value" => 0xff000000,
+                "value" => "0xff000000",
                 "description" => null
             ]
         ];
