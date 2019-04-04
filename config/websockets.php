@@ -98,23 +98,21 @@ return [
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => "~/.config/valet/Certificates/pauzr-backend.test.crt",
-        // 'local_cert' => null,
-
+        'local_cert' => '/Users/krunaldodiya/.config/valet/Certificates/pauzr-backend.test.crt',
+    
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => "~/.config/valet/Certificates/pauzr-backend.test.key",
-        // 'local_pk' => null,
-
+        'local_pk' => '/Users/krunaldodiya/.config/valet/Certificates/pauzr-backend.test.key',
+    
         /*
-         * Passphrase for your local_cert file.
+         * Passphrase with which your local_cert file was encoded.
          */
         'passphrase' => null,
-
-        "verify_peer" => false
-    ],
+    
+        'verify_peer' => false,
+    ],    
 
     /*
      * Channel Manager
