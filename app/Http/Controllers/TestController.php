@@ -9,8 +9,13 @@ class TestController extends Controller
 {
     public function test(Request $request)
     {
-        $categories = Category::with('stores')->get();
-
-        return compact('categories');
+        return [
+            [
+                "key" => "color",
+                "type" => "MaterialColor",
+                "value" => 0xff000000,
+                "description" => null
+            ]
+        ];
     }
 }
