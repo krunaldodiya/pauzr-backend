@@ -98,13 +98,13 @@ return [
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => '/Users/krunaldodiya/.config/valet/Certificates/pauzr-backend.test.crt',
+        'local_cert' => env('SSL_LOCAL_CERT', '/Users/krunaldodiya/.config/valet/Certificates/pauzr-backend.test.crt'),
     
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => '/Users/krunaldodiya/.config/valet/Certificates/pauzr-backend.test.key',
+        'local_pk' => env('SSL_LOCAL_PK', '/Users/krunaldodiya/.config/valet/Certificates/pauzr-backend.test.key'),
     
         /*
          * Passphrase with which your local_cert file was encoded.
