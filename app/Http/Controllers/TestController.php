@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Events\NewMessage;
 
 class TestController extends Controller
 {
-    public function test(Request $request)
+    public function check(Request $request)
     {
         return [
             [
@@ -17,5 +17,10 @@ class TestController extends Controller
                 "description" => null
             ]
         ];
+    }
+
+    public function sendMessage(Request $request)
+    {
+        event(new NewMessage("hello"));
     }
 }
