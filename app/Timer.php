@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Timer extends Model
 {
     protected $fillable = [
-        'user_id', 'duration', 'completed', 'created_at', 'updated_at'
+        'user_id', 'duration', 'completed'
     ];
 
     protected $dates = ['created_at', 'updated_at'];
