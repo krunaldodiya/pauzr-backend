@@ -49,7 +49,7 @@ class HomeController extends Controller
 
     public function getLocations(Request $request)
     {
-        $locations = Location::get();
+        $locations = Location::all();
         
         return ['locations' => $locations];
     }
