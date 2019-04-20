@@ -10,7 +10,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/update', 'UserController@update');
 });
 
-Route::group(['prefix' => 'home'], function () {
+Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
     Route::post('/init', 'HomeController@getInitialData');
     Route::post('/professions', 'HomeController@getProfessions');
     Route::post('/locations', 'HomeController@getLocations');
