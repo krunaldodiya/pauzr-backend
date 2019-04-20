@@ -12,6 +12,8 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'home'], function () {
     Route::post('/init', 'HomeController@getInitialData');
+    Route::post('/professions', 'HomeController@getProfessions');
+    Route::post('/locations', 'HomeController@getLocations');
 });
 
 Route::post('testing', function () {

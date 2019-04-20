@@ -33,14 +33,25 @@ class HomeController extends Controller
 
     public function getInitialData(Request $request)
     {
-        $professions = Profession::get();
-        $locations = Location::get();
-
         $best_offers = Category::with('coupons.store')->where('parent_id', 0)->get();
         $top_brands = Store::where('top_brand', true)->get();
         $banners = Banner::get();
 
-        return ['professions' => $professions, 'locations' => $locations, 'best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
+        return ['best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
+    }
+
+    public function getProfessions(Request $request)
+    {
+        $professions = Profession::get();
+        
+        return ['professions' => $professions];
+    }
+
+    public function getLocations(Request $request)
+    {
+        $locations = Location::get();
+        
+        return ['locations' => $locations];
     }
 
     public function terms(Request $request)
