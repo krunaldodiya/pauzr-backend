@@ -15,12 +15,13 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
+            'id'=>'required',
             'name' => 'required|min:3',
-            'gender' => 'required',
             'email' => 'required|email',
-            'location' => 'required',
-            'profession_id' => 'required',
             'dob' => 'required|min:3',
+            'gender' => 'required',
+            'location_id' => 'required',
+            'profession_id' => 'required',
         ];
     }
 
