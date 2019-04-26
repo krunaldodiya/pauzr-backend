@@ -32,7 +32,7 @@ class UserController extends Controller
         User::where('id', $user_id)->update([
             'name' => $request->name,
             'email' => $request->email,
-            'dob' => Carbon::create($request->dob),
+            'dob' => $request->dob,
             'gender' => $request->gender,
             'location_id' => $request->location_id,
             'profession_id' => $request->profession_id,
