@@ -9,7 +9,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::with('location','profession')->where(['id' => $user_id])->first();
+        return User::with('location', 'profession')->where(['id' => $user_id])->first();
     }
 
     protected function register($mobile)
@@ -26,9 +26,7 @@ class UserRepository implements UserRepositoryInterface
 
     protected function login($user)
     {
-        if (!$token = auth('api')->login($user)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        $token = auth('api')->tokenById($user->id);
 
         return $this->generateToken($token, $user);
     }
@@ -66,11 +64,9 @@ class UserRepository implements UserRepositoryInterface
 
     public function generateToken($token, $user)
     {
-        return response()->json([
+        return [
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60,
             'user' => $user
-        ]);
+        ];
     }
 }

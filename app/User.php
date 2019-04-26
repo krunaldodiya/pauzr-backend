@@ -48,7 +48,6 @@ class User extends Authenticatable implements JWTSubject, Wallet
      * @var array
      */
     protected $casts = [
-        'dob' => 'date:d-m-Y',
         'email_verified_at' => 'datetime',
     ];
 
