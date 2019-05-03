@@ -62,6 +62,11 @@ class User extends Authenticatable implements JWTSubject, Wallet
         return $this->dob ? Carbon::parse($this->dob)->age : 0;
     }
 
+    public function getAvatarAttribute($avatar)
+    {
+        return $avatar == null ? "default.jpeg" : $avatar;
+    }
+
     public function stores()
     {
         return $this->hasMany(Store::class);
