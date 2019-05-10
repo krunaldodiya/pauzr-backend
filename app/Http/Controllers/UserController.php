@@ -43,7 +43,7 @@ class UserController extends Controller
         $user_id = auth('api')->user()->id;
 
         User::where('id', $user_id)->update([
-            'user' => $request->name,
+            'name' => $request->name,
             'email' => $request->email,
             'dob' => $request->dob,
             'gender' => $request->gender,
