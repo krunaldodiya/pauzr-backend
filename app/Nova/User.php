@@ -89,12 +89,12 @@ class User extends Resource
                 ->rules('required', 'size:10')
                 ->creationRules('unique:users'),
 
-            Date::make('Dob')
+            Text::make('Dob')
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
             BelongsTo::make('Location')->searchable(),
-            
+
             BelongsTo::make('Profession')->searchable(),
 
             Avatar::make('Avatar'),

@@ -15,12 +15,11 @@ class CreateTimersTable extends Migration
     {
         Schema::create('timers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            
-            $table->string("duration");
-            $table->boolean("completed")->default(false);
+
+            $table->enum("duration", [20, 40, 60]);
 
             $table->timestamps();
         });

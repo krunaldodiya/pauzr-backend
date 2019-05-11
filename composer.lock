@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef29f9c9ac93980f78f77514df748ecc",
+    "content-hash": "3193ba5ea3c49252ff4bb80a3c32aedd",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1147,6 +1147,49 @@
                 "laravel",
                 "nova"
             ]
+        },
+        {
+            "name": "krunaldodiya/wallet",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kunaldodiya/wallet.git",
+                "reference": "82eca5cbfe04efce884c5486b10d12f7347b098c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kunaldodiya/wallet/zipball/82eca5cbfe04efce884c5486b10d12f7347b098c",
+                "reference": "82eca5cbfe04efce884c5486b10d12f7347b098c",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KD\\Wallet\\WalletServiceProvider"
+                    ],
+                    "aliases": {
+                        "Wallet": "KD\\Wallet\\WalletFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KD\\Wallet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "krunaldodiya",
+                    "email": "kunal.dodiya1@gmail.com"
+                }
+            ],
+            "description": "Laravel Wallet",
+            "time": "2019-03-04T13:51:49+00:00"
         },
         {
             "name": "laravel/framework",
@@ -4508,16 +4551,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.10.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19"
+                "reference": "82ebae02209c21113908c229e9883c419720738a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e3d826245268269cd66f8326bd8bc066687b4a19",
-                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/82ebae02209c21113908c229e9883c419720738a",
+                "reference": "82ebae02209c21113908c229e9883c419720738a",
                 "shasum": ""
             },
             "require": {
@@ -4529,7 +4572,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
@@ -4562,7 +4605,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-08-06T14:22:27+00:00"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -5302,70 +5345,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "bavix/laravel-wallet",
-            "version": "2.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bavix/laravel-wallet.git",
-                "reference": "471a7424d8a6afc9bf373fc960d54f617ea92f7f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bavix/laravel-wallet/zipball/471a7424d8a6afc9bf373fc960d54f617ea92f7f",
-                "reference": "471a7424d8a6afc9bf373fc960d54f617ea92f7f",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": "^7.1",
-                "ramsey/uuid": "^3.0"
-            },
-            "require-dev": {
-                "doctrine/dbal": "^2.8",
-                "mockery/mockery": "^1.2",
-                "orchestra/testbench": "^3.7",
-                "phpunit/phpunit": "^7.4"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Bavix\\Wallet\\WalletServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Bavix\\Wallet\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Babichev Maxim",
-                    "email": "info@babichev.net"
-                }
-            ],
-            "description": "Easy work with virtual wallet.",
-            "homepage": "https://github.com/bavix/laravel-wallet",
-            "keywords": [
-                "bavix",
-                "credits",
-                "currency",
-                "laravel",
-                "laravel-wallet",
-                "laravel5",
-                "laravel5-package",
-                "payments",
-                "virtual",
-                "wallet"
-            ],
-            "time": "2019-02-17T10:20:36+00:00"
-        },
         {
             "name": "beyondcode/laravel-dump-server",
             "version": "1.2.2",

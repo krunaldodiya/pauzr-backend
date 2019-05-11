@@ -12,15 +12,12 @@ use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Scout\Searchable;
 
-use Bavix\Wallet\Interfaces\Wallet;
-use Bavix\Wallet\Traits\HasWallet;
-use Bavix\Wallet\Traits\HasWallets;
-
 use Laravel\Nova\Actions\Actionable;
+use KD\Wallet\Traits\HasWallet;
 
-class User extends Authenticatable implements JWTSubject, Wallet
+class User extends Authenticatable implements JWTSubject
 {
-    use Actionable, HasWallet, HasWallets, Notifiable, Searchable;
+    use Actionable, HasWallet, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
