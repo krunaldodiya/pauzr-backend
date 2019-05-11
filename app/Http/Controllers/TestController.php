@@ -12,7 +12,9 @@ class TestController extends Controller
 {
     public function check(Request $request)
     {
-        return $this->test($request);
+        return 'test';
+
+        // return $this->test($request);
     }
 
     public function test($request)
