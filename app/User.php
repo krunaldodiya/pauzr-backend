@@ -14,7 +14,6 @@ use Laravel\Scout\Searchable;
 
 use Laravel\Nova\Actions\Actionable;
 use KD\Wallet\Traits\HasWallet;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -64,15 +63,15 @@ class User extends Authenticatable implements JWTSubject
 
     public function getLevelAttribute()
     {
-        $json = Storage::disk('public')->get('json/levels.json');
-        $json = json_decode($json, true);
+        $level = 0;
 
         $credits = $this->wallet->transactions()
             ->whereIn('transaction_type', ['deposit'])
             ->where('status', true)
             ->sum('amount');
 
-        $level = 0;
+        $json = json_decode(file_get_contents(public_path('json/levels.json')), true);
+
         foreach ($json as $item) {
             if ($credits >= $item['points']) {
                 $level = $item['index'];
