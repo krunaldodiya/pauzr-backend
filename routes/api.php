@@ -17,6 +17,10 @@ Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
     Route::post('/locations', 'HomeController@getLocations');
 });
 
+Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
+    Route::post('/get', 'TimerController@getTimerHistory');
+});
+
 Route::post('testing', function () {
     return ['testing' => 'testing'];
 });

@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Timer;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
     public function check(Request $request)
+    {
+        return $this->test($request);
+    }
+
+    public function test($request)
     {
         if (!$request->user_id) {
             return [

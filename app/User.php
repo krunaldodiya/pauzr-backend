@@ -14,6 +14,7 @@ use Laravel\Scout\Searchable;
 
 use Laravel\Nova\Actions\Actionable;
 use KD\Wallet\Traits\HasWallet;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -50,7 +51,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['age'];
+    protected $appends = ['age', 'level'];
 
     protected $dispatchesEvents = [
         'created' => UserWasCreated::class
@@ -59,6 +60,26 @@ class User extends Authenticatable implements JWTSubject
     public function getAgeAttribute()
     {
         return $this->dob ? Carbon::parse($this->dob)->age : 0;
+    }
+
+    public function getLevelAttribute()
+    {
+        $json = Storage::disk('public')->get('json/levels.json');
+        $json = json_decode($json, true);
+
+        $credits = $this->wallet->transactions()
+            ->whereIn('transaction_type', ['deposit'])
+            ->where('status', true)
+            ->sum('amount');
+
+        $level = 0;
+        foreach ($json as $item) {
+            if ($credits >= $item['points']) {
+                $level = $item['index'];
+            }
+        }
+
+        return $level;
     }
 
     public function getAvatarAttribute($avatar)
