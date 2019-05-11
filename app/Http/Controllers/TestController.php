@@ -3,24 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Events\NewMessage;
+use Carbon\Carbon;
+use App\Timer;
+use App\User;
 
 class TestController extends Controller
 {
     public function check(Request $request)
     {
-        return [
-            [
-                "key" => "color",
-                "type" => "MaterialColor",
-                "value" => "0xff000000",
-                "description" => null
-            ]
-        ];
-    }
+        if (!$request->user_id) {
+            return [
+                "User ID is required"
+            ];
+        }
 
-    public function sendMessage(Request $request)
-    {
-        event(new NewMessage("hello"));
+        $user = User::find($request->user_id);
+
+        $dates = [];
+
+        for ($i = 0; $i <= 30; $i++) {
+            $dates[] = Carbon::now()->subDay($i);
+        }
+
+        $items = [
+            ["time" => "20", "point" => "1"],
+            ["time" => "40", "point" => "3"],
+            ["time" => "60", "point" => "5"]
+        ];
+
+        foreach ($dates as $date) {
+            foreach ($items as $item) {
+                $timer = Timer::create([
+                    'user_id' => $user->id,
+                    'duration' => $item['time'],
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                ]);
+
+                $transaction = $user->createTransaction($item['point'], 'deposit', ['description' => "Earned points of TIMER_ID #${timer}"]);
+                $user->deposit($transaction->transaction_id);
+            }
+        }
+
+        return $timer;
     }
 }

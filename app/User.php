@@ -17,7 +17,9 @@ use KD\Wallet\Traits\HasWallet;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Actionable, HasWallet, Notifiable, Searchable;
+    use HasWallet;
+
+    use Actionable, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
