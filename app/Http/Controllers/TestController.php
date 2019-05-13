@@ -6,13 +6,46 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Timer;
 use App\User;
-use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
     public function check(Request $request)
     {
-        return 'test';
+        $user = User::find(1);
+
+        $points = $user->wallet->transactions()
+            ->whereIn('transaction_type', ['deposit'])
+            ->where('status', true)
+            ->get();
+
+        $days = $points->last()->created_at->diffInDays($points->first()->created_at) + 1;
+
+        $sum = $points->sum('amount');
+
+        $avg = $sum / $days;
+
+        $history = $points
+            ->where('created_at', '>=', Carbon::now()->startOfMonth())
+            ->map(function ($item) {
+                $period = [];
+
+                if ($item->created_at >= Carbon::now()->startOfMonth()) {
+                    $period[] = 'This Month';
+                }
+
+                if ($item->created_at >= Carbon::now()->startOfWeek()) {
+                    $period[] = 'This Week';
+                }
+
+                if ($item->created_at >= Carbon::now()->startOfDay()) {
+                    $period[] = 'Today';
+                }
+
+                return $item;
+            })
+            ->toArray();
+
+        return compact('history', 'sum', 'avg');
 
         // return $this->test($request);
     }
