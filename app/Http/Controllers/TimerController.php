@@ -38,7 +38,7 @@ class TimerController extends Controller
                     "transaction_type" => $item['transaction_type'],
                     "status" => $item['status'],
                     "meta" => $item['meta'],
-                    "created_at" => $item['created_at'],
+                    "created_at" => Carbon::parse($item['created_at'])->diffForHumans(),
                     "updated_at" => $item['updated_at'],
                 ];
             })
@@ -67,7 +67,7 @@ class TimerController extends Controller
                     "id" => $item['id'],
                     "user_id" => $item['user_id'],
                     "duration" => $item['duration'],
-                    "created_at" => $item['created_at'],
+                    "created_at" => Carbon::parse($item['created_at'])->diffForHumans(),
                     "updated_at" => $item['updated_at'],
                 ];
             })
