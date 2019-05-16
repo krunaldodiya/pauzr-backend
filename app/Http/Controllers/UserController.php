@@ -48,7 +48,6 @@ class UserController extends Controller
             'dob' => $request->dob,
             'gender' => $request->gender,
             'location_id' => $request->location_id,
-            'profession_id' => $request->profession_id,
             'status' => true
         ]);
 

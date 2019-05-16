@@ -19,6 +19,9 @@ class CreateTimersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('locations')->onUpdate('cascade')->onDelete('cascade');
+
             $table->enum("duration", [20, 40, 60]);
 
             $table->timestamps();

@@ -10,6 +10,70 @@ use Carbon\Carbon;
 
 class TimerController extends Controller
 {
+    public function getRankings(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $period = $this->filterPeriod($request->period);
+
+        $minutes = Timer::where(['user_id' => $user->id])
+            ->where('created_at', '>=', $period)
+            ->get();
+
+        $minutes_saved = $minutes->sum('duration');
+
+        $points = $user->wallet->transactions()
+            ->whereIn('transaction_type', ['deposit'])
+            ->where('status', true)
+            ->where('created_at', '>=', $period)
+            ->get();
+
+        $points_earned = $points->sum('amount');
+
+        $history = Timer::with('user')
+            ->where('created_at', '>=', $period)
+            ->where('location_id', $user->location->id)
+            ->get();
+
+        $rankings = [];
+
+        foreach ($history as $timer) {
+            $duration = isset($rankings[$timer['user_id']]) ? $rankings[$timer['user_id']]['duration'] : 0;
+
+            $rankings[$timer['user_id']] = [
+                'duration' => $duration + $timer['duration'],
+                'user' => $timer['user']
+            ];
+        }
+
+        $rankings = collect($rankings)
+            ->sortByDesc('duration')
+            ->map(function ($ranking, $index) {
+                return [
+                    'rank' => $index,
+                    'duration' => $ranking['duration'],
+                    'user' => $ranking['user']
+                ];
+            });
+
+        return compact('minutes_saved', 'points_earned', 'rankings');
+    }
+
+    public function filterPeriod($period)
+    {
+        if ($period == 'Today') {
+            return Carbon::now()->startOfDay();
+        }
+
+        if ($period == 'This Week') {
+            return Carbon::now()->startOfWeek();
+        }
+
+        if ($period == 'This Month') {
+            return Carbon::now()->startOfMonth();
+        }
+    }
+
     public function getPointsHistory(Request $request)
     {
         $user = auth('api')->user();
@@ -27,21 +91,6 @@ class TimerController extends Controller
 
         $history = $points
             ->where('created_at', '>=', Carbon::now()->startOfMonth())
-            ->map(function ($item) {
-                return [
-                    'key' => $this->getPeriod($item),
-                    "id" => $item['id'],
-                    "wallet_id" => $item['wallet_id'],
-                    "user_id" => $item['user_id'],
-                    "amount" => $item['amount'],
-                    "transaction_id" => $item['transaction_id'],
-                    "transaction_type" => $item['transaction_type'],
-                    "status" => $item['status'],
-                    "meta" => $item['meta'],
-                    "created_at" => Carbon::parse($item['created_at'])->format('d-m-Y'),
-                    "updated_at" => $item['updated_at'],
-                ];
-            })
             ->toArray();
 
         return compact('history', 'sum', 'avg');
@@ -61,37 +110,8 @@ class TimerController extends Controller
 
         $history = $minutes
             ->where('created_at', '>=', Carbon::now()->startOfMonth())
-            ->map(function ($item) {
-                return [
-                    'key' => $this->getPeriod($item),
-                    "id" => $item['id'],
-                    "user_id" => $item['user_id'],
-                    "duration" => $item['duration'],
-                    "created_at" => Carbon::parse($item['created_at'])->format('d-m-Y'),
-                    "updated_at" => $item['updated_at'],
-                ];
-            })
             ->toArray();
 
         return compact('history', 'sum', 'avg');
-    }
-
-    private function getPeriod($item)
-    {
-        $period = [];
-
-        if ($item->created_at >= Carbon::now()->startOfMonth()) {
-            $period[] = 'This Month';
-        }
-
-        if ($item->created_at >= Carbon::now()->startOfWeek()) {
-            $period[] = 'This Week';
-        }
-
-        if ($item->created_at >= Carbon::now()->startOfDay()) {
-            $period[] = 'Today';
-        }
-
-        return $period;
     }
 }
