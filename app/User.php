@@ -91,6 +91,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Store::class);
     }
 
+    public function timer_history()
+    {
+        return $this->hasMany(Timer::class);
+    }
+
     public function plan()
     {
         return $this->belongsTo(Plan::class);

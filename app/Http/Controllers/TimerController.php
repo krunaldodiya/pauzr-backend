@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Timer;
 
 use Carbon\Carbon;
+use App\User;
 
 class TimerController extends Controller
 {
@@ -30,31 +31,28 @@ class TimerController extends Controller
 
         $points_earned = $points->sum('amount');
 
-        $history = Timer::with('user')
-            ->where('created_at', '>=', $period)
+        $filters = ['timer_history' => function ($query) use ($period) {
+            return $query->where('created_at', '>=', $period);
+        }];
+
+        $rankings = User::with($filters)
             ->where('location_id', $user->location->id)
-            ->get();
-
-        $rankings = [];
-
-        foreach ($history as $timer) {
-            $duration = isset($rankings[$timer['user_id']]) ? $rankings[$timer['user_id']]['duration'] : 0;
-
-            $rankings[$timer['user_id']] = [
-                'duration' => $duration + $timer['duration'],
-                'user' => $timer['user']
-            ];
-        }
-
-        $rankings = collect($rankings)
-            ->sortByDesc('duration')
-            ->map(function ($ranking, $index) {
+            ->get()
+            ->map(function ($user) {
                 return [
-                    'rank' => $index,
-                    'duration' => $ranking['duration'],
-                    'user' => $ranking['user']
+                    'user' => $user,
+                    'duration' => $user->timer_history->sum('duration')
                 ];
-            });
+            })
+            ->sortByDesc('duration')
+            ->map(function ($data, $index) {
+                return [
+                    'user' => $data['user'],
+                    'duration' => $data['duration'],
+                    'rank' => $index + 1
+                ];
+            })
+            ->toArray();
 
         return compact('minutes_saved', 'points_earned', 'rankings');
     }
