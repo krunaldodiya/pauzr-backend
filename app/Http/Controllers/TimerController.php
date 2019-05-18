@@ -37,6 +37,7 @@ class TimerController extends Controller
 
         $rankings = User::with($filters)
             ->where('location_id', $user->location->id)
+            ->orderBy('name', 'asc')
             ->get()
             ->map(function ($user) {
                 return [
