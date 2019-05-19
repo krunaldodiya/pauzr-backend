@@ -15,7 +15,7 @@ class TimerController extends Controller
     {
         $user = auth('api')->user();
         $duration = strval($request->duration);
-        $points = ["20" => "1", "20" => "3", "60" => "5"];
+        $points = ["20" => "1", "40" => "3", "60" => "5"];
 
         $timer = Timer::create([
             'duration' => $duration,
