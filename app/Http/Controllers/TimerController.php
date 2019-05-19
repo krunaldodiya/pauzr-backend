@@ -11,6 +11,20 @@ use App\User;
 
 class TimerController extends Controller
 {
+    public function setTimer(Request $request)
+    {
+        $user = auth('api')->user();
+        $duration = strval($request->duration);
+
+        Timer::create([
+            'duration' => $duration,
+            'user_id' => $user->id,
+            'location_id' => $user->location_id
+        ]);
+
+        return ['success' => true, 'duration' => $duration];
+    }
+
     public function getRankings(Request $request)
     {
         $user = auth('api')->user();
