@@ -31,8 +31,10 @@ class TimerController extends Controller
 
         $points_earned = $points->sum('amount');
 
-        $filters = ['timer_history' => function ($query) use ($period) {
-            return $query->where('created_at', '>=', $period);
+        $filters = ['timer_history' => function ($query) use ($period, $user) {
+            return $query
+                ->where('created_at', '>=', $period)
+                ->where('location_id', $user->location->id);
         }];
 
         $rankings = User::with($filters)
