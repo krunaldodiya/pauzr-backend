@@ -16,13 +16,22 @@ class TimerController extends Controller
         $user = auth('api')->user();
         $duration = strval($request->duration);
 
-        Timer::create([
+        $timer = Timer::create([
             'duration' => $duration,
             'user_id' => $user->id,
             'location_id' => $user->location_id
         ]);
 
-        return ['success' => true, 'duration' => $duration];
+        $points = [
+            ["20" => "1"],
+            ["20" => "3"],
+            ["60" => "5"],
+        ];
+
+        $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => "Earned points of TIMER_ID #${timer}"]);
+        $user->deposit($transaction->transaction_id);
+
+        return ['success' => true];
     }
 
     public function getRankings(Request $request)
