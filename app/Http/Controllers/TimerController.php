@@ -55,10 +55,12 @@ class TimerController extends Controller
                 ->where('location_id', $user->location->id);
         }];
 
-        $rankings = User::with($filters)
+        $users = User::with($filters)
             ->where('location_id', $user->location->id)
             ->orderBy('name', 'asc')
-            ->get()
+            ->get();
+
+        $rankings = $users
             ->map(function ($user) {
                 return [
                     'user' => $user,
