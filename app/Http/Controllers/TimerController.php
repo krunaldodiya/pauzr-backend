@@ -67,14 +67,6 @@ class TimerController extends Controller
                     'duration' => $user->timer_history->sum('duration')
                 ];
             })
-            // ->sortByDesc('duration')
-            // ->map(function ($data, $index) {
-            //     return [
-            //         'user' => $data['user'],
-            //         'duration' => $data['duration'],
-            //         'rank' => $index + 1
-            //     ];
-            // })
             ->toArray();
 
         return compact('minutes_saved', 'points_earned', 'rankings');
