@@ -52,11 +52,6 @@ class UserRepository implements UserRepositoryInterface
         return $this->register($mobile);
     }
 
-    public function socialAuth($type)
-    {
-        return $type;
-    }
-
     public function refreshToken()
     {
         return $this->generateToken(auth('api')->refresh(), auth('api')->user());
@@ -64,9 +59,11 @@ class UserRepository implements UserRepositoryInterface
 
     public function generateToken($token, $user)
     {
+        $authUser = $this->getUserById($user->id);
+
         return [
             'access_token' => $token,
-            'user' => $user
+            'user' => $authUser
         ];
     }
 }
