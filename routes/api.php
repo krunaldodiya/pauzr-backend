@@ -26,6 +26,7 @@ Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/create', 'GroupController@create');
+    Route::post('/get', 'GroupController@get');
 });
 
 Route::post('testing', function () {

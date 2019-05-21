@@ -11,4 +11,14 @@ class Group extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function getPhotoAttribute($photo)
+    {
+        return $photo == null ? "default.jpeg" : $photo;
+    }
+
+    public function subscribers()
+    {
+        return $this->hasMany(GroupSubscriber::class);
+    }
 }
