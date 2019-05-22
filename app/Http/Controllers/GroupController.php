@@ -28,6 +28,27 @@ class GroupController extends Controller
         return ['group' => $group];
     }
 
+    public function syncContacts(Request $request)
+    {
+        $contacts = $request->contacts;
+
+        $contact_list = [];
+
+        foreach ($contacts as $contact) {
+            foreach ($contact['phones'] as $phone) {
+                $phone = preg_replace('/[^0-9]/', '', $phone['value']);
+
+                if (strlen($phone >= 10)) {
+                    $contact_list[] = substr($phone, -10);
+                }
+            }
+        }
+
+        $user = User::whereIn(['mobile' => $contact_list])->get();
+
+        return compact('user');
+    }
+
     public function get(Request $request)
     {
         $user = auth('api')->user();

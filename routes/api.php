@@ -29,6 +29,10 @@ Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/get', 'GroupController@get');
 });
 
+Route::group(['prefix' => 'contacts', 'middleware' => 'auth:api'], function () {
+    Route::post('/sync', 'GroupController@syncContacts');
+});
+
 Route::post('testing', function () {
     return ['testing' => 'testing'];
 });
