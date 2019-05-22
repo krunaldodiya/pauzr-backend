@@ -44,9 +44,9 @@ class GroupController extends Controller
             }
         }
 
-        $user = User::whereIn(['mobile' => $contact_list])->get();
+        $users = User::whereIn(['mobile' => $contact_list])->get();
 
-        return compact('user');
+        return compact('users');
     }
 
     public function get(Request $request)
