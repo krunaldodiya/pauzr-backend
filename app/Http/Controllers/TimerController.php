@@ -8,6 +8,7 @@ use App\Timer;
 
 use Carbon\Carbon;
 use App\User;
+use App\GroupSubscriber;
 
 class TimerController extends Controller
 {
@@ -55,10 +56,7 @@ class TimerController extends Controller
                 ->where('location_id', $user->location->id);
         }];
 
-        $users = User::with($filters)
-            ->where('location_id', $user->location->id)
-            ->orderBy('name', 'asc')
-            ->get();
+        $users = $this->getUsers($request->groupId, $filters, $user);
 
         $rankings = $users
             ->map(function ($user) {
@@ -70,6 +68,21 @@ class TimerController extends Controller
             ->toArray();
 
         return compact('minutes_saved', 'points_earned', 'rankings');
+    }
+
+    public function getUsers($groupId, $filters, $user)
+    {
+        return  User::with($filters)
+            ->where(function ($query) use ($groupId, $user) {
+                if ($groupId) {
+                    $subscribers = GroupSubscriber::where(['group_id' => $groupId])->select('id');
+                    return $query->whereIn('id', $subscribers);
+                } else {
+                    return $query->where('location_id', $user->location->id);
+                }
+            })
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
     public function filterPeriod($period)

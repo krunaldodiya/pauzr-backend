@@ -31,6 +31,7 @@ class GroupController extends Controller
 
     public function syncContacts(Request $request)
     {
+        $user = auth('api')->user();
         $contacts = $request->contacts;
 
         $contact_list = [];
@@ -40,7 +41,11 @@ class GroupController extends Controller
                 $phone = preg_replace('/[^0-9]/', '', $phone['value']);
 
                 if (strlen($phone >= 10)) {
-                    $contact_list[] = substr($phone, -10);
+                    $final = substr($phone, -10);
+
+                    if ($final != $user->mobile) {
+                        $contact_list[] = $final;
+                    }
                 }
             }
         }
