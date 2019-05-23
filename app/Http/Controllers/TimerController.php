@@ -75,7 +75,10 @@ class TimerController extends Controller
         return  User::with($filters)
             ->where(function ($query) use ($groupId, $user) {
                 if ($groupId) {
-                    $subscribers = GroupSubscriber::where(['group_id' => $groupId])->select('id');
+                    $subscribers = GroupSubscriber::where(['group_id' => $groupId])
+                        ->pluck('subscriber_id')
+                        ->toArray();
+
                     return $query->whereIn('id', $subscribers);
                 } else {
                     return $query->where('location_id', $user->location->id);
