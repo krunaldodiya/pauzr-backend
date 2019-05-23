@@ -1,5 +1,9 @@
 <?php
 
+Route::group(['prefix' => 'error'], function () {
+    Route::post('/notify', 'HomeController@notifyError');
+});
+
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
     Route::post('/request-otp', 'OtpController@requestOtp');
     Route::post('/verify-otp', 'OtpController@verifyOtp');

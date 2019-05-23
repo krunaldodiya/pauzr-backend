@@ -43,19 +43,24 @@ class HomeController extends Controller
     public function getProfessions(Request $request)
     {
         $professions = Profession::get();
-        
+
         return ['professions' => $professions];
     }
 
     public function getLocations(Request $request)
     {
         $locations = Location::get();
-        
+
         return ['locations' => $locations];
     }
 
     public function terms(Request $request)
     {
         return view('terms', ['lite' => $request->has('lite')]);
+    }
+
+    public function notifyError(Request $request)
+    {
+        return $request->all();
     }
 }
