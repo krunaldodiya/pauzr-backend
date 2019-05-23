@@ -29,6 +29,14 @@ class GroupController extends Controller
         return ['group' => $group];
     }
 
+    public function addParticipants(Request $request)
+    {
+        $group = Group::find($request->groupId);
+        $group->subscribers()->attach($request->participants);
+
+        return ['success' => true];
+    }
+
     public function syncContacts(Request $request)
     {
         $user = auth('api')->user();
