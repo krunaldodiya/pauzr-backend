@@ -6,6 +6,7 @@ use App\Http\Requests\CreateGroup;
 use App\Group;
 use App\GroupSubscriber;
 use Illuminate\Http\Request;
+use App\User;
 
 class GroupController extends Controller
 {
@@ -44,7 +45,9 @@ class GroupController extends Controller
             }
         }
 
-        $users = User::whereIn(['mobile' => $contact_list])->get();
+        $users = User::select('id', 'name', 'mobile', 'avatar')
+            ->whereIn('mobile', $contact_list)
+            ->get();
 
         return compact('users');
     }
