@@ -17,6 +17,11 @@ class Group extends Model
         return $photo == null ? "default.jpeg" : $photo;
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
     public function subscribers()
     {
         return $this->hasMany(GroupSubscriber::class);
