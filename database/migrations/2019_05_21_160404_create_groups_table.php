@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('name');
+            $table->text('description');
             $table->string('photo')->nullable();
             $table->boolean('status')->default(true);
 

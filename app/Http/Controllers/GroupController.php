@@ -11,12 +11,41 @@ use Carbon\Carbon;
 
 class GroupController extends Controller
 {
-    public function create(CreateGroup $request)
+    public function exitGroup(Request $request)
+    {
+        $user = auth('api')->user();
+        $group = Group::find($request->groupId);
+
+        if ($group->owner_id == $user->id) {
+            $group->delete();
+        }
+
+        if ($group->owner_id != $user->id) {
+            $group->subscribers->where(['subscriber_id'->$user->id])->delete();
+        }
+
+        return response(['status' => true], 200);
+    }
+
+    public function editGroup(CreateGroup $request)
+    {
+        $group = Group::where(['id' => $request->groupId])
+            ->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'photo' => $request->photo,
+            ]);
+
+        return ['group' => $group];
+    }
+
+    public function createGroup(CreateGroup $request)
     {
         $user = auth('api')->user();
 
         $group = Group::create([
             'name' => $request->name,
+            'description' => $request->description,
             'photo' => $request->photo,
             'owner_id' => $user->id,
             'anyone_can_post' => false,
