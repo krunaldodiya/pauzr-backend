@@ -92,7 +92,7 @@ class GroupController extends Controller
     {
         $user = auth('api')->user();
 
-        $groups = GroupSubscriber::with('group.subscribers')->where(['subscriber_id' => $user->id])->get();
+        $groups = GroupSubscriber::with('group.subscribers.info')->where(['subscriber_id' => $user->id])->get();
 
         return ['groups' => $groups];
     }

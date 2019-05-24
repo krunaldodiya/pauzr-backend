@@ -16,4 +16,9 @@ class GroupSubscriber extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function info()
+    {
+        return $this->belongsTo(User::class, 'subscriber_id');
+    }
 }
