@@ -30,6 +30,17 @@ class GroupController extends Controller
         return ['group' => $group];
     }
 
+    public function uploadImage(Request $request)
+    {
+        $image = $request->image;
+
+        $name = $image->getClientOriginalName();
+
+        $image->move("users", $name);
+
+        return ['name' => $name];
+    }
+
     public function addParticipants(Request $request)
     {
         $subscribers = collect($request->participants)

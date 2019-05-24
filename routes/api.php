@@ -33,6 +33,7 @@ Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/get', 'GroupController@get');
     Route::post('/add-participants', 'GroupController@addParticipants');
     Route::post('/sync-contacts', 'GroupController@syncContacts');
+    Route::post('/image/upload', 'GroupController@uploadImage');
 });
 
 Route::post('testing', function () {
