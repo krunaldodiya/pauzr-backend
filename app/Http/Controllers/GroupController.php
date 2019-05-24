@@ -17,6 +17,7 @@ class GroupController extends Controller
 
         $group = Group::create([
             'name' => $request->name,
+            'photo' => $request->photo,
             'owner_id' => $user->id,
             'anyone_can_post' => false,
             'anyone_can_join' => true,
