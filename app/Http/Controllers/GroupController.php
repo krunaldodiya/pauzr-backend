@@ -104,15 +104,26 @@ class GroupController extends Controller
                     $final = substr($phone, -10);
 
                     if ($final != $user->mobile) {
-                        $contact_list[] = $final;
+                        $contact_list[] = ["mobile" => $final, "device_name" => $contact['givenName']];
                     }
                 }
             }
         }
 
+        $contact_numbers = collect($contact_list)
+            ->map(function ($contact) {
+                return $contact['mobile'];
+            })
+            ->toArray();
+
         $users = User::select('id', 'name', 'mobile', 'avatar')
-            ->whereIn('mobile', $contact_list)
-            ->get();
+            ->whereIn('mobile', $contact_numbers)
+            ->get()
+            ->map(function ($user) use ($contact_list) {
+                $user['device_name'] = $contact_list['device_name'];
+                return $user;
+            })
+            ->toArray();
 
         return compact('users');
     }
