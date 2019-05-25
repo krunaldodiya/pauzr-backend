@@ -21,8 +21,7 @@ class GroupController extends Controller
         }
 
         if ($group->owner_id != $user->id) {
-            $subscription = GroupSubscriber::where(['group_id'->$group->id, 'subscriber_id'->$user->id])->first();
-            $subscription->delete();
+            GroupSubscriber::where(['group_id' => $group->id, 'subscriber_id' => $user->id])->delete();
         }
 
         return response(['status' => true], 200);

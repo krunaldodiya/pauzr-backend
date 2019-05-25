@@ -5,24 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GroupSubscriber;
 use Carbon\Carbon;
+use App\Group;
 
 class TestController extends Controller
 {
     public function check(Request $request)
     {
-        $subscribers = collect($request->participants)
-            ->map(function ($subscriber_id) use ($request) {
-                return [
-                    'group_id' => $request->groupId,
-                    'subscriber_id' => $subscriber_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ];
-            })
-            ->toArray();
+        $user = auth()->user();
+        $group = GroupSubscriber::where(['group_id' => $group->id, 'subscriber_id' => $user->id])->first();
 
-        $group = GroupSubscriber::insert($subscribers);
+        // if ($group->owner_id == $user->id) {
+        //     $group->delete();
+        // }
 
-        return ['group' => $group];
+        // if ($group->owner_id != $user->id) {
+        //     $subscription = GroupSubscriber::where(['group_id'->$group->id, 'subscriber_id'->$user->id])->first();
+        //     $subscription->delete();
+        // }
+
+        return response(['group' => $group], 200);
     }
 }
