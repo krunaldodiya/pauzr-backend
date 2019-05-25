@@ -32,7 +32,7 @@ class GroupController extends Controller
         $group = Group::where(['id' => $request->groupId])
             ->update([
                 'name' => $request->name,
-                'description' => $request->description,
+                'description' => $request->description ?? null,
                 'photo' => $request->photo,
             ]);
 
