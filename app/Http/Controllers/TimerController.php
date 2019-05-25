@@ -116,7 +116,7 @@ class TimerController extends Controller
 
         $sum = $points->sum('amount');
 
-        $avg = $sum / $days;
+        $avg = round($sum / $days);
 
         $history = $points
             ->where('created_at', '>=', Carbon::now()->startOfMonth())
@@ -135,7 +135,7 @@ class TimerController extends Controller
 
         $sum = $minutes->sum('duration');
 
-        $avg = $sum / $days;
+        $avg = round($sum / $days);
 
         $history = $minutes
             ->where('created_at', '>=', Carbon::now()->startOfMonth())
