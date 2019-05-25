@@ -13,7 +13,7 @@ class GroupController extends Controller
 {
     public function exitGroup(Request $request)
     {
-        $user = auth('api')->user();
+        $user = User::find($request->userId);
         $group = Group::find($request->groupId);
 
         if ($group->owner_id == $user->id) {
