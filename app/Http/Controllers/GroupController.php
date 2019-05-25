@@ -120,8 +120,6 @@ class GroupController extends Controller
             $contact_numbers[] = $contact['mobile'];
         }
 
-        dump($contact_numbers);
-
         $users = User::select('id', 'name', 'mobile', 'avatar')
             ->whereIn('mobile', $contact_numbers)
             ->get()
