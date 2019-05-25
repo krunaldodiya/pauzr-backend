@@ -43,7 +43,7 @@ class GroupController extends Controller
     {
         $user = auth('api')->user();
 
-        $group = Group::create([
+        $create_group = Group::create([
             'name' => $request->name,
             'description' => $request->description,
             'photo' => $request->photo,
@@ -52,10 +52,14 @@ class GroupController extends Controller
             'anyone_can_join' => true,
         ]);
 
-        $group->subscribers()->create([
+        $create_group->subscribers()->create([
             'subscriber_id' => $user->id,
             'is_admin' => true
         ]);
+
+        $group = Group::with("owner", "subscribers.info.location")
+            ->where('id', $create_group->id)
+            ->first();
 
         return ['group' => $group];
     }
