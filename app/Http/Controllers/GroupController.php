@@ -100,27 +100,35 @@ class GroupController extends Controller
             foreach ($contact['phones'] as $phone) {
                 $phone = preg_replace('/[^0-9]/', '', $phone['value']);
 
-                if (strlen($phone >= 10)) {
+                if (strlen($phone) >= 10) {
                     $final = substr($phone, -10);
 
                     if ($final != $user->mobile) {
-                        $contact_list[] = ["mobile" => $final, "device_name" => $contact['givenName']];
+                        $contact_list[$final] = [
+                            "mobile" => $final,
+                            "givenName" => $contact['givenName'],
+                            "displayName" => $contact['displayName'],
+                        ];
                     }
                 }
             }
         }
 
-        $contact_numbers = collect($contact_list)
-            ->map(function ($contact) {
-                return $contact['mobile'];
-            })
-            ->toArray();
+        $contact_numbers = [];
+
+        foreach ($contact_list as $contact) {
+            $contact_numbers[] = $contact['mobile'];
+        }
+
+        dump($contact_numbers);
 
         $users = User::select('id', 'name', 'mobile', 'avatar')
             ->whereIn('mobile', $contact_numbers)
             ->get()
             ->map(function ($user) use ($contact_list) {
-                $user['device_name'] = $contact_list['device_name'];
+                $user['givenName'] = $contact_list[$user['mobile']]['givenName'];
+                $user['displayName'] = $contact_list[$user['mobile']]['displayName'];
+
                 return $user;
             })
             ->toArray();
