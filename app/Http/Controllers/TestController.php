@@ -11,17 +11,7 @@ class TestController extends Controller
 {
     public function check(Request $request)
     {
-        $user = auth()->user();
-        $group = GroupSubscriber::where(['group_id' => $group->id, 'subscriber_id' => $user->id])->first();
-
-        // if ($group->owner_id == $user->id) {
-        //     $group->delete();
-        // }
-
-        // if ($group->owner_id != $user->id) {
-        //     $subscription = GroupSubscriber::where(['group_id'->$group->id, 'subscriber_id'->$user->id])->first();
-        //     $subscription->delete();
-        // }
+        $group = GroupSubscriber::where(['group_id' => 1, 'subscriber_id' => 1])->first();
 
         return response(['group' => $group], 200);
     }
