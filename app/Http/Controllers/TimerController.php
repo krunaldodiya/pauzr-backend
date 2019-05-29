@@ -112,15 +112,18 @@ class TimerController extends Controller
             ->where('status', true)
             ->get();
 
-        $days = $points->last()->created_at->diffInDays($points->first()->created_at) + 1;
+        $sum = 0;
+        $avg = 0;
+        $history = [];
 
-        $sum = $points->sum('amount');
+        if ($points->count()) {
+            $days = $points->last()->created_at->diffInDays($points->first()->created_at) + 1;
 
-        $avg = round($sum / $days);
+            $sum = $points->sum('amount');
+            $avg = round($sum / $days);
 
-        $history = $points
-            ->where('created_at', '>=', Carbon::now()->startOfMonth())
-            ->toArray();
+            $history = $points->where('created_at', '>=', Carbon::now()->startOfMonth())->toArray();
+        }
 
         return compact('history', 'sum', 'avg');
     }
@@ -131,15 +134,18 @@ class TimerController extends Controller
 
         $minutes = Timer::where(['user_id' => $user->id])->get();
 
-        $days = $minutes->last()->created_at->diffInDays($minutes->first()->created_at) + 1;
+        $sum = 0;
+        $avg = 0;
+        $history = [];
 
-        $sum = $minutes->sum('duration');
+        if ($minutes->count()) {
+            $days = $minutes->last()->created_at->diffInDays($minutes->first()->created_at) + 1;
 
-        $avg = round($sum / $days);
+            $sum = $minutes->sum('duration');
+            $avg = round($sum / $days);
 
-        $history = $minutes
-            ->where('created_at', '>=', Carbon::now()->startOfMonth())
-            ->toArray();
+            $history = $minutes->where('created_at', '>=', Carbon::now()->startOfMonth())->toArray();
+        }
 
         return compact('history', 'sum', 'avg');
     }
