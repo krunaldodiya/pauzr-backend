@@ -29,6 +29,7 @@
         "owenmelbz/nova-radio-field": "^0.0.5",
         "pusher/pusher-php-server": "~3.0",
         "robincsamuel/laravel-msg91": "dev-master",
+        "spatie/laravel-backup": "^6.2",
         "tymon/jwt-auth": "^1.0.0-rc.3"
     },
     "require-dev": {
