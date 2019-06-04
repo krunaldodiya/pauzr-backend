@@ -22,8 +22,8 @@ class Group extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function subscribers()
+    public function subscriptions()
     {
-        return $this->hasMany(GroupSubscriber::class);
+        return $this->hasMany(GroupSubscription::class);
     }
 }

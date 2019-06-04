@@ -8,7 +8,7 @@ use App\Timer;
 
 use Carbon\Carbon;
 use App\User;
-use App\GroupSubscriber;
+use App\GroupSubscription;
 
 class TimerController extends Controller
 {
@@ -75,7 +75,7 @@ class TimerController extends Controller
         return  User::with($filters)
             ->where(function ($query) use ($groupId, $user) {
                 if ($groupId) {
-                    $subscribers = GroupSubscriber::where(['group_id' => $groupId])
+                    $subscribers = GroupSubscription::where(['group_id' => $groupId])
                         ->pluck('subscriber_id')
                         ->toArray();
 

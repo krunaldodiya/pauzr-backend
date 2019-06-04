@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GroupSubscriber extends Model
+class GroupSubscription extends Model
 {
     protected $fillable = [
         'is_admin', 'group_id', 'subscriber_id'
@@ -17,7 +17,7 @@ class GroupSubscriber extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function info()
+    public function subscriber()
     {
         return $this->belongsTo(User::class, 'subscriber_id');
     }

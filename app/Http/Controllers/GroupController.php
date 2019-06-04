@@ -4,37 +4,75 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateGroup;
 use App\Group;
-use App\GroupSubscriber;
 use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
+use App\GroupSubscription;
 
 class GroupController extends Controller
 {
-    public function exitGroup(Request $request)
+    public function deleteGroup(Request $request)
     {
-        $user = User::find($request->userId);
-        $group = Group::find($request->groupId);
-
-        if ($group->owner_id == $user->id) {
-            $group->delete();
-        }
-
-        if ($group->owner_id != $user->id) {
-            GroupSubscriber::where(['group_id' => $group->id, 'subscriber_id' => $user->id])->delete();
-        }
+        $delete_group = Group::where(['id' => $request->groupId])->delete();
 
         return response(['status' => true], 200);
     }
 
+    public function exitGroup(Request $request)
+    {
+        $remove_subscription = GroupSubscription::where(['group_id' => $request->groupId, 'subscriber_id' => $request->userId])->delete();
+
+        return response(['status' => true], 200);
+    }
+
+    public function removeParticipants(Request $request)
+    {
+        $user = User::find($request->userId);
+
+        $remove_subscription = GroupSubscription::where(['group_id' => $request->groupId, 'subscriber_id' => $user->id])
+            ->delete();
+
+        $group = Group::with("owner", "subscriptions.subscriber.location")
+            ->where('id', $request->groupId)
+            ->first();
+
+        return ['group' => $group];
+    }
+
+    public function addParticipants(Request $request)
+    {
+        $subscribers = collect($request->participants)
+            ->map(function ($subscriber_id) use ($request) {
+                return [
+                    'group_id' => $request->groupId,
+                    'subscriber_id' => $subscriber_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            })
+            ->toArray();
+
+        $group_subscription = GroupSubscription::insert($subscribers);
+
+        $group = Group::with("owner", "subscriptions.subscriber.location")
+            ->where('id', $request->groupId)
+            ->first();
+
+        return ['group' => $group];
+    }
+
     public function editGroup(CreateGroup $request)
     {
-        $group = Group::where(['id' => $request->groupId])
+        $edit_group = Group::where(['id' => $request->groupId])
             ->update([
                 'name' => $request->name,
                 'description' => $request->description ?? null,
                 'photo' => $request->photo,
             ]);
+
+        $group = Group::with("owner", "subscriptions.subscriber.location")
+            ->where('id', $request->groupId)
+            ->first();
 
         return ['group' => $group];
     }
@@ -52,12 +90,12 @@ class GroupController extends Controller
             'anyone_can_join' => true,
         ]);
 
-        $create_group->subscribers()->create([
+        $create_group->subscriptions()->create([
             'subscriber_id' => $user->id,
             'is_admin' => true
         ]);
 
-        $group = Group::with("owner", "subscribers.info.location")
+        $group = Group::with("owner", "subscriptions.subscriber.location")
             ->where('id', $create_group->id)
             ->first();
 
@@ -73,24 +111,6 @@ class GroupController extends Controller
         $image->move("users", $name);
 
         return ['name' => $name];
-    }
-
-    public function addParticipants(Request $request)
-    {
-        $subscribers = collect($request->participants)
-            ->map(function ($subscriber_id) use ($request) {
-                return [
-                    'group_id' => $request->groupId,
-                    'subscriber_id' => $subscriber_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ];
-            })
-            ->toArray();
-
-        $group = GroupSubscriber::insert($subscribers);
-
-        return ['group' => $group];
     }
 
     public function syncContacts(Request $request)
@@ -142,7 +162,7 @@ class GroupController extends Controller
     {
         $user = auth('api')->user();
 
-        $groups = GroupSubscriber::with('group.owner', 'group.subscribers.info.location')
+        $groups = GroupSubscription::with('group.owner', 'group.subscriptions.subscriber.location')
             ->where(['subscriber_id' => $user->id])
             ->get();
 
