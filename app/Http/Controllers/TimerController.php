@@ -117,10 +117,10 @@ class TimerController extends Controller
         $history = [];
 
         if ($points->count()) {
-            $data = $this->calculateHistory($points);
-            $sum = $data['sum'];
-            $avg = $data['avg'];
-            $history = $data['history'];
+            $days = $points->last()->created_at->diffInDays($points->first()->created_at) + 1;
+            $sum = $points->sum('amount');
+            $avg = round($sum / $days);
+            $history = $points;
         }
 
         return compact('history', 'sum', 'avg');
@@ -138,22 +138,12 @@ class TimerController extends Controller
         $history = [];
 
         if ($minutes->count()) {
-            $data = $this->calculateHistory($minutes);
-            $sum = $data['sum'];
-            $avg = $data['avg'];
-            $history = $data['history'];
+            $days = $minutes->last()->created_at->diffInDays($minutes->first()->created_at) + 1;
+            $sum = $minutes->sum('duration');
+            $avg = round($sum / $days);
+            $history = $minutes;
         }
 
         return compact('history', 'sum', 'avg');
-    }
-
-    public function calculateHistory($history)
-    {
-        $days = $history->last()->created_at->diffInDays($history->first()->created_at) + 1;
-
-        $sum = $history->sum('amount');
-        $avg = round($sum / $days);
-
-        return compact('sum', 'avg', 'history');
     }
 }
