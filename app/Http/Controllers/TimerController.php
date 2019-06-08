@@ -109,6 +109,7 @@ class TimerController extends Controller
         $points = $user->wallet->transactions()
             ->whereIn('transaction_type', ['deposit'])
             ->where('status', true)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $sum = 0;
@@ -128,7 +129,9 @@ class TimerController extends Controller
     public function getMinutesHistory(Request $request)
     {
         $user = auth('api')->user();
-        $minutes = Timer::where(['user_id' => $user->id])->get();
+        $minutes = Timer::where(['user_id' => $user->id])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $sum = 0;
         $avg = 0;
