@@ -24,7 +24,9 @@ class TimerController extends Controller
             'location_id' => $user->location_id
         ]);
 
-        $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => "Earned points of TIMER_ID #${timer}"]);
+        $timer_id = $timer['id'];
+        $description = "Earned points of TIMER_ID #$timer_id";
+        $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => $description]);
         $user->deposit($transaction->transaction_id);
 
         return ['success' => true];
@@ -123,7 +125,7 @@ class TimerController extends Controller
             $history = $points;
         }
 
-        return compact('history', 'sum', 'avg');
+        return response(compact('history', 'sum', 'avg'), 200);
     }
 
     public function getMinutesHistory(Request $request)
@@ -144,6 +146,6 @@ class TimerController extends Controller
             $history = $minutes;
         }
 
-        return compact('history', 'sum', 'avg');
+        return response(compact('history', 'sum', 'avg'), 200);
     }
 }
