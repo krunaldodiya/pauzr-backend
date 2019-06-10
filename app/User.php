@@ -27,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'location_id', 'profession_id', 'status', 'is_merchant', 'is_admin', 'remember_token'
+        'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'location_id', 'level_id', 'profession_id', 'status', 'is_merchant', 'is_admin', 'remember_token'
     ];
 
     protected $dates = ['created_at', 'updated_at'];
@@ -50,7 +50,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['age', 'level'];
+    protected $appends = ['age'];
 
     protected $dispatchesEvents = [
         'created' => UserWasCreated::class
@@ -59,26 +59,6 @@ class User extends Authenticatable implements JWTSubject
     public function getAgeAttribute()
     {
         return $this->dob ? Carbon::parse($this->dob)->age : 0;
-    }
-
-    public function getLevelAttribute()
-    {
-        $level = 0;
-
-        $credits = $this->wallet->transactions()
-            ->whereIn('transaction_type', ['deposit'])
-            ->where('status', true)
-            ->sum('amount');
-
-        $json = json_decode(file_get_contents(public_path('json/levels.json')), true);
-
-        foreach ($json as $item) {
-            if ($credits >= $item['points']) {
-                $level = $item['index'];
-            }
-        }
-
-        return $level;
     }
 
     public function getAvatarAttribute($avatar)
@@ -104,6 +84,11 @@ class User extends Authenticatable implements JWTSubject
     public function subscription()
     {
         return $this->hasOne(PlanSubscription::class);
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
     }
 
     public function location()
@@ -134,6 +119,20 @@ class User extends Authenticatable implements JWTSubject
     public function searchableAs()
     {
         return 'name';
+    }
+
+    public function upgradeLevel()
+    {
+        $credits = $this->wallet->transactions()
+            ->whereIn('transaction_type', ['deposit'])
+            ->where('status', true)
+            ->sum('amount');
+
+        $level = Level::where('points', "<=", $credits)
+            ->get()
+            ->last();
+
+        $this->update(['level_id' => $level->id]);
     }
 
     /**

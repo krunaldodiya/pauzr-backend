@@ -9,9 +9,15 @@ use App\Timer;
 use Carbon\Carbon;
 use App\User;
 use App\GroupSubscription;
+use App\Repositories\UserRepository;
 
 class TimerController extends Controller
 {
+    public function __construct(UserRepository $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
     public function setTimer(Request $request)
     {
         $user = auth('api')->user();
@@ -26,10 +32,12 @@ class TimerController extends Controller
 
         $timer_id = $timer['id'];
         $description = "Earned points of TIMER_ID #$timer_id";
+
         $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => $description]);
         $user->deposit($transaction->transaction_id);
+        $user->upgradeLevel();
 
-        return ['success' => true];
+        return ['user' => $this->userRepo->getUserById($user->id)];
     }
 
     public function getRankings(Request $request)
@@ -52,7 +60,7 @@ class TimerController extends Controller
 
         $points_earned = $points->sum('amount');
 
-        $filters = ['timer_history' => function ($query) use ($period, $user) {
+        $filters = ['level', 'timer_history' => function ($query) use ($period, $user) {
             return $query
                 ->where('created_at', '>=', $period)
                 ->where('location_id', $user->location->id);

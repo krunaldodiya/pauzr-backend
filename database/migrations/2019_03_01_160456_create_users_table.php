@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['Male', 'Female'])->default('Male');
             $table->string('avatar')->nullable();
             $table->integer('location_id')->default(1);
-            $table->integer('profession_id')->default(1);
+            $table->integer('level_id')->default(1);
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_merchant')->default(false);
             $table->boolean('status')->default(false);
