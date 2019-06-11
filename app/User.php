@@ -96,11 +96,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Location::class);
     }
 
-    public function profession()
-    {
-        return $this->belongsTo(Profession::class);
-    }
-
     public function isAdminOrMerchant()
     {
         return $this->isAdmin() || $this->isMerchant();
