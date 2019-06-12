@@ -83,6 +83,7 @@ class TimerController extends Controller
     public function getUsers($groupId, $filters, $user)
     {
         return  User::with($filters)
+            ->where('status', true)
             ->where(function ($query) use ($groupId, $user) {
                 if ($groupId) {
                     $subscribers = GroupSubscription::where(['group_id' => $groupId])
