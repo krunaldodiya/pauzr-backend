@@ -145,6 +145,7 @@ class GroupController extends Controller
         }
 
         $users = User::select('id', 'name', 'mobile', 'avatar')
+            ->where('status', true)
             ->whereIn('mobile', $contact_numbers)
             ->get()
             ->map(function ($user) use ($contact_list) {
