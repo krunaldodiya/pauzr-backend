@@ -21,7 +21,7 @@ class OtpController extends Controller
 
     protected function otpAuth($mobile, $otp, $type, $production)
     {
-        if ($production) {
+        if ($production == true) {
             if ($type == 'request') {
                 return LaravelMsg91::sendOtp($mobile, $otp, "$otp is Your otp for phone verification.");
             }
@@ -31,7 +31,7 @@ class OtpController extends Controller
             }
         }
 
-        if ($otp != "1234") {
+        if ($otp != 1234) {
             throw new OtpVerificationFailed("Invalid OTP");
         }
 
@@ -62,13 +62,8 @@ class OtpController extends Controller
         $otp = $request->otp;
 
         try {
-            $verifyOtp = $this->otpAuth($mobile, $otp, 'verify', $production);
-
-            if ($verifyOtp->message == 'otp_verified') {
-                return $this->userRepo->otpAuth($mobile);
-            } else {
-                throw new OtpVerificationFailed($verifyOtp->message);
-            }
+            $this->otpAuth($mobile, $otp, 'verify', $production);
+            return $this->userRepo->otpAuth($mobile);
         } catch (Exception $e) {
             return response(['errors' => ['otp' => [$e->getMessage()]]], 400);
         }
