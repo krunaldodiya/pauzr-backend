@@ -70,7 +70,7 @@ class OtpController extends Controller
                 throw new OtpVerificationFailed($verifyOtp->message);
             }
         } catch (Exception $e) {
-            return response(['error' => ['otp' => $e->getMessage()]], 400);
+            return response(['errors' => ['otp' => [$e->getMessage()]]], 400);
         }
     }
 }
