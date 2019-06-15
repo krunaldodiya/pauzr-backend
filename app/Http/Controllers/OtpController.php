@@ -31,7 +31,11 @@ class OtpController extends Controller
             }
         }
 
-        return (object)['message' => 'otp_verified'];
+        if ($otp != "1234") {
+            throw new OtpVerificationFailed("Invalid OTP");
+        }
+
+        return response(['message' => 'otp_verified'], 200);
     }
 
     public function requestOtp(RequestOtp $request)
@@ -62,11 +66,11 @@ class OtpController extends Controller
 
             if ($verifyOtp->message == 'otp_verified') {
                 return $this->userRepo->otpAuth($mobile);
+            } else {
+                throw new OtpVerificationFailed($verifyOtp->message);
             }
-
-            throw new OtpVerificationFailed($verifyOtp->message);
         } catch (Exception $e) {
-            return ['error' => $e->getMessage()];
+            return response(['error' => $e->getMessage()], 400);
         }
     }
 }
