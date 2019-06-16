@@ -9,6 +9,7 @@ use App\User;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -29,12 +30,15 @@ class UserController extends Controller
     public function uploadAvatar(Request $request)
     {
         $image = $request->image;
+
         $name = $image->getClientOriginalName();
 
-        $image->move("users", $name);
-        auth('api')->user()->update(['avatar' => $name]);
+        Storage::disk('public')->put('filename', "users/$name");
+
+        auth('api')->user()->update(['avatar' => "users/$name"]);
 
         $user = $this->user->getUserById(auth('api')->user()->id);
+
         return ['user' => $user];
     }
 
