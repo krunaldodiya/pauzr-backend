@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use App\GroupSubscription;
+use Illuminate\Support\Facades\Storage;
 
 class GroupController extends Controller
 {
@@ -104,17 +105,8 @@ class GroupController extends Controller
 
     public function uploadImage(Request $request)
     {
-        // $image = $request->image;
-
-        // $name = $image->getClientOriginalName();
-
-        // $image->move("users", $name);
-
-        // return ['name' => $name];
-
         try {
             $image_path = Storage::disk('public')->put("assets", $request->image);
-
             return ['name' => $image_path];
         } catch (\Throwable $th) {
             throw $th;
