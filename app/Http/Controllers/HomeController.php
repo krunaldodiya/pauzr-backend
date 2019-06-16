@@ -63,4 +63,15 @@ class HomeController extends Controller
     {
         return $request->all();
     }
+
+    public function getAssets(Request $request)
+    {
+        $defaultAsset = $request->url ? $request->url : 'users/default.png';
+
+        $storageExists = Storage::disk('public')->exists($defaultAsset);
+
+        $assetPath = $storageExists ? Storage::disk('public')->get($defaultAsset) : Storage::disk('public')->get('users/default.png');
+
+        return Image::make($assetPath)->response();
+    }
 }
