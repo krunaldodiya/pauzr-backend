@@ -9,6 +9,7 @@ use App\Store;
 use App\Banner;
 use App\Profession;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
