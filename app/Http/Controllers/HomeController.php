@@ -71,6 +71,8 @@ class HomeController extends Controller
 
         $storageExists = Storage::disk('public')->exists($defaultAsset);
 
+        dd($storageExists);
+
         $assetPath = $storageExists ? Storage::disk('public')->get($defaultAsset) : Storage::disk('public')->get('users/default.png');
 
         return Image::make($assetPath)->response();

@@ -5,6 +5,7 @@
 /public/storage
 /public/users
 /storage/logs
+/storage/framework
 /vendor
 /.idea
 /.vscode
