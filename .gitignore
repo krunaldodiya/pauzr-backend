@@ -1,9 +1,6 @@
 /storage/*.key
 /node_modules
 /packages
-/public/hot
-/public/storage
-/public/users
 /storage/logs
 /storage/framework
 /vendor
