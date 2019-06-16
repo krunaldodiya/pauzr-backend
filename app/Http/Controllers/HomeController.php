@@ -8,6 +8,7 @@ use App\Category;
 use App\Store;
 use App\Banner;
 use App\Profession;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
