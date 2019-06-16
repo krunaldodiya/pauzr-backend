@@ -104,13 +104,21 @@ class GroupController extends Controller
 
     public function uploadImage(Request $request)
     {
-        $image = $request->image;
+        // $image = $request->image;
 
-        $name = $image->getClientOriginalName();
+        // $name = $image->getClientOriginalName();
 
-        $image->move("users", $name);
+        // $image->move("users", $name);
 
-        return ['name' => $name];
+        // return ['name' => $name];
+
+        try {
+            $image_path = Storage::disk('public')->put("assets", $request->image);
+
+            return ['name' => $image_path];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function syncContacts(Request $request)
