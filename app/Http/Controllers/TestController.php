@@ -10,6 +10,8 @@ class TestController extends Controller
 {
     public function check(Request $request)
     {
-        //
+        return [
+            'env' => env('APP_ENV')
+        ];
     }
 }
