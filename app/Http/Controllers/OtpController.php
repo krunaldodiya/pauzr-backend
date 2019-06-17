@@ -24,6 +24,8 @@ class OtpController extends Controller
         $cc = "91";
         $mobile = "${cc}${mobile}";
 
+        dump($mobile);
+
         if ($production == true) {
             if ($type == 'request') {
                 return LaravelMsg91::sendOtp($mobile, $otp, "$otp is Your otp for phone verification.");
