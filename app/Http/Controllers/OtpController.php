@@ -21,11 +21,6 @@ class OtpController extends Controller
 
     protected function otpAuth($mobile, $otp, $type, $production)
     {
-        $cc = "91";
-        $mobile = "${cc}${mobile}";
-
-        dump($mobile);
-
         if ($production == true) {
             if ($type == 'request') {
                 return LaravelMsg91::sendOtp($mobile, $otp, "$otp is Your otp for phone verification.");
