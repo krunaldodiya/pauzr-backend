@@ -165,6 +165,7 @@ class GroupController extends Controller
 
         $groups = GroupSubscription::with('group.owner', 'group.subscriptions.subscriber.location')
             ->where(['subscriber_id' => $user->id])
+            ->orderBy("created_at", "desc")
             ->get();
 
         return ['groups' => $groups];

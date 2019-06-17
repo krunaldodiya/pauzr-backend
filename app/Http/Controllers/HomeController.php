@@ -28,7 +28,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function home()
     {
         return view('home');
     }
@@ -59,6 +59,11 @@ class HomeController extends Controller
     public function terms(Request $request)
     {
         return view('terms', ['lite' => $request->has('lite')]);
+    }
+
+    public function privacy(Request $request)
+    {
+        return view('privacy');
     }
 
     public function notifyError(Request $request)
