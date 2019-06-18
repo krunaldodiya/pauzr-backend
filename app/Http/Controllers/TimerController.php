@@ -13,6 +13,8 @@ use App\Repositories\UserRepository;
 
 class TimerController extends Controller
 {
+    public $userRepo;
+
     public function __construct(UserRepository $userRepo)
     {
         $this->userRepo = $userRepo;

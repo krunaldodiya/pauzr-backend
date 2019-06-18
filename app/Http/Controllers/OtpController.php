@@ -4,38 +4,50 @@ namespace App\Http\Controllers;
 
 use Exception;
 
-use RobinCSamuel\LaravelMsg91\Facades\LaravelMsg91;
 use App\Http\Requests\RequestOtp;
 use App\Http\Requests\VerifyOtp;
-use App\Exceptions\OtpVerificationFailed;
+use App\Exceptions\OtpFailed;
 use App\Repositories\UserRepository;
+use App\Repositories\OtpRepository;
 
 class OtpController extends Controller
 {
     public $userRepo;
+    public $otpRepo;
 
-    public function __construct(UserRepository $userRepo)
+    public function __construct(UserRepository $userRepo, OtpRepository $otpRepo)
     {
         $this->userRepo = $userRepo;
+        $this->otpRepo = $otpRepo;
     }
 
     protected function otpAuth($mobile, $otp, $type, $production)
     {
-        if ($production == true) {
-            if ($type == 'request') {
-                return LaravelMsg91::sendOtp($mobile, $otp, "$otp is Your otp for phone verification.");
+        $app_name = config('app.name');
+
+        if ($type == 'request') {
+            if ($production == true) {
+                return $this->otpRepo->sendOtp($mobile, $otp, "$otp is Your otp for phone verification for $app_name.");
             }
 
-            if ($type == 'verify') {
-                return LaravelMsg91::verifyOtp($mobile, $otp, ['raw' => true]);
+            if ($production == false) {
+                return response(['otp' => $otp], 200);
             }
         }
 
-        if ($otp != 1234) {
-            throw new OtpVerificationFailed("Invalid OTP");
-        }
+        if ($type == 'verify') {
+            if ($production == true) {
+                return $this->otpRepo->verifyOtp($mobile, $otp);
+            }
 
-        return response(['message' => 'otp_verified'], 200);
+            if ($production == false) {
+                if ($otp != 1234) {
+                    throw new OtpFailed("Invalid OTP");
+                }
+
+                return response(['message' => 'otp_verified'], 200);
+            }
+        }
     }
 
     public function requestOtp(RequestOtp $request)

@@ -11,7 +11,7 @@ return array(
 	/* Default route, 1 for promotional, 4 for transactional id (required) */
 	'route' => env('MSG91_ROUTE', 4),
 
-	/* Country option, 0 for international, 91 for India, 1 for US (optional) */	
+	/* Country option, 0 for international, 91 for India, 1 for US (optional) */
 	'country' => env('MSG91_COUNTRY', 0),
 
 	/* Credit limit, if true message will be limted to 1 credit (optional) */
