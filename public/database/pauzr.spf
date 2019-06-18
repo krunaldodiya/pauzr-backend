@@ -9,7 +9,7 @@
 		<string>voyager</string>
 	</array>
 	<key>exportPath</key>
-	<string>/Volumes/Softwares/Code/milestone/public/database</string>
+	<string>/Volumes/Softwares/Code/pauzr-backend/public/database</string>
 	<key>exportSource</key>
 	<string>SPTableExport</string>
 	<key>exportType</key>
@@ -23,7 +23,11 @@
 		<key>action_events</key>
 		<array/>
 		<key>banners</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>categories</key>
 		<array>
 			<string>structure</string>
@@ -31,13 +35,39 @@
 			<string>drop</string>
 		</array>
 		<key>category_coupon</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>coupons</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>failed_jobs</key>
 		<array/>
+		<key>group_subscriptions</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
+		<key>groups</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>jobs</key>
 		<array/>
+		<key>levels</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>locations</key>
 		<array>
 			<string>structure</string>
@@ -47,7 +77,11 @@
 		<key>migrations</key>
 		<array/>
 		<key>password_resets</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>plan_features</key>
 		<array>
 			<string>structure</string>
@@ -55,7 +89,11 @@
 			<string>drop</string>
 		</array>
 		<key>plan_subscriptions</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>plans</key>
 		<array>
 			<string>structure</string>
@@ -81,15 +119,29 @@
 		<key>telescope_monitoring</key>
 		<array/>
 		<key>timers</key>
-		<array/>
-		<key>transactions</key>
-		<array/>
-		<key>transfers</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>users</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
+		<key>wallet_transactions</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>wallets</key>
-		<array/>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>websockets_statistics_entries</key>
 		<array/>
 	</dict>
