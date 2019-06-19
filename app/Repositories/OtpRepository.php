@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\OtpRepositoryInterface;
-use PhpParser\Error;
 use App\Exceptions\OtpFailed;
 
 class OtpRepository implements OtpRepositoryInterface
