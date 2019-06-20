@@ -95,8 +95,6 @@ class User extends Resource
 
             BelongsTo::make('Location')->searchable(),
 
-            BelongsTo::make('Profession')->searchable(),
-
             Avatar::make('Avatar'),
 
             RadioButton::make('Gender')

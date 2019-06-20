@@ -7,7 +7,6 @@ use App\Location;
 use App\Category;
 use App\Store;
 use App\Banner;
-use App\Profession;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -40,13 +39,6 @@ class HomeController extends Controller
         $banners = Banner::get();
 
         return ['best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
-    }
-
-    public function getProfessions(Request $request)
-    {
-        $professions = Profession::get();
-
-        return ['professions' => $professions];
     }
 
     public function getLocations(Request $request)
