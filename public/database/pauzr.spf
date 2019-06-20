@@ -101,11 +101,7 @@
 			<string>drop</string>
 		</array>
 		<key>professions</key>
-		<array>
-			<string>structure</string>
-			<string>content</string>
-			<string>drop</string>
-		</array>
+		<array/>
 		<key>stores</key>
 		<array>
 			<string>structure</string>
