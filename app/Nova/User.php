@@ -70,7 +70,8 @@ class User extends Resource
 
             Text::make('FCM Token', 'fcm_token')
                 ->sortable()
-                ->rules('required'),
+                ->hideFromIndex()
+                ->exceptOnForms(),
 
             Text::make('Name')
                 ->sortable()
