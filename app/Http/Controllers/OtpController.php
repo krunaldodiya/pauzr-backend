@@ -72,7 +72,6 @@ class OtpController extends Controller
 
         $mobile = $request->mobile;
         $otp = $request->otp;
-        $fcm_token = $request->fcm_token;
 
         try {
             $this->otpAuth($mobile, $otp, 'verify', $production);
