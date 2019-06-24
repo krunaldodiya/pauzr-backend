@@ -76,7 +76,7 @@ class OtpController extends Controller
 
         try {
             $this->otpAuth($mobile, $otp, 'verify', $production);
-            return $this->userRepo->otpAuth($mobile);
+            return $this->userRepo->otpAuth($request);
         } catch (Exception $e) {
             return response(['errors' => ['otp' => [$e->getMessage()]]], 400);
         }
