@@ -25,11 +25,9 @@ class OtpController extends Controller
     {
         $app_name = config('app.name');
 
-        $mobileWithPC = "{$country['phonecode']} $mobile";
-
         if ($type == 'request') {
             if ($production == true) {
-                return $this->otpRepo->sendOtp($mobileWithPC, $otp, "$otp is Your otp for phone verification for $app_name.");
+                return $this->otpRepo->sendOtp($country, $mobile, $otp, "$otp is Your otp for phone verification for $app_name.");
             }
 
             if ($production == false) {
@@ -39,7 +37,7 @@ class OtpController extends Controller
 
         if ($type == 'verify') {
             if ($production == true) {
-                return $this->otpRepo->verifyOtp($mobileWithPC, $otp);
+                return $this->otpRepo->verifyOtp($country, $mobile, $otp);
             }
 
             if ($production == false) {
