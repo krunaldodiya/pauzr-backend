@@ -10,12 +10,8 @@ class OtpRepository implements OtpRepositoryInterface
     private function generateUrl($type, $country, $mobile, $otp, $message)
     {
         $base_url = "https://control.msg91.com/api";
-
         $authKey = config('msg91.auth_key');
-
         $mwc = $country . $mobile;
-
-        dump($mwc);
 
         if ($type == 'request_otp') {
             return "$base_url/sendotp.php?authkey=$authKey&mobile=$mwc&otp=$otp&message=$message";
