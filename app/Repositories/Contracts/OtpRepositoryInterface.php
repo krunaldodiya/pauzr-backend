@@ -4,6 +4,6 @@ namespace App\Repositories\Contracts;
 
 interface OtpRepositoryInterface
 {
-    public function sendOtp($mobile, $otp, $message);
-    public function verifyOtp($mobile, $otp);
+    public function sendOtp($country, $mobile, $otp, $message);
+    public function verifyOtp($country, $mobile, $otp);
 }
