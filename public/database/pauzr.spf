@@ -40,6 +40,18 @@
 			<string>content</string>
 			<string>drop</string>
 		</array>
+		<key>cities</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
+		<key>countries</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>coupons</key>
 		<array>
 			<string>structure</string>
@@ -63,12 +75,6 @@
 		<key>jobs</key>
 		<array/>
 		<key>levels</key>
-		<array>
-			<string>structure</string>
-			<string>content</string>
-			<string>drop</string>
-		</array>
-		<key>locations</key>
 		<array>
 			<string>structure</string>
 			<string>content</string>
@@ -100,8 +106,12 @@
 			<string>content</string>
 			<string>drop</string>
 		</array>
-		<key>professions</key>
-		<array/>
+		<key>states</key>
+		<array>
+			<string>structure</string>
+			<string>content</string>
+			<string>drop</string>
+		</array>
 		<key>stores</key>
 		<array>
 			<string>structure</string>

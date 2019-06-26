@@ -13,8 +13,6 @@ class OtpRepository implements OtpRepositoryInterface
 
         $authKey = config('msg91.auth_key');
 
-        $mobile = "91${mobile}";
-
         if ($type == 'request_otp') {
             return "$base_url/sendotp.php?authkey=$authKey&mobile=$mobile&otp=$otp&message=$message";
         }

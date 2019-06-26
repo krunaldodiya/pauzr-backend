@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Timer extends Model
 {
-    protected $fillable = ['user_id', 'duration', 'location_id'];
+    protected $fillable = ['user_id', 'duration', 'city_id'];
 
     protected $dates = ['created_at', 'updated_at'];
 

@@ -99,7 +99,11 @@ class User extends Resource
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
-            BelongsTo::make('Location')->searchable(),
+            BelongsTo::make('Country')->searchable(),
+
+            BelongsTo::make('State')->searchable(),
+
+            BelongsTo::make('City')->searchable(),
 
             Avatar::make('Avatar'),
 

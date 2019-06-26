@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Location;
 use App\Category;
 use App\Store;
 use App\Banner;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use App\Country;
+use App\City;
 
 class HomeController extends Controller
 {
@@ -41,11 +42,22 @@ class HomeController extends Controller
         return ['best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
     }
 
-    public function getLocations(Request $request)
+    public function getCountries(Request $request)
     {
-        $locations = Location::get();
+        $countries = Country::get();
 
-        return ['locations' => $locations];
+        return ['countries' => $countries];
+    }
+
+    public function getCities(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $cities = City::with('state')
+            ->where('country_id', $user->country_id)
+            ->get();
+
+        return ['cities' => $cities];
     }
 
     public function terms(Request $request)

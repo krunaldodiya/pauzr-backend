@@ -15,9 +15,10 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/avatar/upload', 'UserController@uploadAvatar');
 });
 
-Route::group(['prefix' => 'home', 'middleware' => 'auth:api'], function () {
-    Route::post('/init', 'HomeController@getInitialData');
-    Route::post('/locations', 'HomeController@getLocations');
+Route::group(['prefix' => 'home'], function () {
+    Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
+    Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
+    Route::post('/countries', 'HomeController@getCountries');
 });
 
 Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {

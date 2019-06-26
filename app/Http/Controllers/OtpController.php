@@ -21,13 +21,15 @@ class OtpController extends Controller
         $this->otpRepo = $otpRepo;
     }
 
-    protected function otpAuth($mobile, $otp, $type, $production)
+    protected function otpAuth($country, $mobile, $otp, $type, $production)
     {
         $app_name = config('app.name');
 
+        $mobileWithPC = "{$country['phonecode']} $mobile";
+
         if ($type == 'request') {
             if ($production == true) {
-                return $this->otpRepo->sendOtp($mobile, $otp, "$otp is Your otp for phone verification for $app_name.");
+                return $this->otpRepo->sendOtp($mobileWithPC, $otp, "$otp is Your otp for phone verification for $app_name.");
             }
 
             if ($production == false) {
@@ -37,7 +39,7 @@ class OtpController extends Controller
 
         if ($type == 'verify') {
             if ($production == true) {
-                return $this->otpRepo->verifyOtp($mobile, $otp);
+                return $this->otpRepo->verifyOtp($mobileWithPC, $otp);
             }
 
             if ($production == false) {
@@ -54,11 +56,12 @@ class OtpController extends Controller
     {
         $production = env('APP_ENV') == 'production';
 
+        $country = $request->country;
         $mobile = $request->mobile;
         $otp = $production ? mt_rand(1000, 9999) : 1234;
 
         try {
-            $requestOtp = $this->otpAuth($mobile, $otp, 'request', $production);
+            $requestOtp = $this->otpAuth($country, $mobile, $otp, 'request', $production);
 
             return $requestOtp ? ['mobile' => $mobile, 'otp' => $otp] : false;
         } catch (Exception $e) {
@@ -70,11 +73,12 @@ class OtpController extends Controller
     {
         $production = env('APP_ENV') == 'production';
 
+        $country = $request->country;
         $mobile = $request->mobile;
         $otp = $request->otp;
 
         try {
-            $this->otpAuth($mobile, $otp, 'verify', $production);
+            $this->otpAuth($country, $mobile, $otp, 'verify', $production);
             return $this->userRepo->otpAuth($request);
         } catch (Exception $e) {
             return response(['errors' => ['otp' => [$e->getMessage()]]], 400);

@@ -27,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'fcm_token', 'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'location_id', 'level_id', 'status', 'is_merchant', 'is_admin', 'remember_token'
+        'fcm_token', 'name', 'email', 'email_verified_at', 'mobile', 'password', 'dob', 'gender', 'avatar', 'country_id', 'state_id', 'city_id', 'level_id', 'status', 'is_merchant', 'is_admin', 'remember_token'
     ];
 
     protected $dates = ['created_at', 'updated_at'];
@@ -91,9 +91,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Level::class);
     }
 
-    public function location()
+    public function city()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(City::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 
     public function isAdminOrMerchant()

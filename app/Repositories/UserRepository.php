@@ -9,7 +9,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::with('location', 'level')
+        return User::with('city.state.country', 'state', 'country', 'level')
             ->where(['id' => $user_id])
             ->first();
     }
@@ -32,7 +32,9 @@ class UserRepository implements UserRepositoryInterface
     {
         $fcm_token = $request->fcm_token;
 
-        $user->update(['fcm_token' => $fcm_token]);
+        $country_id = $request->country['id'];
+
+        $user->update(['fcm_token' => $fcm_token, 'country_id' => $country_id]);
 
         $token = auth('api')->tokenById($user->id);
 

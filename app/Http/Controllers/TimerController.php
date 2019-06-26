@@ -29,7 +29,7 @@ class TimerController extends Controller
         $timer = Timer::create([
             'duration' => $duration,
             'user_id' => $user->id,
-            'location_id' => $user->location_id
+            'city_id' => $user->city_id,
         ]);
 
         $timer_id = $timer['id'];
@@ -65,7 +65,7 @@ class TimerController extends Controller
         $filters = ['level', 'timer_history' => function ($query) use ($period, $user) {
             return $query
                 ->where('created_at', '>=', $period)
-                ->where('location_id', $user->location->id);
+                ->where('city_id', $user->city_id);
         }];
 
         $users = $this->getUsers($request->groupId, $filters, $user);
@@ -94,7 +94,7 @@ class TimerController extends Controller
 
                     return $query->whereIn('id', $subscribers);
                 } else {
-                    return $query->where('location_id', $user->location->id);
+                    return $query->where('city_id', $user->city_id);
                 }
             })
             ->orderBy('name', 'asc')

@@ -15,7 +15,8 @@ class RequestOtp extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'required|numeric|digits:10'
+            'mobile' => 'required|numeric|digits:10',
+            'country' => 'required',
         ];
     }
 

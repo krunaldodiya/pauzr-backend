@@ -3,30 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\OtpRepository;
+use App\Repositories\UserRepository;
 
 class TestController extends Controller
 {
-    public $otpRepo;
+    public $userRepo;
 
-    public function __construct(OtpRepository $otpRepo)
+    public function __construct(UserRepository $userRepo)
     {
-        $this->otpRepo = $otpRepo;
+        $this->userRepo = $userRepo;
     }
 
     public function check(Request $request)
     {
-        $type = $request->type ?? "request_otp";
-        $mobile = $request->mobile;
-        $otp = $request->otp;
-        $message = "your otp is $otp";
-
-        if ($type == "request_otp") {
-            $response =  $this->otpRepo->sendOtp($mobile, $otp, $message);
-        } else {
-            $response =  $this->otpRepo->verifyOtp($mobile, $otp);
-        }
-
-        return compact('response');
+        return 'test';
     }
 }

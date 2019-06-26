@@ -7,21 +7,21 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 
-class Location extends Resource
+class Country extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Location';
+    public static $model = 'App\Country';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'city';
+    public static $title = 'country';
 
     /**
      * The columns that should be searched.
@@ -29,7 +29,7 @@ class Location extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'city', 'state'
+        'id', 'name', 'shortname', 'phonecode'
     ];
 
     /**
@@ -43,11 +43,15 @@ class Location extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('City')
+            Text::make('Name')
                 ->sortable()
                 ->rules('required'),
 
-                Text::make('State')
+            Text::make('Short Name', 'shortname')
+                ->sortable()
+                ->rules('required'),
+
+            Text::make('Phonecode', 'phonecode')
                 ->sortable()
                 ->rules('required'),
         ];

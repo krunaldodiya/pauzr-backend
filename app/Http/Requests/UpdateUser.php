@@ -20,7 +20,9 @@ class UpdateUser extends FormRequest
             'email' => 'required|email',
             'dob' => 'required|min:3',
             'gender' => 'required',
-            'location_id' => 'required',
+            'city_id' => 'required',
+            'state_id' => 'required',
+            'country_id' => 'required',
         ];
     }
 
