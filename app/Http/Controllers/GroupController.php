@@ -33,7 +33,7 @@ class GroupController extends Controller
         $remove_subscription = GroupSubscription::where(['group_id' => $request->groupId, 'subscriber_id' => $user->id])
             ->delete();
 
-        $group = Group::with("owner", "subscriptions.subscriber.city")
+        $group = Group::with("owner.city", "subscriptions.subscriber.city")
             ->where('id', $request->groupId)
             ->first();
 
@@ -55,7 +55,7 @@ class GroupController extends Controller
 
         $group_subscription = GroupSubscription::insert($subscribers);
 
-        $group = Group::with("owner", "subscriptions.subscriber.city")
+        $group = Group::with("owner.city", "subscriptions.subscriber.city")
             ->where('id', $request->groupId)
             ->first();
 
@@ -71,7 +71,7 @@ class GroupController extends Controller
                 'photo' => $request->photo,
             ]);
 
-        $group = Group::with("owner", "subscriptions.subscriber.city")
+        $group = Group::with("owner.city", "subscriptions.subscriber.city")
             ->where('id', $request->groupId)
             ->first();
 
@@ -96,7 +96,7 @@ class GroupController extends Controller
             'is_admin' => true
         ]);
 
-        $group = Group::with("owner", "subscriptions.subscriber.city")
+        $group = Group::with("owner.city", "subscriptions.subscriber.city")
             ->where('id', $create_group->id)
             ->first();
 

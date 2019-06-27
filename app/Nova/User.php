@@ -69,10 +69,8 @@ class User extends Resource
             ID::make()->sortable(),
 
             Text::make('FCM Token', 'fcm_token')
-                ->sortable()
                 ->hideFromIndex()
-                ->onlyOnDetail()
-                ->exceptOnForms(),
+                ->sortable(),
 
             Text::make('Name')
                 ->sortable()

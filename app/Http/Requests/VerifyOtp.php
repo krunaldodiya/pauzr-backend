@@ -15,7 +15,7 @@ class VerifyOtp extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'required|numeric|digits:10',
+            'mobile' => 'required|numeric|min:5|max:15',
             'otp' => 'required|numeric|digits:4'
         ];
     }

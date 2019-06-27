@@ -29,7 +29,7 @@ class City extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'shortname', 'phonecode'
+        'id', 'name'
     ];
 
     /**
@@ -44,14 +44,6 @@ class City extends Resource
             ID::make()->sortable(),
 
             Text::make('Name')
-                ->sortable()
-                ->rules('required'),
-
-            Text::make('Short Name', 'shortname')
-                ->sortable()
-                ->rules('required'),
-
-            Text::make('Phonecode', 'phonecode')
                 ->sortable()
                 ->rules('required'),
         ];
