@@ -17,7 +17,7 @@ class UpdateUser extends FormRequest
         return [
             'id' => 'required',
             'name' => 'required|min:3',
-            'email' => 'required|email|unique:users,email_address' . $this->id,
+            'email' => 'required|email|unique:users',
             'dob' => 'required|min:3',
             'gender' => 'required',
             'city_id' => 'required',
