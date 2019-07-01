@@ -91,9 +91,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Level::class);
     }
 
-    public function city()
+    public function country()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(Country::class);
     }
 
     public function state()
@@ -101,9 +101,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(State::class);
     }
 
-    public function country()
+    public function city()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(City::class);
     }
 
     public function isAdminOrMerchant()

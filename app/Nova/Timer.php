@@ -6,15 +6,16 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
 
-class State extends Resource
+class Timer extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\State';
+    public static $model = 'App\Timer';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -48,7 +49,9 @@ class State extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
+            BelongsTo::make('City')->searchable(),
+
+            Text::make('Duration')
                 ->sortable()
                 ->rules('required'),
         ];

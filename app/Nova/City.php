@@ -21,7 +21,12 @@ class City extends Resource
      *
      * @var string
      */
-    public static $title = 'city';
+    public static $title = 'name';
+
+    public function title()
+    {
+        return $this->name;
+    }
 
     /**
      * The columns that should be searched.
@@ -29,7 +34,7 @@ class City extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id',
     ];
 
     /**

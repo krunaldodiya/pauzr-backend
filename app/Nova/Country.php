@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
 
 class Country extends Resource
@@ -21,7 +22,12 @@ class Country extends Resource
      *
      * @var string
      */
-    public static $title = 'country';
+    public static $title = 'name';
+
+    public function title()
+    {
+        return $this->name;
+    }
 
     /**
      * The columns that should be searched.
@@ -29,7 +35,7 @@ class Country extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'shortname', 'phonecode'
+        'id',
     ];
 
     /**
