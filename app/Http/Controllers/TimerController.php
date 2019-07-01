@@ -62,13 +62,21 @@ class TimerController extends Controller
 
         $points_earned = $points->sum('amount');
 
-        $filters = ['level', 'timer_history' => function ($query) use ($period, $user) {
+        $groupId = $request->groupId;
+
+        $filters = ['level', 'timer_history' => function ($query) use ($period, $user, $groupId) {
             return $query
                 ->where('created_at', '>=', $period)
-                ->where('city_id', $user->city_id);
+                ->where(function ($query) use ($groupId, $user) {
+                    if ($groupId) {
+                        return $query;
+                    } else {
+                        return $query->where('city_id', $user->city_id);
+                    }
+                });
         }];
 
-        $users = $this->getUsers($request->groupId, $filters, $user);
+        $users = $this->getUsers($groupId, $filters, $user);
 
         $rankings = $users
             ->map(function ($user) {
