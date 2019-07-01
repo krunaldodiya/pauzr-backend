@@ -5,18 +5,21 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\HasMany;
 
-class City extends Resource
+class Group extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\City';
+    public static $model = 'App\Group';
 
-    public static $group = 'Location';
+    public static $group = 'Group';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -36,7 +39,7 @@ class City extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id',
     ];
 
     /**
@@ -50,7 +53,15 @@ class City extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make('User', 'owner')->searchable(),
+
+            HasMany::make('GroupSubscription', 'subscriptions'),
+
             Text::make('Name')
+                ->sortable()
+                ->rules('required'),
+
+            Trix::make('Description')
                 ->sortable()
                 ->rules('required'),
         ];

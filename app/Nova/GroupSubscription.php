@@ -6,17 +6,18 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
 
-class City extends Resource
+class GroupSubscription extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\City';
+    public static $model = 'App\GroupSubscription';
 
-    public static $group = 'Location';
+    public static $group = 'Group';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -36,7 +37,7 @@ class City extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id',
     ];
 
     /**
@@ -50,9 +51,9 @@ class City extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Name')
-                ->sortable()
-                ->rules('required'),
+            BelongsTo::make('User', 'subscriber')->searchable(),
+
+            BelongsTo::make('Group', 'group')->searchable(),
         ];
     }
 

@@ -16,6 +16,8 @@ class State extends Resource
      */
     public static $model = 'App\State';
 
+    public static $group = 'Location';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

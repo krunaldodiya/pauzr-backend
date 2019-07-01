@@ -20,7 +20,7 @@ class PlanSubscription extends Resource
      */
     public static $model = 'App\PlanSubscription';
 
-    public static $group = 'Subscription';
+    public static $group = 'Plan';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

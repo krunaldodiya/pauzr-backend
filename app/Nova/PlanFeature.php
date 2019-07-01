@@ -17,7 +17,7 @@ class PlanFeature extends Resource
      */
     public static $model = 'App\PlanFeature';
 
-    public static $group = 'Subscription';
+    public static $group = 'Plan';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
