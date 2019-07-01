@@ -54,7 +54,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'name', 'email', 'country', 'state', 'city'
     ];
 
     /**
@@ -97,11 +97,17 @@ class User extends Resource
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
-            BelongsTo::make('Country')->searchable(),
+            BelongsTo::make('Country')
+                ->sortable()
+                ->searchable(),
 
-            BelongsTo::make('State')->searchable(),
+            BelongsTo::make('State')
+                ->sortable()
+                ->searchable(),
 
-            BelongsTo::make('City')->searchable(),
+            BelongsTo::make('City')
+                ->sortable()
+                ->searchable(),
 
             Avatar::make('Avatar'),
 
