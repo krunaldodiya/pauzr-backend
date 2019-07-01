@@ -2,6 +2,8 @@
 
 Route::get('/test/check', 'TestController@check');
 
+Route::get('/users/list', 'HomeController@exportUsers');
+
 Route::group(['namespace' => 'Api\V1'], function ($router) {
     Route::get('login/{driver}', 'SocialController@redirectToProvider');
     Route::get('callback/{driver}', 'SocialController@handleProviderCallback');

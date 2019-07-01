@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Country;
 use App\City;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,11 @@ class HomeController extends Controller
     public function home()
     {
         return view('home');
+    }
+
+    public function exportUsers()
+    {
+        return User::pluck('fcm_token');
     }
 
     public function getInitialData(Request $request)
