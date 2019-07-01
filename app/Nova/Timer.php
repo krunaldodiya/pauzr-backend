@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
 
 class Timer extends Resource
 {
@@ -49,11 +50,15 @@ class Timer extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make('User')->searchable(),
+
             BelongsTo::make('City')->searchable(),
 
             Text::make('Duration')
                 ->sortable()
                 ->rules('required'),
+
+            DateTime::make('Created At'),
         ];
     }
 
