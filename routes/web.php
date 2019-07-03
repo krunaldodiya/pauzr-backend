@@ -9,8 +9,6 @@ Route::group(['namespace' => 'Api\V1'], function ($router) {
     Route::get('callback/{driver}', 'SocialController@handleProviderCallback');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacy', 'HomeController@privacy')->name('privacy');
@@ -20,3 +18,5 @@ Route::get("/storage/{url}", "HomeController@getAssets")->name("get-assets-from-
 Route::get('/{any}', function () {
     return view('welcome');
 })->where('any', '^(?!nova|admin).*$');
+
+Auth::routes();

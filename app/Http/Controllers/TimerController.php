@@ -64,7 +64,7 @@ class TimerController extends Controller
 
         $groupId = $request->groupId;
 
-        $filters = ['level', 'timer_history' => function ($query) use ($period, $user, $groupId) {
+        $filters = ['city.state.country', 'state', 'country', 'level', 'timer_history' => function ($query) use ($period, $user, $groupId) {
             return $query
                 ->where('created_at', '>=', $period)
                 ->where(function ($query) use ($groupId, $user) {
