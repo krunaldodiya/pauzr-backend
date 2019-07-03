@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use App\User;
 
 class TestController extends Controller
 {
@@ -16,6 +17,12 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        return 'test';
+        $users = User::with('country')->get();
+
+        foreach ($users as $user) {
+            $user->update(['mobile_cc' => $user['country']['phone_code'] . $user['mobile']]);
+        }
+
+        return 'done';
     }
 }
