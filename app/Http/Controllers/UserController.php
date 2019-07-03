@@ -57,4 +57,9 @@ class UserController extends Controller
 
         return ['user' => $user];
     }
+
+    public function invite(Request $request)
+    {
+        return "invitation";
+    }
 }
