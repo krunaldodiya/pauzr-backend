@@ -14,21 +14,11 @@ use App\User;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function home()
     {
         return view('home');
@@ -37,6 +27,11 @@ class HomeController extends Controller
     public function exportUsers()
     {
         return User::pluck('fcm_token');
+    }
+
+    public function invite(Request $request)
+    {
+        return "invitation";
     }
 
     public function getInitialData(Request $request)
