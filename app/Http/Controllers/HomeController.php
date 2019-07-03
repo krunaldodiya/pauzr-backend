@@ -31,7 +31,7 @@ class HomeController extends Controller
 
     public function invite(Request $request)
     {
-        return "invitation";
+        return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }
 
     public function getInitialData(Request $request)
