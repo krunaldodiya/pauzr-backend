@@ -115,21 +115,19 @@ class GroupController extends Controller
 
     public function syncContacts(Request $request)
     {
-        $user = auth('api')->user();
+        $auth_user = auth('api')->user();
         $contacts = $request->contacts;
-
-        $contact_list = [];
+        $contacts_data = [];
 
         foreach ($contacts as $contact) {
             foreach ($contact['phones'] as $phone) {
-                $phone = preg_replace('/[^0-9]/', '', $phone['value']);
+                if ($phone["value"][0] == '+') {
+                    $mobile = preg_replace('/[^0-9]/', '', $phone["value"]);
 
-                if (strlen($phone) >= 10) {
-                    $final = substr($phone, -10);
-
-                    if ($final != $user->mobile) {
-                        $contact_list[$final] = [
-                            "mobile" => $final,
+                    if ($auth_user['mobile_cc'] != $mobile) {
+                        $contacts_data[$mobile] = [
+                            "mobile" => $mobile,
+                            "mobileWithCountryCode" => $mobile,
                             "givenName" => $contact['givenName'],
                             "displayName" => $contact['displayName'],
                         ];
@@ -140,21 +138,43 @@ class GroupController extends Controller
 
         $contact_numbers = [];
 
-        foreach ($contact_list as $contact) {
+        foreach ($contacts_data as $contact) {
             $contact_numbers[] = $contact['mobile'];
         }
 
-        $users = User::select('id', 'name', 'mobile', 'avatar')
+        $users_data = User::with('country')
+            ->select('id', 'name', 'mobile_cc', 'mobile', 'avatar')
             ->where('status', true)
-            ->whereIn('mobile', $contact_numbers)
-            ->get()
-            ->map(function ($user) use ($contact_list) {
-                $user['givenName'] = $contact_list[$user['mobile']]['givenName'];
-                $user['displayName'] = $contact_list[$user['mobile']]['displayName'];
+            ->whereIn('mobile_cc', $contact_numbers)
+            ->get();
 
-                return $user;
-            })
-            ->toArray();
+        $users = [];
+
+        foreach ($contacts_data as $contact) {
+            foreach ($users_data as $user) {
+                if ($user['mobile_cc'] == $contact['mobile']) {
+                    $users[] = [
+                        'id' => $user['id'],
+                        'name' => $user['name'],
+                        'avatar' => $user['avatar'],
+                        'mobile' => $user['mobile'],
+                        'mobileWithCountryCode' => $user['country']['phonecode'] . $contact['mobile'],
+                        'givenName' => $contact['givenName'],
+                        'displayName' => $contact['displayName'],
+                    ];
+                } else {
+                    $users[] = [
+                        'id' => null,
+                        'name' => $contact['givenName'] ?? $contact['displayName'],
+                        'avatar' => null,
+                        'mobile' => $contact['mobile'],
+                        'mobileWithCountryCode' => $contact['mobileWithCountryCode'],
+                        'givenName' => $contact['givenName'],
+                        'displayName' => $contact['displayName'],
+                    ];
+                }
+            }
+        }
 
         return compact('users');
     }

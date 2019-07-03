@@ -1,5 +1,7 @@
 <?php
 
+Auth::routes();
+
 Route::get('/test/check', 'TestController@check');
 
 Route::get('/users/list', 'HomeController@exportUsers');
@@ -18,5 +20,3 @@ Route::get("/storage/{url}", "HomeController@getAssets")->name("get-assets-from-
 Route::get('/{any}', function () {
     return view('welcome');
 })->where('any', '^(?!nova|admin).*$');
-
-Auth::routes();
