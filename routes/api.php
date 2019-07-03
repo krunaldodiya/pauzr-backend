@@ -16,7 +16,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'invite'], function () {
-    Route::post('/', 'HomeController@invite');
+    Route::get('/', 'HomeController@invite');
 });
 
 Route::group(['prefix' => 'home'], function () {
