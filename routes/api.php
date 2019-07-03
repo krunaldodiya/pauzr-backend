@@ -13,6 +13,9 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/me', 'UserController@me');
     Route::post('/update', 'UserController@update');
     Route::post('/avatar/upload', 'UserController@uploadAvatar');
+});
+
+Route::group(['prefix' => 'users'], function () {
     Route::post('/invite', 'UserController@invite');
 });
 
