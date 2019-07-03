@@ -151,29 +151,31 @@ class GroupController extends Controller
         $users = [];
 
         foreach ($contacts_data as $contact) {
+            $existing_user = null;
+
             foreach ($users_data as $user) {
-                if ($user['mobile_cc'] == $contact['mobile']) {
-                    $users[] = [
+                if ($user['mobile_cc'] == $contact['mobileWithCountryCode']) {
+                    $existing_user = [
                         'id' => $user['id'],
                         'name' => $user['name'],
                         'avatar' => $user['avatar'],
                         'mobile' => $user['mobile'],
-                        'mobileWithCountryCode' => $user['country']['phonecode'] . $contact['mobile'],
-                        'givenName' => $contact['givenName'],
-                        'displayName' => $contact['displayName'],
-                    ];
-                } else {
-                    $users[] = [
-                        'id' => null,
-                        'name' => $contact['givenName'] ?? $contact['displayName'],
-                        'avatar' => null,
-                        'mobile' => $contact['mobile'],
-                        'mobileWithCountryCode' => $contact['mobileWithCountryCode'],
+                        'mobileWithCountryCode' => $user['mobile_cc'],
                         'givenName' => $contact['givenName'],
                         'displayName' => $contact['displayName'],
                     ];
                 }
             }
+
+            $users[] = $existing_user ?? [
+                'id' => null,
+                'name' => $contact['givenName'] ?? $contact['displayName'],
+                'avatar' => null,
+                'mobile' => $contact['mobile'],
+                'mobileWithCountryCode' => $contact['mobileWithCountryCode'],
+                'givenName' => $contact['givenName'],
+                'displayName' => $contact['displayName'],
+            ];
         }
 
         return compact('users');
