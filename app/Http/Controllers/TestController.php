@@ -20,7 +20,8 @@ class TestController extends Controller
         $users = User::with('country')->get();
 
         foreach ($users as $user) {
-            $user->update(['mobile_cc' => $user['country']['phone_code'] . $user['mobile']]);
+            $cc = $user['country']['phonecode'] . $user['mobile'];
+            $user->update(['mobile_cc' => $cc]);
         }
 
         return 'done';
