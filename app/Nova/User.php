@@ -88,6 +88,11 @@ class User extends Resource
                 ->updateRules('nullable', 'string', 'min:8')
                 ->length(12),
 
+            Text::make('Mobile With Country Code', 'mobile_cc')
+                ->sortable()
+                ->rules('required', 'size:10')
+                ->creationRules('unique:users'),
+
             Text::make('Mobile')
                 ->sortable()
                 ->rules('required', 'size:10')
