@@ -23,7 +23,9 @@ class TestController extends Controller
     public function check(Request $request)
     {
         $user = User::find(2);
-        $period = Carbon::now()->startOfWeek();
+
+        $duration = 'Week';
+        $period = $duration == 'Week' ? Carbon::now()->startOfWeek() : Carbon::now()->startOfMonth();
 
         $timers = Timer::whereHas('city', function ($query) use ($user) {
             return $query->where('country_id', $user->country_id);
@@ -33,6 +35,19 @@ class TestController extends Controller
             ->get()
             ->groupBy('user_id');
 
-        return $timers;
+        $data = [];
+
+        foreach ($timers as $user_id => $timer) {
+            $data[] = [
+                'country_id' => $user->country_id,
+                'user_id' => $user_id,
+                'minutes' => $timer->sum('duration'),
+                'duration' => $duration,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        }
+
+        return $data;
     }
 }
