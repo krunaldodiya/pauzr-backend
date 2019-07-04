@@ -8,6 +8,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Events\UserWasCreated;
+use App\Events\SetTimer;
+use App\Listeners\CalculateWeeklyWinners;
+use App\Listeners\CalculateMonthlyWinners;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,11 @@ class EventServiceProvider extends ServiceProvider
 
         UserWasCreated::class => [
             //
+        ],
+
+        SetTimer::class => [
+            CalculateWeeklyWinners::class,
+            CalculateMonthlyWinners::class,
         ],
     ];
 

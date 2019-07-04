@@ -4,18 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use App\Repositories\TimerRepository;
+use Carbon\Carbon;
+use App\User;
+use App\Timer;
 
 class TestController extends Controller
 {
-    public $userRepo;
+    public $userRepository;
+    public $timerRepository;
 
-    public function __construct(UserRepository $userRepo)
+    public function __construct(UserRepository $userRepository, TimerRepository $timerRepository)
     {
-        $this->userRepo = $userRepo;
+        $this->userRepository = $userRepository;
+        $this->timerRepository = $timerRepository;
     }
 
     public function check(Request $request)
     {
-        return 'done';
+        $user = User::find(2);
+        $period = Carbon::now()->startOfWeek();
+
+        $timers = Timer::whereHas('city', function ($query) use ($user) {
+            return $query->where('country_id', $user->country_id);
+        })
+            ->where('created_at', '>=', $period)
+            ->orderBy('duration', 'desc')
+            ->get()
+            ->groupBy('user_id');
+
+        return $timers;
     }
 }

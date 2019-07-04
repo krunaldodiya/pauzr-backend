@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\User;
 use App\GroupSubscription;
 use App\Repositories\UserRepository;
+use App\Events\SetTimer;
 
 class TimerController extends Controller
 {
@@ -24,7 +25,7 @@ class TimerController extends Controller
     {
         $user = auth('api')->user();
         $duration = strval($request->duration);
-        $points = ["20" => "1", "40" => "3", "60" => "5"];
+        $points = ["1" => "1", "2" => "3", "3" => "5", "20" => "1", "40" => "3", "60" => "5"];
 
         $timer = Timer::create([
             'duration' => $duration,
@@ -37,6 +38,7 @@ class TimerController extends Controller
 
         $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => $description]);
         $user->deposit($transaction->transaction_id);
+
         $user->upgradeLevel();
 
         return ['user' => $this->userRepo->getUserById($user->id)];

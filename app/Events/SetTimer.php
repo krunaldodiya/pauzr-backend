@@ -5,21 +5,21 @@ namespace App\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
-use App\User;
+use App\Timer;
 
-class UserWasCreated
+class SetTimer
 {
     use Dispatchable, SerializesModels;
 
-    public $user;
+    public $timer;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Timer $timer)
     {
-        $this->user = $user;
+        $this->timer = $timer;
     }
 }
