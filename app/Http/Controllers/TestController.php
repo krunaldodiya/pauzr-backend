@@ -49,7 +49,7 @@ class TestController extends Controller
         }
 
         $data = collect($data)
-            ->sort('minutes', 'desc')
+            ->sortBy('minutes')
             ->take(10)
             ->toArray();
 
