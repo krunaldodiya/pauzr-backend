@@ -48,6 +48,11 @@ class TestController extends Controller
             ];
         }
 
+        $data = collect($data)
+            ->sort('minutes', 'desc')
+            ->take(10)
+            ->toArray();
+
         return $data;
     }
 }
