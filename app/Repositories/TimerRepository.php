@@ -15,6 +15,7 @@ class TimerRepository implements TimerRepositoryInterface
         $period = $duration == 'Week' ? Carbon::now()->startOfWeek() : Carbon::now()->startOfMonth();
 
         Winner::where('country_id', $user->country_id)
+            ->where('duration', $duration)
             ->where('created_at', '>=', $period)
             ->delete();
 
