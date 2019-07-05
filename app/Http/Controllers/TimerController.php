@@ -47,6 +47,7 @@ class TimerController extends Controller
     public function getWinners(Request $request)
     {
         $user = auth('api')->user();
+        $period = $request->period;
 
         $winners = Winner::with('user')
             ->where(['country_id' => $user->country_id])
