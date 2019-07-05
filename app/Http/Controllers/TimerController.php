@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\User;
 use App\GroupSubscription;
 use App\Repositories\UserRepository;
+use App\Winner;
 
 class TimerController extends Controller
 {
@@ -41,6 +42,17 @@ class TimerController extends Controller
         $user->upgradeLevel();
 
         return ['user' => $this->userRepo->getUserById($user->id)];
+    }
+
+    public function getWinners(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $winners = Winner::with('user')
+            ->where(['country_id' => $user->country_id])
+            ->get();
+
+        return response(['winners' => $winners], 200);
     }
 
     public function getRankings(Request $request)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Repositories\TimerRepository;
 use App\User;
+use App\Winner;
 
 class TestController extends Controller
 {
@@ -20,10 +21,14 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        // $user = User::find(2);
+        $user = User::find(1);
 
-        // return $this->timerRepository->calculateWinners($user, 'Week');
+        $winners = Winner::with('user')
+            ->where(['country_id' => $user->country_id])
+            ->orderBy('duration', 'desc')
+            ->limit(10)
+            ->get();
 
-        return "test";
+        return response(['winners' => $winners], 200);
     }
 }
