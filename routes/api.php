@@ -29,6 +29,7 @@ Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
     Route::post('/minutes', 'TimerController@getMinutesHistory');
     Route::post('/points', 'TimerController@getPointsHistory');
     Route::post('/rankings', 'TimerController@getRankings');
+    Route::post('/winners', 'TimerController@getWinners');
     Route::post('/set', 'TimerController@setTimer');
 });
 

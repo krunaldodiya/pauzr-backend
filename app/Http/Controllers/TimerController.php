@@ -51,7 +51,7 @@ class TimerController extends Controller
         $period = $request->period ?? 'Week';
         $period_date = $period == 'Week' ? Carbon::now()->startOfWeek() : Carbon::now()->startOfMonth();
 
-        $winners = Winner::with('user')
+        $winners = Winner::with('user.city')
             ->where(['country_id' => $user->country_id])
             ->where('period', $period)
             ->where('created_at', ">=", $period_date)
