@@ -55,6 +55,10 @@ class Winner extends Resource
                 ->sortable()
                 ->rules('required'),
 
+            Text::make('Duration')
+                ->sortable()
+                ->rules('required'),
+
             DateTime::make('Created At'),
         ];
     }
