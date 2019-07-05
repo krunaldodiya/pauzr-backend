@@ -47,10 +47,16 @@ class TimerController extends Controller
     public function getWinners(Request $request)
     {
         $user = auth('api')->user();
-        $period = $request->period;
+
+        $period = $request->period ?? 'Week';
+        $period_date = $period == 'Week' ? Carbon::now()->startOfWeek() : Carbon::now()->startOfMonth();
 
         $winners = Winner::with('user')
             ->where(['country_id' => $user->country_id])
+            ->where('period', $period)
+            ->where('created_at', ">=", $period_date)
+            ->orderBy('duration', 'desc')
+            ->limit(10)
             ->get();
 
         return response(['winners' => $winners], 200);

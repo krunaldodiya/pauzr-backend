@@ -23,7 +23,8 @@ class TestController extends Controller
     public function check(Request $request)
     {
         $user = User::find(1);
-        $period = $request->period;
+
+        $period = $request->period ?? 'Week';
         $period_date = $period == 'Week' ? Carbon::now()->startOfWeek() : Carbon::now()->startOfMonth();
 
         $winners = Winner::with('user')
