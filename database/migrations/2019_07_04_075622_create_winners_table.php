@@ -19,10 +19,10 @@ class CreateWinnersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->bigInteger('minutes');
+            $table->bigInteger('duration');
             $table->unsignedBigInteger('country_id');
 
-            $table->enum('duration', ['Month', 'Week'])->default('Month');
+            $table->enum('period', ['Month', 'Week'])->default('Month');
 
             $table->timestamps();
         });

@@ -51,7 +51,7 @@ class Winner extends Resource
                 ->sortable()
                 ->searchable(),
 
-            Text::make('Minutes')
+            Text::make('Period')
                 ->sortable()
                 ->rules('required'),
 

@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use App\User;
 use App\GroupSubscription;
 use App\Repositories\UserRepository;
-use App\Events\SetTimer;
 
 class TimerController extends Controller
 {

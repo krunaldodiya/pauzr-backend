@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Winner extends Model
 {
-    protected $fillable = ['user_id', 'minutes', 'country_id', 'duration'];
+    protected $fillable = ['user_id', 'duration', 'minutes', 'country_id'];
 
     protected $dates = ['created_at', 'updated_at'];
 
