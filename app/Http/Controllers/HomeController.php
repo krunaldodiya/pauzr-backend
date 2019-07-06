@@ -11,6 +11,7 @@ use Intervention\Image\Facades\Image;
 use App\Country;
 use App\City;
 use App\User;
+use App\Invitation;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,15 @@ class HomeController extends Controller
 
     public function checkInvitation(Request $request)
     {
+        $exists = Invitation::create(['mobile_cc' => $request->mobile]);
+
+        if (!$exists) {
+            Invitation::create([
+                'sender_id' => $request->sender_id,
+                'mobile_cc' => $request->mobile
+            ]);
+        }
+
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }
 
