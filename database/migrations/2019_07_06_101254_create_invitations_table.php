@@ -17,7 +17,6 @@ class CreateInvitationsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('sender_id');
             $table->string('mobile');
-            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
