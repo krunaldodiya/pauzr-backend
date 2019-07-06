@@ -11,6 +11,7 @@ use App\Events\UserWasCreated;
 use App\Events\SetTimer;
 use App\Listeners\CalculateWeeklyWinners;
 use App\Listeners\CalculateMonthlyWinners;
+use App\Listeners\CheckInvitation;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         UserWasCreated::class => [
-            //
+            CheckInvitation::class,
         ],
 
         SetTimer::class => [

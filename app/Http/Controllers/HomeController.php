@@ -29,7 +29,7 @@ class HomeController extends Controller
         return User::pluck('fcm_token');
     }
 
-    public function invite(Request $request)
+    public function checkInvitation(Request $request)
     {
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }

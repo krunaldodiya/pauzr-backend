@@ -15,10 +15,6 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/avatar/upload', 'UserController@uploadAvatar');
 });
 
-Route::group(['prefix' => 'invite'], function () {
-    Route::get('/', 'HomeController@invite');
-});
-
 Route::group(['prefix' => 'home'], function () {
     Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
     Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
@@ -32,6 +28,8 @@ Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
     Route::post('/winners', 'TimerController@getWinners');
     Route::post('/set', 'TimerController@setTimer');
 });
+
+Route::get('/invite/{sender_id}/{mobile}', 'HomeController@checkInvitation');
 
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/exit', 'GroupController@exitGroup');
