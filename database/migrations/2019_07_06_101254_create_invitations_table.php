@@ -15,8 +15,11 @@ class CreateInvitationsTable extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sender_id');
-            $table->string('mobile');
+
+            $table->unsignedBigInteger('sender_id');
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('mobile_cc');
             $table->timestamps();
         });
     }

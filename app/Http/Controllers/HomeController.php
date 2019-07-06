@@ -33,14 +33,14 @@ class HomeController extends Controller
     public function checkInvitation(Request $request)
     {
         $sender_id = $request->segment(3);
-        $mobile = $request->segment(4);
+        $mobile_cc = $request->segment(4);
 
-        $exists = Invitation::where(['mobile' => $mobile])->first();
+        $exists = Invitation::where(['mobile_cc' => $mobile_cc])->first();
 
         if (!$exists) {
             Invitation::create([
                 'sender_id' => $sender_id,
-                'mobile' => $mobile
+                'mobile_cc' => $mobile_cc
             ]);
         }
 
