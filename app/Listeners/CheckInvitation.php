@@ -27,10 +27,21 @@ class CheckInvitation
      */
     public function handle(UserWasCreated $event)
     {
-        $invitation = Invitation::where(['mobile_cc' => $event->user['mobile_cc']])
+        $receiver = $event->user;
+
+        $invitation = Invitation::with('sender')
+            ->where(['mobile_cc' => $receiver['mobile_cc']])
             ->orderBy('created_at', 'asc')
             ->first();
 
-        dump($invitation);
+        if ($invitation) {
+            $sender = $invitation->sender;
+
+            $transaction = $receiver->createTransaction(5, 'deposit', ['description' => "invited by {$sender->name}"]);
+            $receiver->deposit($transaction->transaction_id);
+
+            $transaction = $sender->createTransaction(5, 'deposit', ['description' => "{$sender->name} accepted invitation"]);
+            $sender->deposit($transaction->transaction_id);
+        }
     }
 }
