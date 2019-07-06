@@ -37,7 +37,7 @@ class CheckInvitation
         if ($invitation) {
             $sender = $invitation->sender;
 
-            $transaction = $receiver->createTransaction(5, 'deposit', ['description' => "invited by {$sender->name}"]);
+            $transaction = $receiver->createTransaction(5, 'deposit', ['description' => "Invited by {$sender->name}"]);
             $receiver->deposit($transaction->transaction_id);
 
             $transaction = $sender->createTransaction(5, 'deposit', ['description' => "{$receiver->name} accepted invitation"]);
