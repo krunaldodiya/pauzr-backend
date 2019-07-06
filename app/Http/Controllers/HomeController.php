@@ -35,7 +35,7 @@ class HomeController extends Controller
         $sender_id = $request->segment(3);
         $mobile = $request->segment(4);
 
-        $exists = User::where(['mobile_cc' => $mobile])->first();
+        $exists = Invitation::where(['mobile' => $mobile])->first();
 
         if (!$exists) {
             Invitation::create([
