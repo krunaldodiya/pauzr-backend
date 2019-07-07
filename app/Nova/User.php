@@ -74,12 +74,10 @@ class User extends Resource
 
             Text::make('Name')
                 ->sortable()
-                ->searchable()
                 ->rules('required', 'max:255'),
 
             Text::make('Email')
                 ->sortable()
-                ->searchable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
@@ -97,7 +95,6 @@ class User extends Resource
 
             Text::make('Mobile')
                 ->sortable()
-                ->searchable()
                 ->rules('required', 'size:10')
                 ->creationRules('unique:users'),
 
@@ -106,16 +103,13 @@ class User extends Resource
                 ->hideFromIndex(),
 
             BelongsTo::make('Country')
-                ->sortable()
-                ->searchable(),
+                ->sortable(),
 
             BelongsTo::make('State')
-                ->sortable()
-                ->searchable(),
+                ->sortable(),
 
             BelongsTo::make('City')
-                ->sortable()
-                ->searchable(),
+                ->sortable(),
 
             Avatar::make('Avatar'),
 
