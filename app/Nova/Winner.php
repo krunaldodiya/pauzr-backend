@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Date;
+use App\Nova\Filters\ChoosePeriod;
 
 class Winner extends Resource
 {
@@ -59,7 +60,11 @@ class Winner extends Resource
                 ->sortable()
                 ->rules('required'),
 
-            DateTime::make('Created At'),
+            Date::make('Created At')
+                ->resolveUsing(function ($date) {
+                    return $date->format('d/m/Y');
+                })
+                ->sortable(),
         ];
     }
 
@@ -82,7 +87,9 @@ class Winner extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new ChoosePeriod,
+        ];
     }
 
     /**
