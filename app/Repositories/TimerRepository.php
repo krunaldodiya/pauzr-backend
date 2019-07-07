@@ -40,6 +40,13 @@ class TimerRepository implements TimerRepositoryInterface
             ];
         }
 
-        Winner::insert($data);
+        $sorted = collect($data)
+            ->sort(function ($a, $b) {
+                return $a['duration'] <= $b['duration'];
+            })
+            ->take(10)
+            ->toArray();
+
+        Winner::insert($sorted);
     }
 }
