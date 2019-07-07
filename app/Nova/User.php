@@ -27,7 +27,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $model = 'App\\User';
+    public static $model = 'App\User';
 
     public static $group = 'User';
 
