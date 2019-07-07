@@ -10,7 +10,6 @@ use App\Events\UserWasCreated;
 
 use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Laravel\Scout\Searchable;
 
 use Laravel\Nova\Actions\Actionable;
 use KD\Wallet\Traits\HasWallet;
@@ -19,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasWallet;
 
-    use Actionable, Notifiable, Searchable;
+    use Actionable, Notifiable;
 
     /**
      * The attributes that are mass assignable.

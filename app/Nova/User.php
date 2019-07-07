@@ -6,7 +6,6 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Date;
 use OwenMelbz\RadioField\RadioButton;
 use Naif\GeneratePassword\GeneratePassword;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
@@ -54,7 +53,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email', 'country', 'state', 'city'
+        'id', 'name', 'email', 'mobile'
     ];
 
     /**
@@ -103,12 +102,15 @@ class User extends Resource
                 ->hideFromIndex(),
 
             BelongsTo::make('Country')
+                ->searchable()
                 ->sortable(),
 
             BelongsTo::make('State')
+                ->searchable()
                 ->sortable(),
 
             BelongsTo::make('City')
+                ->searchable()
                 ->sortable(),
 
             Avatar::make('Avatar'),
