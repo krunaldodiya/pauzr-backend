@@ -35,9 +35,9 @@ class Kernel extends ConsoleKernel
             ->hourly();
 
         $schedule->command('timer:add')
-            ->hourly()
+            ->daily()
             ->timezone('Asia/Kolkata')
-            ->between('6:00', '24:00');
+            ->between('10:00', '17:00');
 
         $schedule->command('backup:clean')
             ->daily()
