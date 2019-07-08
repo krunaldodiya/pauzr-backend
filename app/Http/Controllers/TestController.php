@@ -22,6 +22,6 @@ class TestController extends Controller
     {
         $user = User::find(1);
 
-        dd($user);
+        $this->timerRepository->calculateWinners($user, 'Week');
     }
 }

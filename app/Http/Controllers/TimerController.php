@@ -4,43 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Timer;
-
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
+
+use App\Timer;
 use App\User;
 use App\GroupSubscription;
-use App\Repositories\UserRepository;
 use App\Winner;
+use App\Repositories\TimerRepository;
 
 class TimerController extends Controller
 {
-    public $userRepo;
+    public $userRepository;
+    public $timerRepository;
 
-    public function __construct(UserRepository $userRepo)
+    public function __construct(UserRepository $userRepository, TimerRepository $timerRepository)
     {
-        $this->userRepo = $userRepo;
+        $this->userRepository = $userRepository;
+        $this->timerRepository = $timerRepository;
     }
 
     public function setTimer(Request $request)
     {
-        $user = auth('api')->user();
+        $user = $request->x_user_id ? User::find($request->x_user_id) : auth('api')->user();
         $duration = strval($request->duration);
-        $points = ["1" => "1", "2" => "3", "3" => "5", "20" => "1", "40" => "3", "60" => "5"];
 
-        $timer = Timer::create([
-            'duration' => $duration,
-            'user_id' => $user->id,
-            'city_id' => $user->city_id,
-        ]);
-
-        $timer_id = $timer['id'];
-        $description = "Earned points of TIMER_ID #$timer_id";
-
-        $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => $description]);
-        $user->deposit($transaction->transaction_id);
-
-        $user->upgradeLevel();
-
+        $user = $this->timerRepository->setTimer($user, $duration);
         return ['user' => $this->userRepo->getUserById($user->id)];
     }
 
