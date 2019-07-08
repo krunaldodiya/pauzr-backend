@@ -30,7 +30,7 @@ class TimerController extends Controller
         $duration = strval($request->duration);
 
         $user = $this->timerRepository->setTimer($user, $duration);
-        return ['user' => $this->userRepo->getUserById($user->id)];
+        return ['user' => $this->userRepository->getUserById($user->id)];
     }
 
     public function getWinners(Request $request)
