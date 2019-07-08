@@ -40,7 +40,7 @@ class AddTimer extends Command
      */
     public function handle(TimerRepository $timerRepository)
     {
-        $mobiles = ['9426726815', '7016342489'];
+        $mobiles = ['9426726815', '7016342489', '7795180333', '8073798640'];
 
         $user = User::inRandomOrder()
             ->whereIn('mobile', $mobiles)
