@@ -23,7 +23,7 @@ class TimerRepository implements TimerRepositoryInterface
         ]);
 
         $timer_id = $timer['id'];
-        $description = "Earned points of TIMER_ID #$timer_id";
+        $description = "Earned points from timer";
 
         $transaction = $user->createTransaction($points[$duration], 'deposit', ['description' => $description]);
         $user->deposit($transaction->transaction_id);
