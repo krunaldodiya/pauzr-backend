@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Date;
 use App\Nova\Filters\ChoosePeriod;
+use Laravel\Nova\Fields\DateTime;
 
 class Winner extends Resource
 {
@@ -60,10 +61,13 @@ class Winner extends Resource
                 ->sortable()
                 ->rules('required'),
 
-            Date::make('Created At')
-                ->resolveUsing(function ($date) {
-                    return $date->format('d/m/Y');
-                })
+            // Date::make('Created At')
+            //     ->resolveUsing(function ($date) {
+            //         return $date->format('d/m/Y');
+            //     })
+            //     ->sortable(),
+
+            DateTime::make('Created At')
                 ->sortable(),
         ];
     }
