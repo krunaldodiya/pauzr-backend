@@ -61,14 +61,14 @@ class Winner extends Resource
                 ->sortable()
                 ->rules('required'),
 
-            // Date::make('Created At')
-            //     ->resolveUsing(function ($date) {
-            //         return $date->format('d/m/Y');
-            //     })
-            //     ->sortable(),
-
-            DateTime::make('Created At')
+            Date::make('Created At')
+                ->resolveUsing(function ($date) {
+                    return $date->format('d/m/Y');
+                })
                 ->sortable(),
+
+            // DateTime::make('Created At')
+            //     ->sortable(),
         ];
     }
 
