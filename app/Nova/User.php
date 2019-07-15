@@ -18,6 +18,7 @@ use App\Nova\Metrics\VerifiedUsers;
 use App\Nova\Lenses\MerchantList;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Actions\ChargeWinner;
 
 class User extends Resource
 {
@@ -189,7 +190,13 @@ class User extends Resource
                 })
                 ->onlyOnIndex(),
 
-            new CreateMerchant
+            new CreateMerchant,
+
+            (new ChargeWinner)
+                ->onlyOnDetail()
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                }),
         ];
     }
 }
