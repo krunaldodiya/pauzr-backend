@@ -96,12 +96,6 @@ class HomeController extends Controller
             return Image::make($request->url)->response();
         }
 
-        $defaultAsset = $request->url ? $request->url : 'assets/default.png';
-
-        $storageExists = Storage::disk('public')->exists($defaultAsset);
-
-        $assetPath = $storageExists ? public_path("storage/$defaultAsset") : public_path("images/default.png");
-
-        return Image::make($assetPath)->response();
+        return Image::make(public_path("images/default.png"))->response();
     }
 }
