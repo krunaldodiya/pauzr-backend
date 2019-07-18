@@ -136,13 +136,6 @@ class TimerController extends Controller
     public function getPointsHistory(Request $request)
     {
         $user = auth('api')->user();
-        // $points = $user->wallet->transactions()
-        //     ->whereIn('transaction_type', ['deposit'])
-        //     ->where('status', true)
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
-
-
         $points = $user->wallet->transactions()
             ->where('status', true)
             ->orderBy('created_at', 'desc')
@@ -154,7 +147,11 @@ class TimerController extends Controller
 
         if ($points->count()) {
             $days = $points->last()->created_at->diffInDays($points->first()->created_at) + 1;
-            $sum = $points->whereIn('transaction_type', ['deposit'])->sum('amount');
+
+            $deposit = $points->whereIn('transaction_type', ['deposit'])->sum('amount');
+            $withdraw = $points->whereIn('transaction_type', ['withdraw'])->sum('amount');
+
+            $sum = $deposit - $withdraw;
             $avg = round($sum / $days);
             $history = $points;
         }
