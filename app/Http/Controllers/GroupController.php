@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use App\GroupSubscription;
-use Illuminate\Support\Facades\Storage;
 use JD\Cloudder\Facades\Cloudder;
 
 class GroupController extends Controller
@@ -107,12 +106,7 @@ class GroupController extends Controller
     public function uploadImage(Request $request)
     {
         try {
-            // $image_path = Storage::disk('public')->put("assets", $request->image);
-
-            // return ['name' => $image_path];
-
             Cloudder::upload($request->image, null);
-
             $data = Cloudder::getResult();
 
             return ['name' => $data['secure_url']];
