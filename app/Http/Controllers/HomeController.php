@@ -12,6 +12,7 @@ use App\Country;
 use App\City;
 use App\User;
 use App\Invitation;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -91,6 +92,10 @@ class HomeController extends Controller
 
     public function getAssets(Request $request)
     {
+        if (Str::contains($request->url, 'https')) {
+            return $request->url;
+        }
+
         $defaultAsset = $request->url ? $request->url : 'assets/default.png';
 
         $storageExists = Storage::disk('public')->exists($defaultAsset);
