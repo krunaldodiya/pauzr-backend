@@ -29,6 +29,10 @@ return [
                 'exclude' => [
                     base_path('vendor'),
                     base_path('node_modules'),
+                    base_path('nova'),
+                    base_path('nova-components'),
+                    base_path('storage'),
+                    base_path('test'),
                 ],
 
                 /*
