@@ -42,14 +42,14 @@ class AddTimer extends Command
     {
         $mobiles = ['9426726815', '7016342489', '7795180333', '8073798640'];
 
-        $user = User::inRandomOrder()
-            ->whereIn('mobile', $mobiles)
-            ->first();
+        foreach ($mobiles as $mobile) {
+            $user = User::where('mobile', $mobile)->first();
 
-        $items = Arr::random(["20", "40", "60"], 1);
+            $items = Arr::random(["20", "40", "60"], 1);
 
-        $duration = $items[0];
+            $duration = $items[0];
 
-        $timerRepository->setTimer($user, $duration);
+            $timerRepository->setTimer($user, $duration);
+        }
     }
 }
