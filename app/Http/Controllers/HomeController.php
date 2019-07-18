@@ -92,8 +92,8 @@ class HomeController extends Controller
 
     public function getAssets(Request $request)
     {
-        if (Str::contains($request->url, 'https')) {
-            return $request->url;
+        if (Str::contains($request->url, 'https://')) {
+            return Image::make($request->url)->response();
         }
 
         $defaultAsset = $request->url ? $request->url : 'assets/default.png';
