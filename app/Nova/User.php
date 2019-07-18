@@ -117,10 +117,11 @@ class User extends Resource
             Avatar::make('Avatar'),
 
             RadioButton::make('Gender')
+                ->sortable()
                 ->options(['Male' => 'Male', 'Female' => 'Female'])
                 ->default('Male'),
 
-            Boolean::make('Verified', 'status'),
+            Boolean::make('Verified', 'status')->sortable(),
 
             Boolean::make('Merchant', 'is_merchant')->exceptOnForms(),
 
