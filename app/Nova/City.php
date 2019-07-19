@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
 
 class City extends Resource
 {
@@ -49,6 +50,8 @@ class City extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            HasMany::make('Users'),
 
             Text::make('Name')
                 ->sortable()

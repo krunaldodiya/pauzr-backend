@@ -13,6 +13,11 @@ class City extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function state()
     {
         return $this->belongsTo(State::class);

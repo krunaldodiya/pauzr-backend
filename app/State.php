@@ -12,6 +12,11 @@ class State extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);
