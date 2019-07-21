@@ -123,9 +123,9 @@ class User extends Resource
 
             Boolean::make('Verified', 'status')->sortable(),
 
-            Boolean::make('Merchant', 'is_merchant')->exceptOnForms(),
+            Boolean::make('Merchant', 'is_merchant')->hideFromIndex()->exceptOnForms(),
 
-            Boolean::make('Admin', 'is_admin')->exceptOnForms(),
+            Boolean::make('Admin', 'is_admin')->hideFromIndex()->exceptOnForms(),
 
             HasMany::make('Stores'),
 
