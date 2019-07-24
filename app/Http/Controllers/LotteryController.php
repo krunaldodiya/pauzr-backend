@@ -12,7 +12,7 @@ class LotteryController extends Controller
     {
         $lottery = config('lottery');
 
-        $shuffled_lottery = Arr::shuffle($lottery);
+        $shuffled_lottery = Arr::shuffle($lottery[1]);
 
         return ['lotteries' => $shuffled_lottery];
     }
