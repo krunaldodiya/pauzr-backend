@@ -31,6 +31,10 @@ Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
 
 Route::get('/invite/{sender_id}/{mobile}', 'HomeController@checkInvitation');
 
+Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () {
+    Route::post('/get', 'LotteryController@getLotteries');
+});
+
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/exit', 'GroupController@exitGroup');
     Route::post('/delete', 'GroupController@deleteGroup');
