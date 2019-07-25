@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Arr;
+use App\Lottery;
 
 class LotteryController extends Controller
 {
@@ -15,5 +16,12 @@ class LotteryController extends Controller
         $shuffled_lottery = Arr::shuffle($lottery[5]);
 
         return ['lotteries' => $shuffled_lottery];
+    }
+
+    public function getLotteryWinners(Request $request)
+    {
+        $lottery_winners = Lottery::with('user')->get();
+
+        return ['lottery_winners' => $lottery_winners];
     }
 }

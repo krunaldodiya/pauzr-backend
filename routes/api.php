@@ -33,6 +33,7 @@ Route::get('/invite/{sender_id}/{mobile}', 'HomeController@checkInvitation');
 
 Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () {
     Route::post('/get', 'LotteryController@getLotteries');
+    Route::post('/winners', 'LotteryController@getLotteryWinners');
 });
 
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
