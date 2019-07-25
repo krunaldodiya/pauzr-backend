@@ -26,7 +26,7 @@ class LotteryController extends Controller
 
     public function getLotteryWinners(Request $request)
     {
-        $lottery_winners = Lottery::with('user')->get();
+        $lottery_winners = Lottery::with('user.city')->get();
 
         return ['lottery_winners' => $lottery_winners];
     }
