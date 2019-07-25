@@ -11,9 +11,15 @@ class LotteryController extends Controller
 {
     public function getLotteries(Request $request)
     {
+        $user = auth('api')->user();
+
         $lottery = config('lottery');
 
         $shuffled_lottery = Arr::shuffle($lottery[5]);
+
+        $amount = $shuffled_lottery[$request['selectedLotteryIndex']];
+
+        Lottery::create(['amount' => $amount, 'user_id' => $user->id]);
 
         return ['lotteries' => $shuffled_lottery];
     }
