@@ -28,6 +28,7 @@ class LotteryController extends Controller
     {
         $lottery_winners = Lottery::with('user.city')
             ->where('amount', '>', 0)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return ['lottery_winners' => $lottery_winners];
