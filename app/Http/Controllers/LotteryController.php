@@ -38,7 +38,7 @@ class LotteryController extends Controller
             return $this->generateLottery($user, $lottery, $selectedLotteryIndex, $earnings);
         }
 
-        return ['lotteries' => null, 'wallet' => auth('api')->user()->wallet];
+        return ['lotteries' => null, 'wallet' => $user->wallet];
     }
 
     private function generateLottery($user, $lottery, $selectedLotteryIndex, $earnings)
@@ -53,9 +53,9 @@ class LotteryController extends Controller
         Lottery::create(['amount' => $shuffled_lottery[$selectedLotteryIndex], 'user_id' => $user->id]);
 
         $transaction = $user->createTransaction(20, 'withdraw', ['description' => "Purchased Lottery"]);
-        $user->withdraw($transaction->transaction_id);
+        $user = $user->withdraw($transaction->transaction_id);
 
-        return ['lotteries' => $shuffled_lottery, 'wallet' => auth('api')->user()->wallet];
+        return ['lotteries' => $shuffled_lottery, 'wallet' => $user->wallet];
     }
 
     private function getFinalShuffled($lottery, $selectedLotteryIndex, $earnings)
