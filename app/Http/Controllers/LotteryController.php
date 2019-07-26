@@ -34,7 +34,7 @@ class LotteryController extends Controller
 
         $selectedLotteryIndex = $request->selectedLotteryIndex;
 
-        if ($user->wallet->balance >= 1000) {
+        if ($user->wallet->balance >= 20) {
             return $this->generateLottery($user, $lottery, $selectedLotteryIndex, $earnings);
         }
 
