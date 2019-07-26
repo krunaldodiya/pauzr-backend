@@ -9,6 +9,8 @@ use App\Lottery;
 use App\Timer;
 use Carbon\Carbon;
 
+use Exception;
+
 class LotteryController extends Controller
 {
     public function getLotteryWinners(Request $request)
