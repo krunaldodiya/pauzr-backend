@@ -43,22 +43,32 @@ class LotteryController extends Controller
 
     private function generateLottery($user, $lottery, $selectedLotteryIndex, $earnings)
     {
-        $shuffled_lottery = Arr::shuffle($lottery);
+        $shuffled_lottery = $this->getFinalShuffled($lottery, $selectedLotteryIndex, $earnings);
 
         if ($earnings == 0) {
             $replacements = array($selectedLotteryIndex => 5);
-
             $shuffled_lottery = array_replace($shuffled_lottery, $replacements);
         }
 
-        $amount = $shuffled_lottery[$selectedLotteryIndex];
-
-        Lottery::create(['amount' => $amount, 'user_id' => $user->id]);
+        Lottery::create(['amount' => $shuffled_lottery[$selectedLotteryIndex], 'user_id' => $user->id]);
 
         $transaction = $user->createTransaction(20, 'withdraw', ['description' => "Purchased Lottery"]);
         $user->withdraw($transaction->transaction_id);
 
         return ['lotteries' => $shuffled_lottery];
+    }
+
+    private function getFinalShuffled($lottery, $selectedLotteryIndex, $earnings)
+    {
+        $shuffled_lottery = Arr::shuffle($lottery);
+
+        $amount = $shuffled_lottery[$selectedLotteryIndex];
+
+        if (($earnings + $amount) <= 200) {
+            return $shuffled_lottery;
+        }
+
+        return $this->getFinalShuffled($lottery, $selectedLotteryIndex, $earnings);
     }
 
     private function getLotterySlope($user)
