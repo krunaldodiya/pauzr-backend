@@ -9,8 +9,6 @@ use App\Lottery;
 use App\Timer;
 use Carbon\Carbon;
 
-use Exception;
-
 class LotteryController extends Controller
 {
     public function getLotteryWinners(Request $request)
@@ -40,7 +38,7 @@ class LotteryController extends Controller
             return $this->generateLottery($user, $lottery, $selectedLotteryIndex, $earnings);
         }
 
-        throw new Exception("Insufficient balance", 403);
+        return ['lotteries' => null];
     }
 
     private function generateLottery($user, $lottery, $selectedLotteryIndex, $earnings)
