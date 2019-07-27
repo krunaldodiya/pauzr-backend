@@ -21,6 +21,23 @@ class LotteryController extends Controller
         return ['lottery_winners' => $lottery_winners];
     }
 
+    public function getLotteryHistory(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $lottery_history = Lottery::with('user.city')
+            ->where('user_id', $user->id)
+            ->where('amount', '>', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $credited = $lottery_history->where('type', 'credited')->sum('amount');
+        $debited = $lottery_history->where('type', 'debited')->sum('amount');
+        $total = $credited - $debited;
+
+        return ['lottery_history' => $lottery_history, 'total' => $total];
+    }
+
     public function getLotteries(Request $request)
     {
         $user = auth('api')->user();
