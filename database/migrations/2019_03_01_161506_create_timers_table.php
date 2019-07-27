@@ -20,6 +20,8 @@ class CreateTimersTable extends Migration
 
             $table->bigInteger('city_id');
 
+            $table->bigInteger('country_id');
+
             $table->enum("duration", [20, 40, 60]);
 
             $table->timestamps();

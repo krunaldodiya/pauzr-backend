@@ -20,6 +20,7 @@ class TimerRepository implements TimerRepositoryInterface
             'user_id' => $user->id,
             'duration' => $duration,
             'city_id' => $user->city_id,
+            'country_id' => $user->country_id,
         ]);
 
         $timer_id = $timer['id'];
