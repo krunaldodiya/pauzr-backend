@@ -61,6 +61,13 @@ class TimerController extends Controller
 
         $minutes = Timer::where(['user_id' => $user->id])
             ->where('created_at', '>=', $period)
+            ->where(function ($query) use ($location, $user) {
+                if ($location == "country") {
+                    return $query->where('country_id', $user->country_id);
+                }
+
+                return $query->where('city_id', $user->city_id);
+            })
             ->get();
 
         $minutes_saved = $minutes->sum('duration');
