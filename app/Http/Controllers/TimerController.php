@@ -55,6 +55,8 @@ class TimerController extends Controller
     {
         $user = auth('api')->user();
 
+        $location = $request->location || "city";
+
         $period = $this->filterPeriod($request->period);
 
         $minutes = Timer::where(['user_id' => $user->id])
@@ -73,13 +75,17 @@ class TimerController extends Controller
 
         $groupId = $request->groupId;
 
-        $filters = ['city.state.country', 'state', 'country', 'level', 'timer_history' => function ($query) use ($period, $user, $groupId) {
+        $filters = ['city.state.country', 'state', 'country', 'level', 'timer_history' => function ($query) use ($period, $location, $user, $groupId) {
             return $query
                 ->where('created_at', '>=', $period)
-                ->where(function ($query) use ($groupId, $user) {
+                ->where(function ($query) use ($location, $user, $groupId) {
                     if ($groupId) {
                         return $query;
                     } else {
+                        if ($location == "country") {
+                            return $query->where('country_id', $user->country_id);
+                        }
+
                         return $query->where('city_id', $user->city_id);
                     }
                 });
