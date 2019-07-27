@@ -14,6 +14,7 @@ class LotteryController extends Controller
     public function getLotteryWinners(Request $request)
     {
         $lottery_winners = Lottery::with('user.city')
+            ->where('type', 'credited')
             ->where('amount', '>', 0)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -44,7 +45,9 @@ class LotteryController extends Controller
 
         $lottery = $this->getLotterySlope($user);
 
-        $earnings = Lottery::where(['user_id' => $user->id])
+        $earnings = Lottery::with('user.city')
+            ->where('type', 'credited')
+            ->where(['user_id' => $user->id])
             ->where('created_at', '>=', Carbon::now()->startOfMonth())
             ->get()
             ->sum('amount');
@@ -67,7 +70,11 @@ class LotteryController extends Controller
             $shuffled_lottery = array_replace($shuffled_lottery, $replacements);
         }
 
-        Lottery::create(['amount' => $shuffled_lottery[$selectedLotteryIndex], 'user_id' => $user->id]);
+        Lottery::create([
+            'amount' => $shuffled_lottery[$selectedLotteryIndex],
+            'user_id' => $user->id,
+            'type' => 'credited'
+        ]);
 
         $transaction = $user->createTransaction(20, 'withdraw', ['description' => "Purchased Lottery"]);
         $user = $user->withdraw($transaction->transaction_id);
