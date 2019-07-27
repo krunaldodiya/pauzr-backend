@@ -132,6 +132,8 @@ class User extends Resource
             HasOne::make('PlanSubscriptions', 'subscription'),
 
             HasOne::make('Plan'),
+
+            HasOne::make('Wallet'),
         ];
     }
 
