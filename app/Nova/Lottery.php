@@ -5,6 +5,8 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
 
 class Lottery extends Resource
 {
@@ -41,6 +43,8 @@ class Lottery extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Amount'),
+            BelongsTo::make('User'),
         ];
     }
 
