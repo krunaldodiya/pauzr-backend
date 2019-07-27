@@ -21,6 +21,7 @@ class CreateLotteriesTable extends Migration
 
             $table->integer('amount');
             $table->enum('type', ['credited', 'debited']);
+            $table->enum('status', ['pending', 'success', 'failed']);
 
             $table->timestamps();
         });

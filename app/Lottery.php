@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lottery extends Model
 {
-    protected $fillable = ['amount', 'user_id'];
+    protected $fillable = ['amount', 'user_id', 'type', 'status'];
 
     protected $dates = ['created_at', 'updated_at'];
 
