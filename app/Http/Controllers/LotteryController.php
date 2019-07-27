@@ -42,7 +42,10 @@ class LotteryController extends Controller
     {
         $user = auth('api')->user();
 
-        $lottery = $this->getLotterySlope($user);
+        $getLotterySlope = $this->getLotterySlope($user);
+
+        $lotteries = $getLotterySlope['lotteries'];
+        $max_redeem = $getLotterySlope['max_redeem'];
 
         $earnings = Lottery::with('user.city')
             ->where('type', 'credited')
@@ -54,15 +57,15 @@ class LotteryController extends Controller
         $selectedLotteryIndex = $request->selectedLotteryIndex;
 
         if ($user->wallet->balance >= 20) {
-            return $this->generateLottery($user, $lottery, $selectedLotteryIndex, $earnings);
+            return $this->generateLottery($user, $lotteries, $max_redeem, $selectedLotteryIndex, $earnings);
         }
 
         return ['lotteries' => null, 'wallet' => $user->wallet];
     }
 
-    private function generateLottery($user, $lottery, $selectedLotteryIndex, $earnings)
+    private function generateLottery($user, $lotteries, $max_redeem, $selectedLotteryIndex, $earnings)
     {
-        $shuffled_lottery = $this->getFinalShuffled($lottery, $selectedLotteryIndex, $earnings);
+        $shuffled_lottery = $this->getFinalShuffled($lotteries, $max_redeem, $selectedLotteryIndex, $earnings);
 
         if ($earnings == 0) {
             $replacements = array($selectedLotteryIndex => 5);
@@ -81,17 +84,17 @@ class LotteryController extends Controller
         return ['lotteries' => $shuffled_lottery, 'wallet' => $user->wallet];
     }
 
-    private function getFinalShuffled($lottery, $selectedLotteryIndex, $earnings)
+    private function getFinalShuffled($lotteries, $max_redeem, $selectedLotteryIndex, $earnings)
     {
-        $shuffled_lottery = Arr::shuffle($lottery);
+        $shuffled_lottery = Arr::shuffle($lotteries);
 
         $amount = $shuffled_lottery[$selectedLotteryIndex];
 
-        if (($earnings + $amount) <= 200) {
+        if (($earnings + $amount) <= $max_redeem) {
             return $shuffled_lottery;
         }
 
-        return $this->getFinalShuffled($lottery, $selectedLotteryIndex, $earnings);
+        return $this->getFinalShuffled($lotteries, $max_redeem, $selectedLotteryIndex, $earnings);
     }
 
     private function getLotterySlope($user)
