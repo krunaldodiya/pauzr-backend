@@ -38,6 +38,21 @@ class LotteryController extends Controller
         return ['lottery_history' => $lottery_history, 'total' => $total];
     }
 
+    public function withdrawAmount(Request $request)
+    {
+        $user = auth('api')->user();
+        $amount = $request->amount;
+
+        Lottery::create([
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'type' => 'debited',
+            'status' => 'pending'
+        ]);
+
+        return response(['success' => true], 200);
+    }
+
     public function getLotteries(Request $request)
     {
         $user = auth('api')->user();
@@ -75,7 +90,8 @@ class LotteryController extends Controller
         Lottery::create([
             'amount' => $shuffled_lottery[$selectedLotteryIndex],
             'user_id' => $user->id,
-            'type' => 'credited'
+            'type' => 'credited',
+            'status' => 'success'
         ]);
 
         $transaction = $user->createTransaction(20, 'withdraw', ['description' => "Purchased Lottery"]);

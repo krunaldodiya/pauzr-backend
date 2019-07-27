@@ -36,6 +36,7 @@ Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () 
     Route::post('/get', 'LotteryController@getLotteries');
     Route::post('/winners', 'LotteryController@getLotteryWinners');
     Route::post('/history', 'LotteryController@getLotteryHistory');
+    Route::post('/withdraw', 'LotteryController@withdrawAmount');
 });
 
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
