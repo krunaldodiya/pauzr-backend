@@ -13,6 +13,7 @@ use App\City;
 use App\User;
 use App\Invitation;
 use Illuminate\Support\Str;
+use App\Quote;
 
 class HomeController extends Controller
 {
@@ -55,6 +56,13 @@ class HomeController extends Controller
         $banners = Banner::get();
 
         return ['best_offers' => $best_offers, 'top_brands' => $top_brands, 'banners' => $banners];
+    }
+
+    public function getQuotes(Request $request)
+    {
+        $quotes = Quote::orderBy('order', 'asc')->get();
+
+        return ['quotes' => $quotes];
     }
 
     public function getCountries(Request $request)
