@@ -82,6 +82,10 @@ class TimerController extends Controller
                     if ($groupId) {
                         return $query;
                     } else {
+                        if ($location == "country") {
+                            return $query->where('country_id', $user->country_id);
+                        }
+
                         return $query->where('city_id', $user->city_id);
                     }
                 });
