@@ -5,7 +5,6 @@ namespace App\Listeners;
 use App\Events\UserWasCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use KD\Wallet\Models\Wallet;
 
 class CreateWallet
 {
@@ -29,6 +28,6 @@ class CreateWallet
     {
         $user = $event->user;
 
-        Wallet::create(['user_id' => $user->id, 'balance' => 0]);
+        $user->wallet->create(['user_id' => $user->id, 'balance' => 0]);
     }
 }
