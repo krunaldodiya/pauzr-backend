@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Select;
+use OwenMelbz\RadioField\RadioButton;
 
 class Lottery extends Resource
 {
@@ -43,8 +45,22 @@ class Lottery extends Resource
     {
         return [
             ID::make()->sortable(),
+
             Text::make('Amount'),
+
             BelongsTo::make('User'),
+
+            Select::make('Status', 'status')
+                ->sortable()
+                ->options(["success" => "Success", "pending" => "Pending", "failed" => "Failed"])
+                ->default('success')
+                ->hideWhenUpdating(),
+
+            RadioButton::make('Type', 'type')
+                ->sortable()
+                ->options(['credited' => 'Credited', 'debited' => 'Debited'])
+                ->default('credited')
+                ->hideWhenUpdating(),
         ];
     }
 
