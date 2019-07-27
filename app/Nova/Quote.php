@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Avatar;
 
 class Quote extends Resource
 {
@@ -51,9 +52,7 @@ class Quote extends Resource
                 ->sortable()
                 ->rules('required'),
 
-            Text::make('Image')
-                ->sortable()
-                ->rules('required'),
+            Avatar::make('Image'),
 
             Text::make('Order')
                 ->sortable()
