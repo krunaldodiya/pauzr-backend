@@ -82,16 +82,12 @@ class TimerController extends Controller
                     if ($groupId) {
                         return $query;
                     } else {
-                        if ($location == "country") {
-                            return $query->where('country_id', $user->country_id);
-                        }
-
                         return $query->where('city_id', $user->city_id);
                     }
                 });
         }];
 
-        $users = $this->getUsers($groupId, $filters, $user);
+        $users = $this->getUsers($filters, $groupId, $user, $location);
 
         $rankings = $users
             ->map(function ($user) {
@@ -105,11 +101,11 @@ class TimerController extends Controller
         return compact('minutes_saved', 'points_earned', 'rankings');
     }
 
-    public function getUsers($groupId, $filters, $user)
+    public function getUsers($filters, $groupId, $user, $location)
     {
         return  User::with($filters)
             ->where('status', true)
-            ->where(function ($query) use ($groupId, $user) {
+            ->where(function ($query) use ($groupId, $user, $location) {
                 if ($groupId) {
                     $subscribers = GroupSubscription::where(['group_id' => $groupId])
                         ->pluck('subscriber_id')
@@ -117,6 +113,10 @@ class TimerController extends Controller
 
                     return $query->whereIn('id', $subscribers);
                 } else {
+                    if ($location == "country") {
+                        return $query->where('country_id', $user->country_id);
+                    }
+
                     return $query->where('city_id', $user->city_id);
                 }
             })
