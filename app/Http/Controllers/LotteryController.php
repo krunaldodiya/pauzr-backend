@@ -27,6 +27,7 @@ class LotteryController extends Controller
         $user = auth('api')->user();
 
         $lottery_history = Lottery::where('user_id', $user->id)
+            ->where('amount', '>', 0)
             ->orderBy('created_at', 'desc')
             ->get();
 
