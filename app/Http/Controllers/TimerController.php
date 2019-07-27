@@ -55,7 +55,7 @@ class TimerController extends Controller
     {
         $user = auth('api')->user();
 
-        $location = $request->location || "city";
+        $location = $request->location ? $request->location : "city";
 
         $period = $this->filterPeriod($request->period);
 
