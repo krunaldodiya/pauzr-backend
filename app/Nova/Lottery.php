@@ -52,14 +52,12 @@ class Lottery extends Resource
 
             Select::make('Status', 'status')
                 ->sortable()
-                ->options(["success" => "Success", "pending" => "Pending", "failed" => "Failed"])
-                ->hideWhenUpdating(),
+                ->options(["success" => "Success", "pending" => "Pending", "failed" => "Failed"]),
 
             RadioButton::make('Type', 'type')
                 ->sortable()
                 ->options(['credited' => 'Credited', 'debited' => 'Debited'])
-                ->default('credited')
-                ->hideWhenUpdating(),
+                ->default('credited'),
         ];
     }
 
