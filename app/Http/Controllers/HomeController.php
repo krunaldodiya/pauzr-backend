@@ -61,7 +61,7 @@ class HomeController extends Controller
 
     public function getQuotes(Request $request)
     {
-        $quotes = Quote::orderBy('order', 'asc')->get();
+        $quotes = Quote::orderBy('order', 'asc')->get()->toArray();
 
         $first_quote = $quotes[0];
 
