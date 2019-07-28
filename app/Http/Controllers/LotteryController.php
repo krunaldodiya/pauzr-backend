@@ -17,7 +17,7 @@ class LotteryController extends Controller
             ->where('type', 'credited')
             ->where('amount', '>', 0)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return ['lottery_winners' => $lottery_winners];
     }
