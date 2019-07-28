@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Repositories\TimerRepository;
 use JD\Cloudder\Facades\Cloudder;
+use App\Quote;
+use Illuminate\Support\Arr;
 
 class TestController extends Controller
 {
@@ -20,12 +22,16 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $filename = "https://akm-img-a-in.tosshub.com/indiatoday/images/story/201907/super-30_Hrithik_0-770x433.jpeg?nCjjGiayMRUlj08VebELl_d7Ks7XWxQr";
+        $quotes = Quote::orderBy('order', 'asc')->get();
 
-        Cloudder::upload($filename, null);
+        unset($quotes[0]);
 
-        $data = Cloudder::getResult();
+        $other_quotes = array_values($quotes);
 
-        return ['secure_url' => $data['secure_url']];
+        $shuffled_quotes = Arr::shuffle($other_quotes);
+
+        $random_quotes = array_merge([$quotes[0]], $shuffled_quotes);
+
+        return ['quotes' => $random_quotes];
     }
 }
