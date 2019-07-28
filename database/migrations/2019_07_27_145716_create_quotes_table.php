@@ -20,6 +20,7 @@ class CreateQuotesTable extends Migration
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->integer('order')->nullable();
+            $table->enum('type', ['quote', 'ad'])->nullable();
 
             $table->timestamps();
         });

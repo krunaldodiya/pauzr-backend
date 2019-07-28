@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     protected $fillable = [
-        'name', 'country_id'
+        'author', 'title', 'image', 'order', 'type'
     ];
 
     protected $dates = ['created_at', 'updated_at'];

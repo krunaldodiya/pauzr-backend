@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\Select;
 
 class Quote extends Resource
 {
@@ -55,6 +56,10 @@ class Quote extends Resource
             Text::make('Order')
                 ->sortable()
                 ->rules('required'),
+
+            Select::make('Type', 'type')
+                ->sortable()
+                ->options(["quote" => "Quote", "ad" => "Ad"]),
         ];
     }
 
