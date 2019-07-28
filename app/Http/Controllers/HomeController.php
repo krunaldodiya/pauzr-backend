@@ -61,13 +61,13 @@ class HomeController extends Controller
 
     public function getQuotes(Request $request)
     {
-        $quotes = Quote::orderBy('order', 'asc')->get()->toArray();
+        $quotes = Quote::orderBy('order', 'asc')->get();
 
         $first_quote = $quotes[0];
 
         unset($first_quote);
 
-        $shuffled_quotes = Arr::shuffle(array_values($quotes));
+        $shuffled_quotes = Arr::shuffle(array_values($quotes->toArray()));
 
         $random_quotes = array_merge([$first_quote], $shuffled_quotes);
 
