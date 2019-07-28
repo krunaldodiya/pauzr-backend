@@ -24,15 +24,15 @@ class TestController extends Controller
     {
         $quotes = Quote::orderBy('order', 'asc')->get();
 
-        unset($quotes[0]);
+        $first_array = $quotes[0];
 
-        dump($quotes);
+        unset($quotes[0]);
 
         $other_quotes = array_values($quotes->toArray());
 
         $shuffled_quotes = Arr::shuffle($other_quotes);
 
-        $random_quotes = array_merge([$quotes[0]], $shuffled_quotes);
+        $random_quotes = array_merge([$first_array->toArray()], $shuffled_quotes);
 
         return ['quotes' => $random_quotes];
     }

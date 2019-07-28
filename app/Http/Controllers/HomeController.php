@@ -63,15 +63,17 @@ class HomeController extends Controller
     {
         $quotes = Quote::orderBy('order', 'asc')->get();
 
-        // $first_quote = $quotes[0];
+        $first_array = $quotes[0];
 
-        // unset($first_quote);
+        unset($quotes[0]);
 
-        // $shuffled_quotes = Arr::shuffle(array_values($quotes->toArray()));
+        $other_quotes = array_values($quotes->toArray());
 
-        // $random_quotes = array_merge([$first_quote], $shuffled_quotes);
+        $shuffled_quotes = Arr::shuffle($other_quotes);
 
-        return ['quotes' => $quotes];
+        $random_quotes = array_merge([$first_array->toArray()], $shuffled_quotes);
+
+        return ['quotes' => $random_quotes];
     }
 
     public function getCountries(Request $request)
