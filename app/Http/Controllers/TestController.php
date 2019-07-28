@@ -28,7 +28,7 @@ class TestController extends Controller
 
         dump($quotes);
 
-        $other_quotes = array_values($quotes);
+        $other_quotes = array_values($quotes->toArray());
 
         $shuffled_quotes = Arr::shuffle($other_quotes);
 
