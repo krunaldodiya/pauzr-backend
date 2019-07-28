@@ -45,12 +45,10 @@ class Quote extends Resource
             ID::make()->sortable(),
 
             Text::make('Author')
-                ->sortable()
-                ->rules('required'),
+                ->sortable(),
 
             Text::make('Title')
-                ->sortable()
-                ->rules('required'),
+                ->sortable(),
 
             Avatar::make('Image'),
 
