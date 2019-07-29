@@ -16,6 +16,12 @@ class CreateRefersTable extends Migration
         Schema::create('refers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ip_address')->nullable();
+            $table->json('languages')->nullable();
+            $table->string('device')->nullable();
+            $table->string('platform')->nullable();
+            $table->string('browser')->nullable();
+            $table->string('robot')->nullable();
+            $table->string('version')->nullable();
             $table->timestamps();
         });
     }

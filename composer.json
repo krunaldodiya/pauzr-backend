@@ -15,6 +15,7 @@
         "gregoriohc/laravel-nova-theme-responsive": "^0.6.1",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.4",
+        "jenssegers/agent": "^2.6",
         "jrm2k6/cloudder": "^0.6.0",
         "krunaldodiya/profile": "*",
         "krunaldodiya/wallet": "^1.0",

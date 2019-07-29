@@ -81,7 +81,9 @@ class HomeController extends Controller
 
     public function getRefer(Request $request)
     {
-        Refer::create(['ip_address' => $request->ip()]);
+        Refer::create([
+            'ip_address' => $request->ip(),
+        ]);
 
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }
