@@ -15,6 +15,7 @@ use App\Invitation;
 use Illuminate\Support\Str;
 use App\Quote;
 use Illuminate\Support\Arr;
+use App\Refer;
 
 class HomeController extends Controller
 {
@@ -80,6 +81,8 @@ class HomeController extends Controller
 
     public function getRefer(Request $request)
     {
+        Refer::create(['ip_address' => $request->ip()]);
+
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }
 
