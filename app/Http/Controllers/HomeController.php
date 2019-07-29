@@ -85,16 +85,15 @@ class HomeController extends Controller
     {
         $agent = new Agent();
 
-        $version = $agent->platform() ? $agent->platform() : $agent->browser();
-
         Refer::create([
             'ip_address' => $request->ip(),
             'languages' => json_encode($agent->languages()),
             'device' => $agent->device(),
             'platform' => $agent->platform(),
+            'platform_version' => $agent->version($agent->platform()),
             'browser' => $agent->browser(),
+            'browser_version' => $agent->version($agent->browser()),
             'robot' => $agent->robot(),
-            'version' => $agent->version($version),
         ]);
 
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");

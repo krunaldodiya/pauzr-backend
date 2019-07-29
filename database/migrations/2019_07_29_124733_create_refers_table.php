@@ -19,9 +19,10 @@ class CreateRefersTable extends Migration
             $table->json('languages')->nullable();
             $table->string('device')->nullable();
             $table->string('platform')->nullable();
+            $table->string('platform_version')->nullable();
             $table->string('browser')->nullable();
+            $table->string('browser_version')->nullable();
             $table->string('robot')->nullable();
-            $table->string('version')->nullable();
             $table->timestamps();
         });
     }

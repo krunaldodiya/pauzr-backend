@@ -46,9 +46,10 @@ class Refer extends Resource
             Text::make('Languages', 'languages'),
             Text::make('Device', 'device'),
             Text::make('Platform', 'platform'),
+            Text::make('Platform Version', 'platform_version'),
             Text::make('Browser', 'browser'),
+            Text::make('Browser Version', 'browser_version'),
             Text::make('Robot', 'robot'),
-            Text::make('Version', 'version'),
         ];
     }
 
