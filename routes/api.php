@@ -32,6 +32,7 @@ Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
 });
 
 Route::get('/invite/{sender_id}/{mobile}', 'HomeController@checkInvitation');
+Route::get('/refer', 'HomeController@getRefer');
 
 Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () {
     Route::post('/get', 'LotteryController@getLotteries');
