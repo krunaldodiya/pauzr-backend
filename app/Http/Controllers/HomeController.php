@@ -17,6 +17,7 @@ use App\Quote;
 use Illuminate\Support\Arr;
 use App\Refer;
 use Jenssegers\Agent\Agent;
+use function GuzzleHttp\json_encode;
 
 class HomeController extends Controller
 {
@@ -88,7 +89,7 @@ class HomeController extends Controller
 
         Refer::create([
             'ip_address' => $request->ip(),
-            'languages' => $agent->languages(),
+            'languages' => json_encode($agent->languages()),
             'device' => $agent->device(),
             'platform' => $agent->platform(),
             'browser' => $agent->browser(),
