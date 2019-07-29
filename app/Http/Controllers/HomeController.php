@@ -75,7 +75,7 @@ class HomeController extends Controller
             "Cord Blood",
         ];
 
-        return response($keywords, 200);
+        return response(compact('keywords'), 200);
     }
 
     public function getInitialData(Request $request)
