@@ -15,6 +15,7 @@ class CreateRefersTable extends Migration
     {
         Schema::create('refers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('utm');
             $table->string('ip_address')->nullable();
             $table->json('languages')->nullable();
             $table->string('device')->nullable();

@@ -86,6 +86,7 @@ class HomeController extends Controller
         $agent = new Agent();
 
         Refer::create([
+            'utm' => $request->utm,
             'ip_address' => $request->ip(),
             'languages' => json_encode($agent->languages()),
             'device' => $agent->device(),
