@@ -52,7 +52,7 @@ class HomeController extends Controller
 
     public function getAdsKeywords(Request $request)
     {
-        return [
+        $keywords = [
             "Insurance",
             "Loans",
             "Mortgage",
@@ -74,6 +74,8 @@ class HomeController extends Controller
             "Treatment",
             "Cord Blood",
         ];
+
+        return response($keywords, 200);
     }
 
     public function getInitialData(Request $request)
