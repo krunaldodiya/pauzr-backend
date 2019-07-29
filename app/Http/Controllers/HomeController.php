@@ -50,6 +50,11 @@ class HomeController extends Controller
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }
 
+    public function getAdsKeywords(Request $request)
+    {
+        return [];
+    }
+
     public function getInitialData(Request $request)
     {
         $best_offers = Category::with('coupons.store')->where('parent_id', 0)->get();

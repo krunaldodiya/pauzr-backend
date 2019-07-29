@@ -20,6 +20,7 @@ Route::group(['prefix' => 'home'], function () {
     Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
     Route::post('/countries', 'HomeController@getCountries');
     Route::post('/quotes', 'HomeController@getQuotes');
+    Route::post('/keywords', 'HomeController@getAdsKeywords');
 });
 
 Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
