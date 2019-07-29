@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use App\Quote;
 use Illuminate\Support\Arr;
 use App\Refer;
+use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
 {
@@ -81,8 +82,18 @@ class HomeController extends Controller
 
     public function getRefer(Request $request)
     {
+        $agent = new Agent();
+
+        $version = $agent->platform() ? $agent->platform() : $agent->browser();
+
         Refer::create([
             'ip_address' => $request->ip(),
+            'languages' => $agent->languages(),
+            'device' => $agent->device(),
+            'platform' => $agent->platform(),
+            'browser' => $agent->browser(),
+            'robot' => $agent->robot(),
+            'version' => $agent->version($version),
         ]);
 
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
