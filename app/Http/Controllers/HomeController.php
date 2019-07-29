@@ -52,7 +52,28 @@ class HomeController extends Controller
 
     public function getAdsKeywords(Request $request)
     {
-        return [];
+        return [
+            "Insurance",
+            "Loans",
+            "Mortgage",
+            "Attorney",
+            "Credit",
+            "Lawyer",
+            "Donate",
+            "Degree",
+            "Hosting",
+            "Claim",
+            "Conference Call",
+            "Trading",
+            "Software",
+            "Recovery",
+            "Transfer",
+            "Gas/Electicity",
+            "Classes",
+            "Rehab",
+            "Treatment",
+            "Cord Blood",
+        ];
     }
 
     public function getInitialData(Request $request)
