@@ -19,6 +19,6 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        return 'done';
+        return 'test';
     }
 }
