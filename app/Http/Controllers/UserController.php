@@ -39,6 +39,11 @@ class UserController extends Controller
 
             $authUser->update(['avatar' => $url]);
 
+            Image::where([
+                'user_id' => $authUser->id,
+                'type' => 'avatar',
+            ])->update(['default' => false]);
+
             Image::create([
                 'user_id' => $authUser->id,
                 'url' => $url,
