@@ -8,6 +8,9 @@ use App\Repositories\TimerRepository;
 use JD\Cloudder\Facades\Cloudder;
 use App\Quote;
 use Illuminate\Support\Arr;
+use App\User;
+use Carbon\Carbon;
+use App\Image;
 
 class TestController extends Controller
 {
@@ -22,18 +25,18 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $quotes = Quote::orderBy('order', 'asc')->get();
+        $users = User::where('avatar', '!=', null)->get()->map(function ($user) {
+            return [
+                'user_id' => $user->id,
+                'url' => $user->avatar,
+                'default' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        })->toArray();
 
-        $first_array = $quotes[0];
+        $create = Image::insert($users);
 
-        unset($quotes[0]);
-
-        $other_quotes = array_values($quotes->toArray());
-
-        $shuffled_quotes = Arr::shuffle($other_quotes);
-
-        $random_quotes = array_merge([$first_array->toArray()], $shuffled_quotes);
-
-        return ['quotes' => $random_quotes];
+        return 'okay';
     }
 }
