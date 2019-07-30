@@ -9,6 +9,7 @@ use App\User;
 
 use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
+use App\Image;
 
 class UserController extends Controller
 {
@@ -28,12 +29,23 @@ class UserController extends Controller
 
     public function uploadAvatar(Request $request)
     {
+        $authUser = auth('api')->user();
+
         try {
             Cloudder::upload($request->image, null);
-            $data = Cloudder::getResult();
 
-            auth('api')->user()->update(['avatar' => $data['secure_url']]);
-            $user = $this->user->getUserById(auth('api')->user()->id);
+            $data = Cloudder::getResult();
+            $url = $data['secure_url'];
+
+            $authUser->update(['avatar' => $url]);
+
+            Image::create([
+                'user_id' => $authUser->id,
+                'url' => $url,
+                'default' => true,
+            ]);
+
+            $user = $this->user->getUserById($authUser->id);
 
             return response(['user' => $user], 200);
         } catch (\Throwable $th) {
