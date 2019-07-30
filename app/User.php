@@ -64,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
     {
         $defaultAvatar = $this->images()->where('type', 'avatar')->where('default', true)->first();
 
-        return $defaultAvatar == null ? "default.jpeg" : $defaultAvatar;
+        return $defaultAvatar == null ? "default.jpeg" : $defaultAvatar->url;
     }
 
     public function stores()
