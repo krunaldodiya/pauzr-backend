@@ -37,8 +37,6 @@ class UserController extends Controller
             $data = Cloudder::getResult();
             $url = $data['secure_url'];
 
-            $authUser->update(['avatar' => $url]);
-
             Image::where([
                 'user_id' => $authUser->id,
                 'type' => 'avatar',
