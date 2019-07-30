@@ -62,10 +62,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getAvatarAttribute($avatar)
     {
-        // $defaultAvatar = $this->images()->where('type', 'avatar')->where('default', true)->first();
+        $defaultAvatar = $this->images()->where('type', 'avatar')->where('default', true)->first();
 
-        // return $defaultAvatar == null ? "default.jpeg" : $defaultAvatar;
-        return $avatar == null ? "default.jpeg" : $avatar;
+        return $defaultAvatar == null ? "default.jpeg" : $defaultAvatar;
     }
 
     public function stores()
