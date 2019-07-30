@@ -27,6 +27,15 @@ class UserController extends Controller
         return ['user' => $user];
     }
 
+    public function getUserGallery(Request $request)
+    {
+        $lottery_winners = Image::where('user_id', $request->user_id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(100);
+
+        return ['lottery_winners' => $lottery_winners];
+    }
+
     public function uploadAvatar(Request $request)
     {
         $authUser = auth('api')->user();

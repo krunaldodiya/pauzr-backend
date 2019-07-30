@@ -13,6 +13,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/me', 'UserController@me');
     Route::post('/update', 'UserController@update');
     Route::post('/avatar/upload', 'UserController@uploadAvatar');
+    Route::post('/gallery', 'UserController@getUserGallery');
 });
 
 Route::group(['prefix' => 'home'], function () {
