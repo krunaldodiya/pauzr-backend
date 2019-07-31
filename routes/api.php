@@ -22,6 +22,7 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/list', 'PostController@getPosts');
     Route::post('/create', 'PostController@createPost');
     Route::post('/edit', 'PostController@editPost');
+    Route::post('/delete', 'PostController@deletePost');
     Route::post('/image/upload', 'PostController@uploadImage');
 });
 
