@@ -28,7 +28,7 @@ class PostController extends Controller
                 'url' => $request->photo,
             ]);
 
-        $post = Image::where('id', $request->postId)->first();
+        $post = Image::with('user')->where('id', $request->postId)->first();
 
         return response(['post' => $post], 200);
     }
@@ -44,6 +44,8 @@ class PostController extends Controller
                 'type' => 'post',
                 'default' => false,
             ]);
+
+            $post = Image::with('user')->where('id', $post->id)->first();
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {
