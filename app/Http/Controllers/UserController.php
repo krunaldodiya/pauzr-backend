@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
 use App\Image;
+use App\Follow;
 
 class UserController extends Controller
 {
@@ -18,6 +19,32 @@ class UserController extends Controller
     public function __construct(UserRepository $user)
     {
         $this->user = $user;
+    }
+
+    public function followUser(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $following_id = $request->following_id;
+
+        Follow::create(['user_id' => $user->id, 'following_id' => $following_id]);
+
+        $user = $this->user->getUserById($request->user_id);
+
+        return ['user' => $user];
+    }
+
+    public function unfollowUser(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $following_id = $request->following_id;
+
+        Follow::where(['user_id' => $user->id, 'following_id' => $following_id])->delete();
+
+        $user = $this->user->getUserById($request->user_id);
+
+        return ['user' => $user];
     }
 
     public function me()
