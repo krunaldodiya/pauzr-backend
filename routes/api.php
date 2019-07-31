@@ -21,6 +21,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/create', 'PostController@create');
+    Route::post('/image/upload', 'PostController@uploadImage');
 });
 
 Route::group(['prefix' => 'ads', 'middleware' => 'auth:api'], function () {

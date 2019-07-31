@@ -8,20 +8,26 @@ use JD\Cloudder\Facades\Cloudder;
 
 class PostController extends Controller
 {
+    public function uploadImage(Request $request)
+    {
+        try {
+            Cloudder::upload($request->image, null);
+            $data = Cloudder::getResult();
+
+            return ['name' => $data['secure_url']];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function create(Request $request)
     {
         $user = auth('api')->user();
 
         try {
-            Cloudder::upload($request->image, null);
-
-            $data = Cloudder::getResult();
-
-            $url = $data['secure_url'];
-
             $post = Image::create([
                 'user_id' => $user->id,
-                'url' => $url,
+                'url' => $request->url,
                 'type' => 'post',
                 'default' => false,
             ]);
