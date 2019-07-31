@@ -19,9 +19,10 @@ class CreateImagesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('type')->default('avatar');
             $table->string('url')->nullable();
+            $table->string('description')->nullable();
 
+            $table->string('type')->default('avatar');
             $table->boolean('default');
 
             $table->timestamps();
