@@ -10,8 +10,13 @@ class Follow extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    public function user()
+    public function follower_user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'follower_id');
+    }
+
+    public function following_user()
+    {
+        return $this->belongsTo(User::class, 'following_id');
     }
 }

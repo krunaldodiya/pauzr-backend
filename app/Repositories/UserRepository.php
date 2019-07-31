@@ -9,7 +9,7 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::with('city.state.country', 'state', 'country', 'level', 'wallet', 'followers.user', 'following.user')
+        return User::with('city.state.country', 'state', 'country', 'level', 'wallet', 'followers.follower_user', 'following.following_user')
             ->where(['id' => $user_id])
             ->first();
     }
