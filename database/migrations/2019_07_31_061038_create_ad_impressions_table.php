@@ -15,6 +15,12 @@ class CreateAdImpressionsTable extends Migration
     {
         Schema::create('ad_impressions', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('type');
+
             $table->timestamps();
         });
     }
