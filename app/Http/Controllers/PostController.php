@@ -30,6 +30,13 @@ class PostController extends Controller
         }
     }
 
+    public function deletePost(Request $request)
+    {
+        Image::where(['id' => $request->post_id])->delete();
+
+        return response(['success' => true], 200);
+    }
+
     public function editPost(CreateGroup $request)
     {
         Image::where(['id' => $request->postId])
