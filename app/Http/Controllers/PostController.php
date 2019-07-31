@@ -37,6 +37,7 @@ class PostController extends Controller
     {
         $user = auth('api')->user();
 
+
         try {
             $post = Image::create([
                 'user_id' => $user->id,
