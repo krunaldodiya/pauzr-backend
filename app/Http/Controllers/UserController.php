@@ -27,6 +27,13 @@ class UserController extends Controller
         return ['user' => $user];
     }
 
+    public function guest(Request $request)
+    {
+        $user = $this->user->getUserById($request->user_id);
+
+        return ['user' => $user];
+    }
+
     public function getUserGallery(Request $request)
     {
         $images = Image::where('user_id', $request->user_id)
