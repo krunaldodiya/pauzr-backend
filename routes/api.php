@@ -20,6 +20,10 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/create', 'PostController@create');
 });
 
+Route::group(['prefix' => 'ads', 'middleware' => 'auth:api'], function () {
+    Route::post('/impression', 'HomeController@setAdImpression');
+});
+
 Route::group(['prefix' => 'home'], function () {
     Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
     Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");

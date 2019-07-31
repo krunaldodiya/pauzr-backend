@@ -19,6 +19,7 @@ use App\Refer;
 use Jenssegers\Agent\Agent;
 use function GuzzleHttp\json_encode;
 use App\AdKeyword;
+use App\AdImpression;
 
 class HomeController extends Controller
 {
@@ -59,6 +60,18 @@ class HomeController extends Controller
         $keywords = AdKeyword::pluck('keywords')->toArray();
 
         return response(compact('keywords'), 200);
+    }
+
+    public function setAdImpression(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $impression = AdImpression::create([
+            'user_id' => $user->id,
+            'type' => $request->type,
+        ]);
+
+        return response(compact('impression'), 200);
     }
 
     public function getRefer(Request $request)
