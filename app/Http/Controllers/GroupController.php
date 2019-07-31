@@ -67,7 +67,7 @@ class GroupController extends Controller
         $edit_group = Group::where(['id' => $request->groupId])
             ->update([
                 'name' => $request->name,
-                'description' => $request->description ?? null,
+                'description' => $request->description ? $request->description : null,
                 'photo' => $request->photo,
             ]);
 
@@ -84,7 +84,7 @@ class GroupController extends Controller
 
         $create_group = Group::create([
             'name' => $request->name,
-            'description' => $request->description,
+            'description' => $request->description ? $request->description : null,
             'photo' => $request->photo,
             'owner_id' => $user->id,
             'anyone_can_post' => false,

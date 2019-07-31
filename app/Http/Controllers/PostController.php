@@ -51,6 +51,7 @@ class PostController extends Controller
             $post = Image::create([
                 'user_id' => $user->id,
                 'url' => $request->photo,
+                'description' => $request->description ? $request->description : null,
                 'type' => 'post',
                 'default' => false,
             ]);
