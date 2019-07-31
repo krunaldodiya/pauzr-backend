@@ -10,9 +10,11 @@ class Image extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    public function getCreatedAtAttribute($created_at)
+    protected $appends = ['when'];
+
+    public function getWhenAttribute()
     {
-        return $created_at->diffForHumans();
+        return $this->created_at->diffForHumans();
     }
 
     public function user()
