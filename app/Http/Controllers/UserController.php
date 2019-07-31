@@ -29,7 +29,7 @@ class UserController extends Controller
 
         Follow::create(['follower_id' => $user->id, 'following_id' => $following_id]);
 
-        $user = $this->user->getUserById($request->user_id);
+        $user = $this->user->getUserById($user->id);
 
         return ['user' => $user];
     }
@@ -42,7 +42,7 @@ class UserController extends Controller
 
         Follow::where(['follower_id' => $user->id, 'following_id' => $following_id])->delete();
 
-        $user = $this->user->getUserById($request->user_id);
+        $user = $this->user->getUserById($user->id);
 
         return ['user' => $user];
     }
