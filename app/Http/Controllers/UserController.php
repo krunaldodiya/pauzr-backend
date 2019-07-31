@@ -24,27 +24,27 @@ class UserController extends Controller
     public function followUser(Request $request)
     {
         $user = auth('api')->user();
-
         $following_id = $request->following_id;
 
         Follow::create(['follower_id' => $user->id, 'following_id' => $following_id]);
 
         $user = $this->user->getUserById($user->id);
+        $guest = $this->user->getUserById($following_id);
 
-        return ['user' => $user];
+        return ['user' => $user, 'guest' => $guest];
     }
 
     public function unfollowUser(Request $request)
     {
         $user = auth('api')->user();
-
         $following_id = $request->following_id;
 
         Follow::where(['follower_id' => $user->id, 'following_id' => $following_id])->delete();
 
         $user = $this->user->getUserById($user->id);
+        $guest = $this->user->getUserById($following_id);
 
-        return ['user' => $user];
+        return ['user' => $user, 'guest' => $guest];
     }
 
     public function me()
