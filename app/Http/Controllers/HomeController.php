@@ -18,6 +18,7 @@ use Illuminate\Support\Arr;
 use App\Refer;
 use Jenssegers\Agent\Agent;
 use function GuzzleHttp\json_encode;
+use App\AdKeyword;
 
 class HomeController extends Controller
 {
@@ -55,28 +56,7 @@ class HomeController extends Controller
 
     public function getAdsKeywords(Request $request)
     {
-        $keywords = [
-            "Insurance",
-            "Loans",
-            "Mortgage",
-            "Attorney",
-            "Credit",
-            "Lawyer",
-            "Donate",
-            "Degree",
-            "Hosting",
-            "Claim",
-            "Conference Call",
-            "Trading",
-            "Software",
-            "Recovery",
-            "Transfer",
-            "Gas/Electicity",
-            "Classes",
-            "Rehab",
-            "Treatment",
-            "Cord Blood",
-        ];
+        $keywords = AdKeyword::pluck('keywords')->toArray();
 
         return response(compact('keywords'), 200);
     }
