@@ -34,7 +34,7 @@ class PostController extends Controller
     {
         Image::where(['id' => $request->postId])
             ->update([
-                'description' => $request->description ?? null,
+                'description' => $request->description,
                 'url' => $request->photo,
             ]);
 
