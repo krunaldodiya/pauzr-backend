@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Refer extends Resource
 {
@@ -95,6 +96,13 @@ class Refer extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new DownloadExcel)
+                ->onlyOnIndex()
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                })
+                ->onlyOnIndex(),
+        ];
     }
 }
