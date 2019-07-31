@@ -42,15 +42,15 @@ class Refer extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('UTM Source', 'utm'),
-            Text::make('Ip Address', 'ip_address'),
-            Text::make('Languages', 'languages'),
-            Text::make('Device', 'device'),
-            Text::make('Platform', 'platform'),
-            Text::make('Platform Version', 'platform_version'),
-            Text::make('Browser', 'browser'),
-            Text::make('Browser Version', 'browser_version'),
-            Text::make('Robot', 'robot'),
+            Text::make('UTM Source', 'utm')->sortable(),
+            Text::make('Ip Address', 'ip_address')->sortable(),
+            Text::make('Languages', 'languages')->sortable(),
+            Text::make('Device', 'device')->sortable(),
+            Text::make('Platform', 'platform')->sortable(),
+            Text::make('Platform Version', 'platform_version')->sortable(),
+            Text::make('Browser', 'browser')->sortable(),
+            Text::make('Browser Version', 'browser_version')->sortable(),
+            Text::make('Robot', 'robot')->sortable(),
         ];
     }
 
