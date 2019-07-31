@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $fillable = ['user_id', 'type', 'url', 'default'];
+    protected $fillable = ['user_id', 'type', 'url', 'description', 'default'];
 
     protected $dates = ['created_at', 'updated_at'];
 
