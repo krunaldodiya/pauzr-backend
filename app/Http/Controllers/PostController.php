@@ -20,14 +20,27 @@ class PostController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function editPost(CreateGroup $request)
+    {
+        Image::where(['id' => $request->postId])
+            ->update([
+                'description' => $request->description ?? null,
+                'url' => $request->photo,
+            ]);
+
+        $post = Image::where('id', $request->postId)->first();
+
+        return response(['post' => $post], 200);
+    }
+
+    public function createPost(Request $request)
     {
         $user = auth('api')->user();
 
         try {
             $post = Image::create([
                 'user_id' => $user->id,
-                'url' => $request->url,
+                'url' => $request->photo,
                 'type' => 'post',
                 'default' => false,
             ]);
