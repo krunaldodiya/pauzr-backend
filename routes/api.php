@@ -19,7 +19,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
-    Route::post('/list', 'UserController@getPosts');
+    Route::post('/list', 'PostController@getPosts');
     Route::post('/create', 'PostController@createPost');
     Route::post('/edit', 'PostController@editPost');
     Route::post('/image/upload', 'PostController@uploadImage');
