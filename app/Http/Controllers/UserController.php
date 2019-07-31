@@ -65,15 +65,6 @@ class UserController extends Controller
         return ['user' => $user];
     }
 
-    public function getUserGallery(Request $request)
-    {
-        $images = Image::where('user_id', $request->user_id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(100);
-
-        return ['images' => $images];
-    }
-
     public function uploadAvatar(Request $request)
     {
         $authUser = auth('api')->user();

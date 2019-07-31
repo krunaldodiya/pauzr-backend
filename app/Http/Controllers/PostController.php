@@ -8,6 +8,16 @@ use JD\Cloudder\Facades\Cloudder;
 
 class PostController extends Controller
 {
+    public function getPosts(Request $request)
+    {
+        $images = Image::with('user')
+            ->where('user_id', $request->user_id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(100);
+
+        return ['images' => $images];
+    }
+
     public function uploadImage(Request $request)
     {
         try {

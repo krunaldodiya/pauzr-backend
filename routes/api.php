@@ -14,12 +14,12 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/guest', 'UserController@guest');
     Route::post('/update', 'UserController@update');
     Route::post('/avatar/upload', 'UserController@uploadAvatar');
-    Route::post('/gallery', 'UserController@getUserGallery');
     Route::post('/follow', 'UserController@followUser');
     Route::post('/unfollow', 'UserController@unfollowUser');
 });
 
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
+    Route::post('/list', 'UserController@getPosts');
     Route::post('/create', 'PostController@createPost');
     Route::post('/edit', 'PostController@editPost');
     Route::post('/image/upload', 'PostController@uploadImage');
