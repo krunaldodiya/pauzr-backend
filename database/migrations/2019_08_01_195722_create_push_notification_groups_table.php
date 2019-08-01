@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePushNotificationSubscribersTable extends Migration
+class CreatePushNotificationGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePushNotificationSubscribersTable extends Migration
      */
     public function up()
     {
-        Schema::create('push_notification_subscribers', function (Blueprint $table) {
+        Schema::create('push_notification_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('push_notification_id');
-            $table->bigInteger('subscriber_id');
+            $table->string('name');
 
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreatePushNotificationSubscribersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('push_notification_subscribers');
+        Schema::dropIfExists('push_notification_groups');
     }
 }

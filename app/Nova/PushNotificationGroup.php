@@ -5,19 +5,15 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Avatar;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Trix;
 
-class PushNotification extends Resource
+class PushNotificationGroup extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\PushNotification';
+    public static $model = 'App\PushNotificationGroup';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -45,14 +41,6 @@ class PushNotification extends Resource
     {
         return [
             ID::make()->sortable(),
-
-            Text::make('Title')
-                ->sortable(),
-
-            Trix::make('Description')
-                ->sortable(),
-
-            Avatar::make('Image'),
         ];
     }
 
