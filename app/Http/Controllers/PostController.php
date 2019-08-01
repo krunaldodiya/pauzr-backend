@@ -73,7 +73,7 @@ class PostController extends Controller
         $transaction = $user->createTransaction($post->likes()->count(), 'deposit', ['description' => "Earning from post"]);
         $user->withdraw($transaction->transaction_id);
 
-        return response(['earnings' => $earnings], 200);
+        return response(['post' => $post], 200);
     }
 
     public function deletePost(Request $request)
