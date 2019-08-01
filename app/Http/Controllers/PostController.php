@@ -57,18 +57,23 @@ class PostController extends Controller
     {
         $user = auth('api')->user();
 
-        $post = Post::with('owner', 'likes', 'earnings')
-            ->where(['id' => $request->post_id])
-            ->first();
+        $post = Post::where(['id' => $request->post_id])->first();
 
-        PostEarning::create([
+        $earnings = PostEarning::create([
             'user_id' => $user->id,
             'post_id' => $request->post_id,
             'points' => $post->likes()->count(),
             'redeemed' => true,
         ]);
 
-        return response(['post' => $post], 200);
+        $post = Post::with('owner', 'likes', 'earnings')
+            ->where(['id' => $request->post_id])
+            ->first();
+
+        $transaction = $user->createTransaction($post->likes()->count(), 'withdraw', ['description' => "Earning from post"]);
+        $user->withdraw($transaction->transaction_id);
+
+        return response(['earnings' => $earnings], 200);
     }
 
     public function deletePost(Request $request)
