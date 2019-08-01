@@ -15,7 +15,7 @@ class WalletTransaction extends Resource
      *
      * @var string
      */
-    public static $model = 'KD\Wallet\Models\WalletTransaction';
+    public static $model = 'KD\Wallet\Models\Transaction';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
