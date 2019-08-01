@@ -34,7 +34,9 @@ class PostController extends Controller
     {
         $user = auth('api')->user();
 
-        $post = Post::where(['id' => $request->post_id])->first();
+        $post = Post::with('owner', 'likes', 'earnings')
+            ->where(['id' => $request->post_id])
+            ->first();
 
         $user->favorites()->toggle($post);
 
