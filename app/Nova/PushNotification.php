@@ -70,6 +70,7 @@ class PushNotification extends Resource
                 ->json()
                 ->language('javascript')
                 ->sortable()
+                ->onlyOnDetail()
                 ->exceptOnForms(),
 
             HasMany::make('Push Notification Subscriber', 'subscribers'),
