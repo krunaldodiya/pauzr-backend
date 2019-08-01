@@ -30,6 +30,13 @@ class PostController extends Controller
         }
     }
 
+    public function getPostDetail(Request $request)
+    {
+        $post = Post::with('user', 'likes')->where(['id' => $request->post_id])->first();
+
+        return response(['post' => $post], 200);
+    }
+
     public function deletePost(Request $request)
     {
         Post::where(['id' => $request->post_id])->delete();
