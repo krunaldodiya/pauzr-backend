@@ -30,6 +30,17 @@ class PostController extends Controller
         }
     }
 
+    public function toggleLike(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $post = Post::where(['id' => $request->post_id])->first();
+
+        $post->likes()->toggle($user);
+
+        return response(['post' => $post], 200);
+    }
+
     public function getPostDetail(Request $request)
     {
         $post = Post::with('user', 'likes', 'earnings')

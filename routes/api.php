@@ -19,6 +19,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
+    Route::post('/like', 'PostController@toggleLike');
     Route::post('/detail', 'PostController@getPostDetail');
     Route::post('/list', 'PostController@getPosts');
     Route::post('/create', 'PostController@createPost');
