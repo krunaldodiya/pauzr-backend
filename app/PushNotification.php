@@ -11,4 +11,9 @@ class PushNotification extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function subscribers()
+    {
+        return $this->hasMany(PushNotificationSubscriber::class);
+    }
 }
