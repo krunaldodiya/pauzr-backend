@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function getPosts(Request $request)
     {
-        $posts = Post::with('user')
+        $posts = Post::with('owner')
             ->where('user_id', $request->user_id)
             ->orderBy('created_at', 'desc')
             ->paginate(100);
@@ -43,7 +43,7 @@ class PostController extends Controller
 
     public function getPostDetail(Request $request)
     {
-        $post = Post::with('user', 'likes', 'earnings')
+        $post = Post::with('owner', 'likes', 'earnings')
             ->where(['id' => $request->post_id])
             ->first();
 
@@ -65,7 +65,7 @@ class PostController extends Controller
                 'url' => $request->photo,
             ]);
 
-        $post = Post::with('user')->where('id', $request->postId)->first();
+        $post = Post::with('owner')->where('id', $request->postId)->first();
 
         return response(['post' => $post], 200);
     }
@@ -83,7 +83,7 @@ class PostController extends Controller
                 'default' => false,
             ]);
 
-            $post = Post::with('user')->where('id', $post->id)->first();
+            $post = Post::with('owner')->where('id', $post->id)->first();
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {
