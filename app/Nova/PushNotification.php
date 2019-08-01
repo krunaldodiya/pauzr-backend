@@ -19,6 +19,8 @@ class PushNotification extends Resource
      */
     public static $model = 'App\PushNotification';
 
+    public static $group = 'PushNotification';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
