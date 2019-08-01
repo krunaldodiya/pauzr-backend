@@ -29,6 +29,6 @@ class Post extends Model
 
     public function earnings()
     {
-        return $this->belongsTo(PostEarning::class);
+        return $this->hasOne(PostEarning::class);
     }
 }
