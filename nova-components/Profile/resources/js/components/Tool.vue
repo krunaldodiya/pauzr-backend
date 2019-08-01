@@ -49,7 +49,7 @@
         <div class="flex border-b border-40">
           <div class="w-1/4 py-4">Avatar</div>
           <div class="w-3/4 py-4" style="max-width: 320px">
-            <img :src="`/storage/${user.avatar}`" v-if="user.avatar">
+            <img :src="`/storage/${user.avatar}`" v-if="user.avatar" />
             <span v-if="!user.avatar">___</span>
           </div>
         </div>

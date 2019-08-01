@@ -20,6 +20,7 @@ class CreatePushNotificationsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image');
+            $table->boolean('status')->default(false);
 
             $table->timestamps();
         });

@@ -188,7 +188,6 @@ class User extends Resource
     {
         return [
             (new DownloadExcel)
-                ->onlyOnIndex()
                 ->canSee(function ($request) {
                     return $request->user()->isAdmin();
                 })
@@ -203,7 +202,6 @@ class User extends Resource
                 }),
 
             (new SubscribeToPushNotification)
-                ->onlyOnIndex()
                 ->canSee(function ($request) {
                     return $request->user()->isAdmin();
                 })

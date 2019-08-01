@@ -39,7 +39,7 @@ class SubscribeToPushNotification extends Action
 
         PushNotificationSubscriber::insert($data);
 
-        return Action::message('User has been charged 50 points.');
+        return Action::message("{$users->count()} Users have been added.");
     }
 
     /**

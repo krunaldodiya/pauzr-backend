@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Store;
 use App\Banner;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Country;
 use App\City;
@@ -20,6 +19,7 @@ use Jenssegers\Agent\Agent;
 use function GuzzleHttp\json_encode;
 use App\AdKeyword;
 use App\AdImpression;
+use App\PushNotification;
 
 class HomeController extends Controller
 {
@@ -159,5 +159,16 @@ class HomeController extends Controller
         }
 
         return Image::make(public_path("images/default.png"))->response();
+    }
+
+    public function deployPush(Request $request)
+    {
+        $push_notification_id = $request->push_notification_id;
+
+        PushNotification::with('subscribers')
+            ->where(['id' => $push_notification_id])
+            ->first();
+
+        return redirect()->back();
     }
 }

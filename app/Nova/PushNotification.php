@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Trix;
+use App\Nova\Actions\DeployPushNotification;
+use Laravel\Nova\Fields\Boolean;
 
 class PushNotification extends Resource
 {
@@ -59,6 +61,8 @@ class PushNotification extends Resource
 
             Avatar::make('Image'),
 
+            Boolean::make('Status')->sortable(),
+
             HasMany::make('Push Notification Subscriber', 'subscribers'),
         ];
     }
@@ -104,6 +108,12 @@ class PushNotification extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new DeployPushNotification)
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                })
+                ->onlyOnDetail(),
+        ];
     }
 }

@@ -4,6 +4,22 @@ Route::group(['prefix' => 'error'], function () {
     Route::post('/notify', 'HomeController@notifyError');
 });
 
+Route::group(['prefix' => 'home'], function () {
+    Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
+    Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
+    Route::post('/countries', 'HomeController@getCountries');
+    Route::post('/quotes', 'HomeController@getQuotes');
+    Route::post('/keywords', 'HomeController@getAdsKeywords');
+});
+
+Route::group(['prefix' => 'ads', 'middleware' => 'auth:api'], function () {
+    Route::post('/impression', 'HomeController@setAdImpression');
+});
+
+Route::get('/push/deploy', 'HomeController@deployPush');
+Route::get('/invite/{sender_id}/{mobile}', 'HomeController@checkInvitation');
+Route::get('/refer', 'HomeController@getRefer');
+
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
     Route::post('/request-otp', 'OtpController@requestOtp');
     Route::post('/verify-otp', 'OtpController@verifyOtp');
@@ -29,17 +45,7 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/image/upload', 'PostController@uploadImage');
 });
 
-Route::group(['prefix' => 'ads', 'middleware' => 'auth:api'], function () {
-    Route::post('/impression', 'HomeController@setAdImpression');
-});
 
-Route::group(['prefix' => 'home'], function () {
-    Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
-    Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
-    Route::post('/countries', 'HomeController@getCountries');
-    Route::post('/quotes', 'HomeController@getQuotes');
-    Route::post('/keywords', 'HomeController@getAdsKeywords');
-});
 
 Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
     Route::post('/minutes', 'TimerController@getMinutesHistory');
@@ -48,9 +54,6 @@ Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
     Route::post('/winners', 'TimerController@getWinners');
     Route::post('/set', 'TimerController@setTimer');
 });
-
-Route::get('/invite/{sender_id}/{mobile}', 'HomeController@checkInvitation');
-Route::get('/refer', 'HomeController@getRefer');
 
 Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () {
     Route::post('/get', 'LotteryController@getLotteries');
