@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Image;
 use JD\Cloudder\Facades\Cloudder;
+use App\Post;
 
 class PostController extends Controller
 {
     public function getPosts(Request $request)
     {
-        $images = Image::with('user')
+        $posts = Post::with('user')
             ->where('user_id', $request->user_id)
             ->orderBy('created_at', 'desc')
             ->paginate(100);
 
-        return ['images' => $images];
+        return ['posts' => $posts];
     }
 
     public function uploadImage(Request $request)
@@ -32,20 +32,20 @@ class PostController extends Controller
 
     public function deletePost(Request $request)
     {
-        Image::where(['id' => $request->post_id])->delete();
+        Post::where(['id' => $request->post_id])->delete();
 
         return response(['success' => true], 200);
     }
 
     public function editPost(CreateGroup $request)
     {
-        Image::where(['id' => $request->postId])
+        Post::where(['id' => $request->postId])
             ->update([
                 'description' => $request->description ? $request->description : null,
                 'url' => $request->photo,
             ]);
 
-        $post = Image::with('user')->where('id', $request->postId)->first();
+        $post = Post::with('user')->where('id', $request->postId)->first();
 
         return response(['post' => $post], 200);
     }
@@ -55,7 +55,7 @@ class PostController extends Controller
         $user = auth('api')->user();
 
         try {
-            $post = Image::create([
+            $post = Post::create([
                 'user_id' => $user->id,
                 'url' => $request->photo,
                 'description' => $request->description ? $request->description : null,
@@ -63,7 +63,7 @@ class PostController extends Controller
                 'default' => false,
             ]);
 
-            $post = Image::with('user')->where('id', $post->id)->first();
+            $post = Post::with('user')->where('id', $post->id)->first();
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {

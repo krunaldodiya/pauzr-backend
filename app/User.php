@@ -84,7 +84,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Post::class);
     }
 
     public function timer_history()

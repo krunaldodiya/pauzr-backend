@@ -9,8 +9,8 @@ use App\User;
 
 use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
-use App\Image;
 use App\Follow;
+use App\Post;
 
 class UserController extends Controller
 {
@@ -75,12 +75,12 @@ class UserController extends Controller
             $data = Cloudder::getResult();
             $url = $data['secure_url'];
 
-            Image::where([
+            Post::where([
                 'user_id' => $authUser->id,
                 'type' => 'avatar',
             ])->update(['default' => false]);
 
-            Image::create([
+            Post::create([
                 'user_id' => $authUser->id,
                 'url' => $url,
                 'default' => true,

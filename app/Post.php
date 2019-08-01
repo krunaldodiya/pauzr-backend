@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Post extends Model
 {
     protected $fillable = ['user_id', 'type', 'url', 'description', 'default'];
 
