@@ -9,6 +9,9 @@ use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Laravel\Nova\Fields\Select;
+use App\PushNotification;
+use App\PushNotificationSubscriber;
 
 class SubscribeToPushNotification extends Action
 {
@@ -21,9 +24,22 @@ class SubscribeToPushNotification extends Action
      * @param  \Illuminate\Support\Collection  $models
      * @return mixed
      */
-    public function handle(ActionFields $fields, Collection $models)
+    public function handle(ActionFields $fields, Collection $users)
     {
-        //
+        $push_notification_id = $fields->push_notification_id;
+
+        $data = $users
+            ->map(function ($user) use ($push_notification_id) {
+                return [
+                    'subscriber_id' => $user->id,
+                    'push_notification_id' => $push_notification_id
+                ];
+            })
+            ->toArray();
+
+        PushNotificationSubscriber::insert($data);
+
+        return Action::message('User has been charged 50 points.');
     }
 
     /**
@@ -33,6 +49,11 @@ class SubscribeToPushNotification extends Action
      */
     public function fields()
     {
-        return [];
+        $notifications = PushNotification::pluck('subject', 'id');
+
+        return [
+            Select::make('Push Notification', 'push_notification_id')
+                ->options($notifications),
+        ];
     }
 }

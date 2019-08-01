@@ -58,6 +58,8 @@ class PushNotification extends Resource
                 ->sortable(),
 
             Avatar::make('Image'),
+
+            HasMany::make('Push Notification Subscriber', 'subscribers'),
         ];
     }
 

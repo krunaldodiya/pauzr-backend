@@ -45,6 +45,8 @@ class PushNotificationSubscriber extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            BelongsTo::make('User', 'subscriber'),
         ];
     }
 

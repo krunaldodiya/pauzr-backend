@@ -18,8 +18,6 @@ class CreatePushNotificationSubscribersTable extends Migration
 
             $table->bigInteger('push_notification_id');
             $table->bigInteger('subscriber_id');
-
-            $table->timestamps();
         });
     }
 

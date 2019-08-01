@@ -12,13 +12,8 @@ class PushNotificationSubscriber extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    public function subscribers()
+    public function subscriber()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function notifications()
-    {
-        return $this->belongsTo(PushNotification::class);
     }
 }
