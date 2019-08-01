@@ -53,7 +53,7 @@ class PushNotification extends Resource
 
             Avatar::make('Image'),
 
-            HasMany::make('Subscriber'),
+            HasMany::make('Push Notification Subscriber'),
         ];
     }
 

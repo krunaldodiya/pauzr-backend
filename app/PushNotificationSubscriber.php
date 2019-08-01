@@ -17,7 +17,7 @@ class PushNotificationSubscriber extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function push_notifications()
+    public function notifications()
     {
         return $this->belongsTo(PushNotification::class);
     }
