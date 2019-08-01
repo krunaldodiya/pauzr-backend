@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Trix;
 use App\Nova\Actions\DeployPushNotification;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Code;
 
 class PushNotification extends Resource
 {
@@ -61,7 +62,14 @@ class PushNotification extends Resource
 
             Avatar::make('Image'),
 
-            Boolean::make('Status')->sortable(),
+            Boolean::make('Status')
+                ->sortable()
+                ->exceptOnForms(),
+
+            Code::make('Response')
+                ->json()
+                ->language('javascript')
+                ->sortable(),
 
             HasMany::make('Push Notification Subscriber', 'subscribers'),
         ];

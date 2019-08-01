@@ -197,9 +197,10 @@ class HomeController extends Controller
                 ]
             ]);
 
-            return response(['data' => json_decode($response->getBody())], 200);
+            $push_notification = PushNotification::where(['id' => $push_notification_id])
+                ->update(['status' => true, 'response' => $response->getBody()]);
 
-            // return redirect()->back();
+            return redirect()->back();
         } catch (\Throwable $th) {
             throw $th;
         }
