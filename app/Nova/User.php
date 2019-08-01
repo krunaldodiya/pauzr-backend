@@ -19,6 +19,7 @@ use App\Nova\Lenses\MerchantList;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\ChargeWinner;
+use App\Nova\Actions\SubscribeToPushNotification;
 
 class User extends Resource
 {
@@ -200,6 +201,13 @@ class User extends Resource
                 ->canSee(function ($request) {
                     return $request->user()->isAdmin();
                 }),
+
+            (new SubscribeToPushNotification)
+                ->onlyOnIndex()
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                })
+                ->onlyOnIndex(),
         ];
     }
 }
