@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
 use App\Post;
+use App\PostEarning;
 
 class PostController extends Controller
 {
@@ -48,6 +49,24 @@ class PostController extends Controller
         $post = Post::with('owner', 'likes', 'earnings')
             ->where(['id' => $request->post_id])
             ->first();
+
+        return response(['post' => $post], 200);
+    }
+
+    public function redeemPoints(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $post = Post::with('owner', 'likes', 'earnings')
+            ->where(['id' => $request->post_id])
+            ->first();
+
+        PostEarning::create([
+            'user_id' => $user->id,
+            'post_id' => $request->post_id,
+            'points' => $post->likes()->count(),
+            'redeemed' => true,
+        ]);
 
         return response(['post' => $post], 200);
     }
