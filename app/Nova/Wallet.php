@@ -53,7 +53,7 @@ class Wallet extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            HasMany::make('Transaction'),
+            HasMany::make('Transaction', 'transactions'),
         ];
     }
 
