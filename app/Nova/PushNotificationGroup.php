@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
 
 class PushNotificationGroup extends Resource
 {
@@ -43,6 +44,8 @@ class PushNotificationGroup extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            Text::make('Name')->sortable(),
         ];
     }
 
