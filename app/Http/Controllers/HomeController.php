@@ -165,10 +165,43 @@ class HomeController extends Controller
     {
         $push_notification_id = $request->push_notification_id;
 
-        PushNotification::with('subscribers')
+        $push_notification = PushNotification::with('subscribers')
             ->where(['id' => $push_notification_id])
             ->first();
 
-        return redirect()->back();
+        $subscribers = $push_notification->subscribers->map(function ($subscriber) {
+            return $subscriber['subscriber_id'];
+        });
+
+        $registration_ids = User::whereIn('id', $subscribers)->pluck('fcm_token');
+
+        try {
+            $url = "https://fcm.googleapis.com/fcm/send";
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request("POST", $url, [
+                'headers' => [
+                    'Authorization' => 'key=AAAAPJZ0LFc:APA91bFlF0ToRbgnP8C8RxseGvvk0gralYQqUTVU-ZBV-OWoBIVY79CIU3bS6O4TIYHW-Sx6g-KoijIcmLPIoHNiXAz2rFFM1Hv7rUawuGyo3ghoKc1-sLFDAt3LUQDSTnxs_CDmL-yV'
+                ],
+                'json' => [
+                    'registration_ids' => $registration_ids,
+                    'notification' => [
+                        'title' => 'hello there',
+                        'body' => 'hello krunal',
+                        'image'  => 'https://api.pauzr.com/storage/OjJqbVcRPnCAjJLSBEO0odPL988B2quGzbz4ljbY.png'
+                    ],
+                    'data' => [
+                        'title' => 'hello there',
+                        'body' => 'hello krunal',
+                        'image'  => 'https://api.pauzr.com/storage/OjJqbVcRPnCAjJLSBEO0odPL988B2quGzbz4ljbY.png'
+                    ]
+                ]
+            ]);
+
+            return response(['data' => json_decode($response->getBody())], 200);
+
+            // return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
