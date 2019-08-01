@@ -20,6 +20,7 @@ use function GuzzleHttp\json_encode;
 use App\AdKeyword;
 use App\AdImpression;
 use App\PushNotification;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -175,6 +176,16 @@ class HomeController extends Controller
 
         $registration_ids = User::whereIn('id', $subscribers)->pluck('fcm_token');
 
+        $title = $push_notification['title'];
+        $description = $push_notification['description'];
+        $image = Storage::disk('public')->url($push_notification['image']);
+
+        $data = [
+            'title' => $title,
+            'body' => strip_tags($description),
+            'image'  => $image,
+        ];
+
         try {
             $url = "https://fcm.googleapis.com/fcm/send";
             $client = new \GuzzleHttp\Client();
@@ -184,16 +195,8 @@ class HomeController extends Controller
                 ],
                 'json' => [
                     'registration_ids' => $registration_ids,
-                    'notification' => [
-                        'title' => $push_notification['title'],
-                        'body' => $push_notification['description'],
-                        'image'  => $push_notification['image'],
-                    ],
-                    'data' => [
-                        'title' => $push_notification['title'],
-                        'body' => $push_notification['description'],
-                        'image'  => $push_notification['image'],
-                    ]
+                    'notification' => $data,
+                    'data' => $data,
                 ]
             ]);
 
