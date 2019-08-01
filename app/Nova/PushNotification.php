@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\HasMany;
 
 class PushNotification extends Resource
 {
@@ -51,6 +52,8 @@ class PushNotification extends Resource
                 ->sortable(),
 
             Avatar::make('Image'),
+
+            HasMany::make('Subscriber'),
         ];
     }
 

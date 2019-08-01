@@ -14,6 +14,6 @@ class PushNotification extends Model
 
     public function subscribers()
     {
-        return $this->hasMany(PushNotificationSubscriber::class);
+        return $this->hasMany(User::class);
     }
 }
