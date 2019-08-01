@@ -70,7 +70,7 @@ class PostController extends Controller
             ->where(['id' => $request->post_id])
             ->first();
 
-        $transaction = $user->createTransaction($post->likes()->count(), 'withdraw', ['description' => "Earning from post"]);
+        $transaction = $user->createTransaction($post->likes()->count(), 'deposit', ['description' => "Earning from post"]);
         $user->withdraw($transaction->transaction_id);
 
         return response(['earnings' => $earnings], 200);
