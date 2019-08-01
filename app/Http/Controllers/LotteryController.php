@@ -117,31 +117,29 @@ class LotteryController extends Controller
     {
         $lottery = config('lottery');
 
-        return $lottery[5];
+        $minutes = Timer::where(['user_id' => $user->id])
+            ->where('created_at', '>=', Carbon::now()->startOfMonth())
+            ->get()
+            ->sum('duration');
 
-        // $minutes = Timer::where(['user_id' => $user->id])
-        //     ->where('created_at', '>=', Carbon::now()->startOfMonth())
-        //     ->get()
-        //     ->sum('duration');
+        if (($minutes >= 0) && ($minutes <= 500)) {
+            return $lottery[1];
+        }
 
-        // if (($minutes >= 0) && ($minutes <= 500)) {
-        //     return $lottery[1];
-        // }
+        if (($minutes >= 501) && ($minutes <= 2000)) {
+            return $lottery[2];
+        }
 
-        // if (($minutes >= 501) && ($minutes <= 2000)) {
-        //     return $lottery[2];
-        // }
+        if (($minutes >= 2001) && ($minutes <= 5000)) {
+            return $lottery[3];
+        }
 
-        // if (($minutes >= 2001) && ($minutes <= 5000)) {
-        //     return $lottery[3];
-        // }
+        if (($minutes >= 5001) && ($minutes <= 10000)) {
+            return $lottery[4];
+        }
 
-        // if (($minutes >= 5001) && ($minutes <= 10000)) {
-        //     return $lottery[4];
-        // }
-
-        // if (($minutes >= 10001) && ($minutes <= 20000)) {
-        //     return $lottery[5];
-        // }
+        if (($minutes >= 10001) && ($minutes <= 20000)) {
+            return $lottery[5];
+        }
     }
 }
