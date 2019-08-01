@@ -185,14 +185,14 @@ class HomeController extends Controller
                 'json' => [
                     'registration_ids' => $registration_ids,
                     'notification' => [
-                        'title' => 'hello there',
-                        'body' => 'hello krunal',
-                        'image'  => 'https://api.pauzr.com/storage/OjJqbVcRPnCAjJLSBEO0odPL988B2quGzbz4ljbY.png'
+                        'title' => $push_notification['title'],
+                        'body' => $push_notification['description'],
+                        'image'  => $push_notification['image'],
                     ],
                     'data' => [
-                        'title' => 'hello there',
-                        'body' => 'hello krunal',
-                        'image'  => 'https://api.pauzr.com/storage/OjJqbVcRPnCAjJLSBEO0odPL988B2quGzbz4ljbY.png'
+                        'title' => $push_notification['title'],
+                        'body' => $push_notification['description'],
+                        'image'  => $push_notification['image'],
                     ]
                 ]
             ]);
