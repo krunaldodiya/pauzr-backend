@@ -36,7 +36,7 @@ class PostController extends Controller
 
         $post = Post::where(['id' => $request->post_id])->first();
 
-        $post->likes()->toggle($user);
+        $user->favorites()->toggle($post);
 
         return response(['post' => $post], 200);
     }
