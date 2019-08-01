@@ -59,7 +59,7 @@ class PostController extends Controller
         return response(['success' => true], 200);
     }
 
-    public function editPost(CreateGroup $request)
+    public function editPost(Request $request)
     {
         Post::where(['id' => $request->postId])
             ->update([
