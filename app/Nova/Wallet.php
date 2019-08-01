@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 
 class Wallet extends Resource
 {
@@ -51,6 +52,8 @@ class Wallet extends Resource
             Text::make('Balance')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            HasMany::make('Transaction'),
         ];
     }
 

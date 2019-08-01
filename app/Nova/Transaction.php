@@ -8,7 +8,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
 
-class WalletTransaction extends Resource
+class Transaction extends Resource
 {
     /**
      * The model the resource corresponds to.
