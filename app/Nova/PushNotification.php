@@ -48,6 +48,9 @@ class PushNotification extends Resource
         return [
             ID::make()->sortable(),
 
+            Text::make('Subject')
+                ->sortable(),
+
             Text::make('Title')
                 ->sortable(),
 

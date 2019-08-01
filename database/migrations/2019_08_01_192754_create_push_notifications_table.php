@@ -16,6 +16,7 @@ class CreatePushNotificationsTable extends Migration
         Schema::create('push_notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('subject');
             $table->string('title');
             $table->text('description');
             $table->string('image');
