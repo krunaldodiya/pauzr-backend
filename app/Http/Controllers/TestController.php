@@ -28,8 +28,6 @@ class TestController extends Controller
         $user = User::first();
         $post = Post::first();
 
-        return $user->notifications->where('created_at', '>', Carbon::now()->subDays(30));
-
         return compact('user', 'post');
     }
 }
