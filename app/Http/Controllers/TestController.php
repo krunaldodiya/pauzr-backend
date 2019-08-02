@@ -7,6 +7,10 @@ use App\Repositories\UserRepository;
 use App\Repositories\TimerRepository;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
+use App\User;
+use App\Notifications\UserFollowed;
+use Illuminate\Support\Facades\Notification;
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
@@ -21,8 +25,13 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $post = Post::with('likes.user.city')->first();
+        // $users = User::get();
+        // $notification = Notification::locale('es')->send($users, new UserFollowed());
 
-        return compact('post');
+        $user = User::with(['notifications' => function ($query) {
+            return $query->where('created_at', '>', Carbon::now()->subDays(30));
+        }])->where(['email' => 'kunal.dodiya1@gmail.com'])->first();
+
+        dd($user->toArray());
     }
 }
