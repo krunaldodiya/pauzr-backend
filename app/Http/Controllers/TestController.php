@@ -27,6 +27,8 @@ class TestController extends Controller
         $user = User::where(['id' => 1])->first();
         $post = Post::where(['id' => 60])->first();
 
+        dd($user->followers);
+
         Notification::send($user->followers, new PostCreated($user->toArray(), $post->toArray()));
 
         return $user;
