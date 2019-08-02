@@ -127,7 +127,7 @@ class UserController extends Controller
         $user = auth('api')->user();
 
         $notifications = $user->notifications
-            ->where('id', $request->notification['id'])
+            ->where('id', $request->notification_id)
             ->update(['read_at' => Carbon::now()]);
 
         $notifications = $user->notifications->where('created_at', '>', Carbon::now()->subDays(30));
