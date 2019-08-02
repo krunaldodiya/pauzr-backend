@@ -44,11 +44,14 @@ class PostController extends Controller
         $toggle = $user->favorites()->toggle($post);
 
         if ($toggle['attached']) {
-            Notification::send($post->owner(), new PostLiked($user->toArray(), $post->toArray()));
+            Notification::send($post->owner, new PostLiked($user->toArray(), $post->toArray()));
         }
 
         if ($toggle['detached']) {
-            // Notification::send($post->owner(), new PostLiked($user, $post));
+            $post->owner->notifications()
+                ->where('data->user_id', $user->id)
+                ->where('data->post_id', $post->id)
+                ->delete();
         };
 
         return response(['post' => $post], 200);
