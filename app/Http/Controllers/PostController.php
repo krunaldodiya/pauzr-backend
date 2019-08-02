@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
 use App\Post;
 use App\PostEarning;
+use App\Notifications\PostLiked;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -39,7 +41,15 @@ class PostController extends Controller
             ->where(['id' => $request->post_id])
             ->first();
 
-        $user->favorites()->toggle($post);
+        $toggle = $user->favorites()->toggle($post);
+
+        if ($toggle['attached']) {
+            Notification::send($post->owner(), new PostLiked($user, $post));
+        }
+
+        if ($toggle['detached']) {
+            // Notification::send($post->owner(), new PostLiked($user, $post));
+        };
 
         return response(['post' => $post], 200);
     }

@@ -11,14 +11,18 @@ class PostLiked extends Notification
 {
     use Queueable;
 
+    public $user;
+    public $post;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $post)
     {
-        //
+        $this->user = $user;
+        $this->post = $post;
     }
 
     /**
@@ -29,7 +33,7 @@ class PostLiked extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -41,9 +45,9 @@ class PostLiked extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,7 +59,10 @@ class PostLiked extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'user_id' => $this->user->id,
+            'post_id' => $this->post->id,
+            'user' => $this->user->toArray(),
+            'post' => $this->post->toArray(),
         ];
     }
 }
