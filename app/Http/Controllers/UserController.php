@@ -122,6 +122,19 @@ class UserController extends Controller
         return response(['notifications' => $notifications], 200);
     }
 
+    public function markNotificationAsRead(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $notifications = $user->notifications
+            ->where('id', $request->notification['id'])
+            ->update(['read_at' => Carbon::now()]);
+
+        $notifications = $user->notifications->where('created_at', '>', Carbon::now()->subDays(30));
+
+        return response(['notifications' => $notifications], 200);
+    }
+
     public function update(UpdateUser $request)
     {
         $user = auth('api')->user();
