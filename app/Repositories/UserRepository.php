@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\User;
+use Carbon\Carbon;
 
 class UserRepository implements UserRepositoryInterface
 {
