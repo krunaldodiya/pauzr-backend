@@ -13,6 +13,7 @@ use App\Follow;
 use App\Post;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserFollowed;
+use App\Notifications\PostCreated;
 
 class UserController extends Controller
 {
