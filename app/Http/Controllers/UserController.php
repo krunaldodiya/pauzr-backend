@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
 use App\Follow;
 use App\Post;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserFollowed;
 
 class UserController extends Controller
 {
@@ -24,7 +26,6 @@ class UserController extends Controller
     public function followUser(Request $request)
     {
         $user = auth('api')->user();
-
         $following_id = $request->following_id;
         $guest_id = $request->guest_id;
 
@@ -32,6 +33,9 @@ class UserController extends Controller
 
         $user = $this->user->getUserById($user->id);
         $guest = $this->user->getUserById($guest_id);
+        $following = $this->user->getUserById($following_id);
+
+        Notification::send($following, new UserFollowed($following->toArray(), $user->toArray()));
 
         return ['user' => $user, 'guest' => $guest];
     }
@@ -47,6 +51,12 @@ class UserController extends Controller
 
         $user = $this->user->getUserById($user->id);
         $guest = $this->user->getUserById($guest_id);
+        $following = $this->user->getUserById($following_id);
+
+        $following->notifications()
+            ->where('data->following_id', $following->id)
+            ->where('data->follower_id', $user->id)
+            ->delete();
 
         return ['user' => $user, 'guest' => $guest];
     }

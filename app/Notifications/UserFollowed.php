@@ -11,18 +11,18 @@ class UserFollowed extends Notification
 {
     use Queueable;
 
-    private $user;
-    private $post;
+    private $following;
+    private $follower;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user, $post)
+    public function __construct($following, $follower)
     {
-        $this->user = $user;
-        $this->post = $post;
+        $this->following = $following;
+        $this->follower = $follower;
     }
 
     /**
@@ -59,10 +59,10 @@ class UserFollowed extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user_id' => $this->user['id'],
-            'post_id' => $this->post['id'],
-            'user' => $this->user,
-            'post' => $this->post,
+            'following_id' => $this->following['id'],
+            'follower_id' => $this->follower['id'],
+            'following' => $this->following,
+            'follower' => $this->follower,
         ];
     }
 }
