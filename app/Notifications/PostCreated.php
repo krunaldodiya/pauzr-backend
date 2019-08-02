@@ -11,8 +11,8 @@ class PostCreated extends Notification
 {
     use Queueable;
 
-    public $user;
-    public $post;
+    private $user;
+    private $post;
 
     /**
      * Create a new notification instance.
@@ -59,10 +59,10 @@ class PostCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user_id' => $this->user->id,
-            'post_id' => $this->post->id,
-            'user' => $this->user->toArray(),
-            'post' => $this->post->toArray(),
+            'user_id' => $this->user['id'],
+            'post_id' => $this->post['id'],
+            'user' => $this->user,
+            'post' => $this->post,
         ];
     }
 }

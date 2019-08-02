@@ -11,8 +11,8 @@ class UserFollowed extends Notification
 {
     use Queueable;
 
-    public $user;
-    public $post;
+    private $user;
+    private $post;
 
     /**
      * Create a new notification instance.
