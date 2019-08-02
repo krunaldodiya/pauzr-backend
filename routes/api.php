@@ -26,6 +26,7 @@ Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
+    Route::post('/notifications', 'UserController@getNotifications');
     Route::post('/me', 'UserController@me');
     Route::post('/guest', 'UserController@guest');
     Route::post('/update', 'UserController@update');
