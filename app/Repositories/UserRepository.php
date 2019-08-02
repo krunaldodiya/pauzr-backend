@@ -18,9 +18,6 @@ class UserRepository implements UserRepositoryInterface
             'wallet',
             'followers.follower_user',
             'followings.following_user',
-            'notifications' => function ($query) {
-                return $query->where('created_at', '>', Carbon::now()->subDays(30));
-            }
         ])
             ->where(['id' => $user_id])
             ->first();

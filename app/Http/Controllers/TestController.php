@@ -10,6 +10,7 @@ use App\Post;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostLiked;
 use App\Notifications\PostCreated;
+use Illuminate\Support\Carbon;
 
 class TestController extends Controller
 {
@@ -26,6 +27,8 @@ class TestController extends Controller
     {
         $user = User::first();
         $post = Post::first();
+
+        return $user->notifications->where('created_at', '>', Carbon::now()->subDays(30));
 
         return compact('user', 'post');
     }

@@ -14,6 +14,7 @@ use App\Post;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserFollowed;
 use App\Notifications\PostCreated;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -108,6 +109,13 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function getNotifications(Request $request)
+    {
+        $user = auth('api')->user();
+
+        return $user->notifications->where('created_at', '>', Carbon::now()->subDays(30));
     }
 
     public function update(UpdateUser $request)
