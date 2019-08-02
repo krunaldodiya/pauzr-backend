@@ -28,9 +28,20 @@ class TestController extends Controller
         // $users = User::get();
         // $notification = Notification::locale('es')->send($users, new UserFollowed());
 
-        $user = User::with(['notifications' => function ($query) {
-            return $query->where('created_at', '>', Carbon::now()->subDays(30));
-        }])->where(['email' => 'kunal.dodiya1@gmail.com'])->first();
+        $user = User::with([
+            'city.state.country',
+            'state',
+            'country',
+            'level',
+            'wallet',
+            'followers.follower_user',
+            'followings.following_user',
+            'notifications' => function ($query) {
+                return $query->where('created_at', '>', Carbon::now()->subDays(30));
+            }
+        ])
+            ->where(['id' => 1])
+            ->first();
 
         dd($user->toArray());
     }

@@ -9,7 +9,18 @@ class UserRepository implements UserRepositoryInterface
 {
     public function getUserById($user_id)
     {
-        return User::with('city.state.country', 'state', 'country', 'level', 'wallet', 'followers.follower_user', 'followings.following_user')
+        return User::with([
+            'city.state.country',
+            'state',
+            'country',
+            'level',
+            'wallet',
+            'followers.follower_user',
+            'followings.following_user',
+            'notifications' => function ($query) {
+                return $query->where('created_at', '>', Carbon::now()->subDays(30));
+            }
+        ])
             ->where(['id' => $user_id])
             ->first();
     }
