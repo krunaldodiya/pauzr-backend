@@ -24,13 +24,9 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $user = User::where(['id' => 1])->first();
-        $post = Post::where(['id' => 60])->first();
+        $user = User::first();
+        $post = Post::first();
 
-        dd($user->followers);
-
-        Notification::send($user->followers, new PostCreated($user->toArray(), $post->toArray()));
-
-        return $user;
+        return compact('user', 'post');
     }
 }

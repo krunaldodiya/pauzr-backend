@@ -121,6 +121,8 @@ class PostController extends Controller
     {
         $user = auth('api')->user();
 
+        $followers = $user->followers()->with('follower_user')->get()->pluck('follower_user')->toArray();
+
         try {
             $post = Post::create([
                 'user_id' => $user->id,
@@ -132,7 +134,7 @@ class PostController extends Controller
 
             $post = Post::with('owner', 'likes.user.city', 'earnings')->where('id', $post->id)->first();
 
-            Notification::send($user->followers, new PostCreated($user->toArray(), $post->toArray()));
+            Notification::send($followers, new PostCreated($user->toArray(), $post->toArray()));
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {
