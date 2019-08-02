@@ -9,6 +9,7 @@ use App\User;
 use App\Post;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostLiked;
+use App\Notifications\PostCreated;
 
 class TestController extends Controller
 {
@@ -24,8 +25,9 @@ class TestController extends Controller
     public function check(Request $request)
     {
         $user = User::where(['id' => 1])->first();
+        $post = Post::where(['id' => 1])->first();
 
-        dd($user->subscribers);
+        Notification::send($user->followers, new PostCreated($user->toArray(), $post->toArray()));
 
         return $user;
     }
