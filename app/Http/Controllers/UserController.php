@@ -105,7 +105,9 @@ class UserController extends Controller
 
             Notification::send($followers, new PostCreated($authUser->toArray(), $post->toArray()));
 
-            return response(['post' => $post], 200);
+            $user = $this->user->getUserById($authUser->id);
+
+            return response(['post' => $post, 'user' => $user], 200);
         } catch (\Throwable $th) {
             throw $th;
         }
