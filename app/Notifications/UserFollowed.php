@@ -59,10 +59,10 @@ class UserFollowed extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user_id' => $this->user->id,
-            'post_id' => $this->post->id,
-            'user' => $this->user->toArray(),
-            'post' => $this->post->toArray(),
+            'user_id' => $this->user['id'],
+            'post_id' => $this->post['id'],
+            'user' => $this->user,
+            'post' => $this->post,
         ];
     }
 }
