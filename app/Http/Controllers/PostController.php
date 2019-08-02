@@ -132,7 +132,7 @@ class PostController extends Controller
 
             $post = Post::with('owner', 'likes.user.city', 'earnings')->where('id', $post->id)->first();
 
-            Notification::send($user->subscribers, new PostCreated($user->toArray(), $post->toArray()));
+            Notification::send($user->followers, new PostCreated($user->toArray(), $post->toArray()));
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {
