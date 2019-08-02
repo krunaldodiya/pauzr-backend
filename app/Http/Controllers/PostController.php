@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function getPosts(Request $request)
     {
-        $posts = Post::with('owner', 'likes.user', 'earnings')
+        $posts = Post::with('owner', 'likes.user.city', 'earnings')
             ->where('user_id', $request->user_id)
             ->orderBy('created_at', 'desc')
             ->paginate(100);
@@ -35,7 +35,7 @@ class PostController extends Controller
     {
         $user = auth('api')->user();
 
-        $post = Post::with('owner', 'likes.user', 'earnings')
+        $post = Post::with('owner', 'likes.user.city', 'earnings')
             ->where(['id' => $request->post_id])
             ->first();
 
@@ -46,7 +46,7 @@ class PostController extends Controller
 
     public function getPostDetail(Request $request)
     {
-        $post = Post::with('owner', 'likes.user', 'earnings')
+        $post = Post::with('owner', 'likes.user.city', 'earnings')
             ->where(['id' => $request->post_id])
             ->first();
 
@@ -66,7 +66,7 @@ class PostController extends Controller
             'redeemed' => true,
         ]);
 
-        $post = Post::with('owner', 'likes.user', 'earnings')
+        $post = Post::with('owner', 'likes.user.city', 'earnings')
             ->where(['id' => $request->post_id])
             ->first();
 
@@ -91,7 +91,7 @@ class PostController extends Controller
                 'url' => $request->photo,
             ]);
 
-        $post = Post::with('owner', 'likes.user', 'earnings')->where('id', $request->postId)->first();
+        $post = Post::with('owner', 'likes.user.city', 'earnings')->where('id', $request->postId)->first();
 
         return response(['post' => $post], 200);
     }
@@ -109,7 +109,7 @@ class PostController extends Controller
                 'default' => false,
             ]);
 
-            $post = Post::with('owner', 'likes.user', 'earnings')->where('id', $post->id)->first();
+            $post = Post::with('owner', 'likes.user.city', 'earnings')->where('id', $post->id)->first();
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {
