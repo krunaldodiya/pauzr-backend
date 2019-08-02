@@ -8,6 +8,7 @@ use App\Post;
 use App\PostEarning;
 use App\Notifications\PostLiked;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\PostCreated;
 
 class PostController extends Controller
 {
@@ -91,7 +92,14 @@ class PostController extends Controller
 
     public function deletePost(Request $request)
     {
+        $user = auth('api')->user();
+
         Post::where(['id' => $request->post_id])->delete();
+
+        $user->notifications()
+            ->where('data->user_id', $user->id)
+            ->where('data->post_id', $request->post_id)
+            ->delete();
 
         return response(['success' => true], 200);
     }
@@ -123,6 +131,8 @@ class PostController extends Controller
             ]);
 
             $post = Post::with('owner', 'likes.user.city', 'earnings')->where('id', $post->id)->first();
+
+            Notification::send($user->subscribers, new PostCreated($user->toArray(), $post->toArray()));
 
             return response(['post' => $post], 200);
         } catch (\Throwable $th) {

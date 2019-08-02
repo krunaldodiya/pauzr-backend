@@ -25,6 +25,8 @@ class TestController extends Controller
     {
         $user = User::where(['id' => 1])->first();
 
+        dd($user->subscribers);
+
         return $user;
     }
 }
