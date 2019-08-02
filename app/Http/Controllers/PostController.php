@@ -121,7 +121,7 @@ class PostController extends Controller
     {
         $user = auth('api')->user();
 
-        $followers = $user->followers()->with('follower_user')->get()->pluck('follower_user')->toArray();
+        $followers = $user->followers()->with('follower_user')->get()->pluck('follower_user');
 
         try {
             $post = Post::create([
