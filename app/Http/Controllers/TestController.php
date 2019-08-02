@@ -21,7 +21,7 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $post = Post::with('likes')->first();
+        $post = Post::with('likes.user')->first();
 
         return compact('post');
     }
