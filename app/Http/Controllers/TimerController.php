@@ -82,7 +82,7 @@ class TimerController extends Controller
 
         $groupId = $request->groupId;
 
-        $filters = ['city.state.country', 'state', 'country', 'level', 'timer_history' => function ($query) use ($period, $location, $user, $groupId) {
+        $user_filters = ['city.state.country', 'state', 'country', 'level', 'timer_history' => function ($query) use ($period, $location, $user, $groupId) {
             return $query
                 ->where('created_at', '>=', $period)
                 ->where(function ($query) use ($location, $user, $groupId) {
@@ -98,7 +98,7 @@ class TimerController extends Controller
                 });
         }];
 
-        $users = $this->getUsers($filters, $groupId, $user, $location);
+        $users = $this->getUsers($user_filters, $groupId, $user, $location);
 
         $rankings = $users
             ->map(function ($user) {
@@ -112,9 +112,9 @@ class TimerController extends Controller
         return compact('minutes_saved', 'points_earned', 'rankings');
     }
 
-    public function getUsers($filters, $groupId, $user, $location)
+    public function getUsers($user_filters, $groupId, $user, $location)
     {
-        return  User::with($filters)
+        return  User::with($user_filters)
             ->where('status', true)
             ->where(function ($query) use ($groupId, $user, $location) {
                 if ($groupId) {

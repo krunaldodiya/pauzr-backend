@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Repositories\TimerRepository;
 use Illuminate\Support\Facades\Storage;
+use App\Post;
 
 class TestController extends Controller
 {
@@ -20,8 +21,8 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $image = Storage::disk('public')->url("Z8UXQKGI2ELFudYKRrz6Jv52EyU00il5Qh54R3JE.jpeg");
+        $post = Post::with('likes')->first();
 
-        return $image;
+        return compact('post');
     }
 }
