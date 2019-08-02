@@ -101,11 +101,11 @@ class UserController extends Controller
                 'default' => true,
             ]);
 
+            $post = Post::with('owner', 'likes.user.city', 'earnings')->where('id', $post->id)->first();
+
             Notification::send($followers, new PostCreated($authUser->toArray(), $post->toArray()));
 
-            $user = $this->user->getUserById($authUser->id);
-
-            return response(['user' => $user], 200);
+            return response(['post' => $post], 200);
         } catch (\Throwable $th) {
             throw $th;
         }
