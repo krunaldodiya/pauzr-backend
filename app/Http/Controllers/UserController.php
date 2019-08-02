@@ -79,10 +79,13 @@ class UserController extends Controller
     {
         $authUser = auth('api')->user();
 
+        $followers = $authUser->followers()->with('follower_user')->get()->pluck('follower_user');
+
         try {
             Cloudder::upload($request->image, null);
 
             $data = Cloudder::getResult();
+
             $url = $data['secure_url'];
 
             Post::where([
@@ -90,13 +93,15 @@ class UserController extends Controller
                 'type' => 'avatar',
             ])->update(['default' => false]);
 
-            Post::create([
+            $post = Post::create([
                 'user_id' => $authUser->id,
                 'url' => $url,
                 'default' => true,
             ]);
 
             $user = $this->user->getUserById($authUser->id);
+
+            Notification::send($followers, new PostCreated($user->toArray(), $post->toArray()));
 
             return response(['user' => $user], 200);
         } catch (\Throwable $th) {
