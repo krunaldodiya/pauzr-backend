@@ -11,10 +11,6 @@ class Timer extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    // protected $dispatchesEvents = [
-    //     'created' => SetTimer::class
-    // ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
