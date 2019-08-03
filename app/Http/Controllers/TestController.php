@@ -24,18 +24,18 @@ class TestController extends Controller
     public function check(Request $request)
     {
         $duration = 60;
+        $duration_seconds = $duration * 60;
 
         $user = User::first();
-        $post = Post::first();
 
         $last_timer = Timer::where(['user_id' => $user->id])->orderBy('created_at', 'desc')->first();
-        $time_passed_seconds = $last_timer->created_at->diffInSeconds(Carbon::now());
+        $time_passed_seconds = $last_timer ? $last_timer->created_at->diffInSeconds(Carbon::now()) : 3600;
 
-        if ($time_passed_seconds > $duration * 60) {
+        if ($time_passed_seconds >= $duration_seconds) {
             $user = $this->timerRepository->setTimer($user, $duration);
             return ['user' => $this->userRepository->getUserById($user->id)];
         }
 
-        return compact('user', 'post', 'last_timer', 'time_passed_seconds');
+        return response(['error' => "Invalid Request"], 403);
     }
 }

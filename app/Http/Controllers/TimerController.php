@@ -27,18 +27,17 @@ class TimerController extends Controller
     public function setTimer(Request $request)
     {
         $user = $request->x_user_id ? User::find($request->x_user_id) : auth('api')->user();
-        $duration = strval($request->duration);
 
-        // $last_timer = Timer::where(['user_id' => $user->id])->orderBy('created_at', 'desc')->first();
-        // $time_passed_seconds = $last_timer->created_at->diffInSeconds(Carbon::now());
+        $duration = $request->duration;
+        $duration_seconds = $duration * 60;
 
-        // if ($time_passed_seconds > $duration * 60) {
-        //     $user = $this->timerRepository->setTimer($user, $duration);
-        //     return ['user' => $this->userRepository->getUserById($user->id)];
-        // }
+        $last_timer = Timer::where(['user_id' => $user->id])->orderBy('created_at', 'desc')->first();
+        $time_passed_seconds = $last_timer ? $last_timer->created_at->diffInSeconds(Carbon::now()) : 3600;
 
-        $user = $this->timerRepository->setTimer($user, $duration);
-        return ['user' => $this->userRepository->getUserById($user->id)];
+        if ($time_passed_seconds >= $duration_seconds) {
+            $user = $this->timerRepository->setTimer($user, $duration);
+            return ['user' => $this->userRepository->getUserById($user->id)];
+        }
 
         return response(['error' => "Invalid Request"], 403);
     }
