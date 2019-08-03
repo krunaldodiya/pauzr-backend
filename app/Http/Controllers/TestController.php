@@ -23,7 +23,7 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $duration = 60;
+        $duration = 20;
         $duration_seconds = $duration * 60;
 
         $user = User::first();
