@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Repositories\TimerRepository;
 use App\User;
-use App\Post;
 use App\Timer;
 use Carbon\Carbon;
 
