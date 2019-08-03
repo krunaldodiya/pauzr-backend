@@ -28,7 +28,7 @@ class TimerController extends Controller
     {
         $user = $request->x_user_id ? User::find($request->x_user_id) : auth('api')->user();
 
-        $duration = $request->duration;
+        $duration = strval($request->duration);
         $duration_seconds = $duration * 60;
 
         $last_timer = Timer::where(['user_id' => $user->id])->orderBy('created_at', 'desc')->first();
