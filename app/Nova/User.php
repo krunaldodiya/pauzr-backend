@@ -130,6 +130,8 @@ class User extends Resource
 
             HasMany::make('Stores'),
 
+            HasMany::make('Ad Impression'),
+
             HasOne::make('PlanSubscriptions', 'subscription'),
 
             HasOne::make('Plan'),
