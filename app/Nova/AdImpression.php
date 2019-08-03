@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Date;
 
 class AdImpression extends Resource
 {
@@ -47,6 +48,8 @@ class AdImpression extends Resource
             BelongsTo::make('User')->searchable(),
 
             Text::make('type')->sortable(),
+
+            Date::make('Created At')->sortable(),
         ];
     }
 
