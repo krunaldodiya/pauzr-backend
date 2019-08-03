@@ -8,6 +8,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
 
 class AdImpression extends Resource
 {
@@ -49,7 +50,7 @@ class AdImpression extends Resource
 
             Text::make('type')->sortable(),
 
-            Date::make('Created At')->sortable(),
+            DateTime::make('Created At')->sortable(),
         ];
     }
 
