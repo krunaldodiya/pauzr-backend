@@ -99,7 +99,6 @@ class PostController extends Controller
         Post::where(['id' => $request->post_id])->delete();
 
         $user->notifications()
-            ->where('data->user_id', $user->id)
             ->where('data->post_id', $request->post_id)
             ->delete();
 
