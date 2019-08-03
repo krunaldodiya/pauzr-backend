@@ -72,6 +72,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Store::class);
     }
 
+    public function impressions()
+    {
+        return $this->hasMany(AdImpression::class);
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(Post::class, 'favorites');
