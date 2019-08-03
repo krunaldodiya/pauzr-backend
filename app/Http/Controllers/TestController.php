@@ -23,23 +23,19 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $duration = "20";
+        $user = User::where(['id' => 1])->first();
 
+        $duration = "20";
         $duration_seconds = $duration * 60;
 
-        $user = User::first();
+        $last_timer = Timer::where(['user_id' => $user->id])->orderBy('created_at', 'desc')->first();
+        $time_passed_seconds = $last_timer ? $last_timer->created_at->diffInSeconds(Carbon::now()) : 3600;
 
-        $user = $this->timerRepository->setTimer($user, $duration);
-        return ['user' => $this->userRepository->getUserById($user->id)];
+        if ($time_passed_seconds >= $duration_seconds) {
+            $user = $this->timerRepository->setTimer($user, $duration);
+            return ['user' => $this->userRepository->getUserById($user->id)];
+        }
 
-        // $last_timer = Timer::where(['user_id' => $user->id])->orderBy('created_at', 'desc')->first();
-        // $time_passed_seconds = $last_timer ? $last_timer->created_at->diffInSeconds(Carbon::now()) : 3600;
-
-        // if ($time_passed_seconds >= $duration_seconds) {
-        //     $user = $this->timerRepository->setTimer($user, $duration);
-        //     return ['user' => $this->userRepository->getUserById($user->id)];
-        // }
-
-        // return response(['error' => "Invalid Request"], 403);
+        return response(['error' => "Invalid Request"], 403);
     }
 }
