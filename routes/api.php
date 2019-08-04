@@ -41,6 +41,7 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/like', 'PostController@toggleLike');
     Route::post('/detail', 'PostController@getPostDetail');
     Route::post('/list', 'PostController@getPosts');
+    Route::post('/feeds', 'PostController@getFeeds');
     Route::post('/create', 'PostController@createPost');
     Route::post('/edit', 'PostController@editPost');
     Route::post('/delete', 'PostController@deletePost');
