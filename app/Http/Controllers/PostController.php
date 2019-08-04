@@ -12,6 +12,19 @@ use App\Notifications\PostCreated;
 
 class PostController extends Controller
 {
+    public function getFeeds(Request $request)
+    {
+        $user = auth('api')->user();
+        $followings = $user->followings->pluck('following_id');
+
+        $posts = Post::with('owner', 'likes.user.city', 'earnings')
+            ->whereIn('user_id', $followings)
+            ->orderBy('created_at', 'desc')
+            ->paginate(100);
+
+        return ['posts' => $posts];
+    }
+
     public function getPosts(Request $request)
     {
         $posts = Post::with('owner', 'likes.user.city', 'earnings')
