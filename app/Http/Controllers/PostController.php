@@ -19,6 +19,7 @@ class PostController extends Controller
 
         $feeds = Post::with('owner', 'likes.user.city', 'earnings')
             ->whereIn('user_id', $followings)
+            ->orWhere('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->paginate(100);
 
