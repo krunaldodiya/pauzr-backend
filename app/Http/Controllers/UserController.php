@@ -137,8 +137,7 @@ class UserController extends Controller
 
         $notifications = $user
             ->notifications
-            ->where('created_at', '>', Carbon::now()->subDays(30))
-            ->where('type', '!=', 'App\Notifications\PostCreated');
+            ->where('created_at', '>', Carbon::now()->subDays(30));
 
         return response(['notifications' => $notifications], 200);
     }
