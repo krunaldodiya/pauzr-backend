@@ -7,6 +7,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\TimerRepository;
 use App\User;
 use App\UserContact;
+use Illuminate\Support\Arr;
 
 class TestController extends Controller
 {
@@ -33,6 +34,12 @@ class TestController extends Controller
 
         $contact_wise = User::whereIn('mobile_cc', $contacts)->pluck('id');
 
-        return compact('already_following', 'post_like_wise', 'city_wise', 'contact_wise');
+        $followable_user_ids = array_merge($post_like_wise, $city_wise, $contact_wise);
+
+        $followable_users = User::whereIn('id', $followable_user_ids)
+            ->whereNotIn('id', array_merge($already_following, [$user->id]))
+            ->get();
+
+        return compact('already_following', 'post_like_wise', 'city_wise', 'contact_wise', 'followable_users');
     }
 }
