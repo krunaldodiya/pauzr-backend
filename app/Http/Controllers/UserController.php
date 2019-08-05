@@ -32,15 +32,19 @@ class UserController extends Controller
         $following_id = $request->following_id;
         $guest_id = $request->guest_id;
 
-        Follow::create(['follower_id' => $user->id, 'following_id' => $following_id]);
+        try {
+            Follow::create(['follower_id' => $user->id, 'following_id' => $following_id]);
 
-        $user = $this->user->getUserById($user->id);
-        $guest = $this->user->getUserById($guest_id);
-        $following = $this->user->getUserById($following_id);
+            $user = $this->user->getUserById($user->id);
+            $guest = $this->user->getUserById($guest_id);
+            $following = $this->user->getUserById($following_id);
 
-        Notification::send($following, new UserFollowed($following->toArray(), $user->toArray()));
+            Notification::send($following, new UserFollowed($following->toArray(), $user->toArray()));
 
-        return ['user' => $user, 'guest' => $guest];
+            return ['user' => $user, 'guest' => $guest];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function unfollowUser(Request $request)
@@ -50,18 +54,22 @@ class UserController extends Controller
         $following_id = $request->following_id;
         $guest_id = $request->guest_id;
 
-        Follow::where(['follower_id' => $user->id, 'following_id' => $following_id])->delete();
+        try {
+            Follow::where(['follower_id' => $user->id, 'following_id' => $following_id])->delete();
 
-        $user = $this->user->getUserById($user->id);
-        $guest = $this->user->getUserById($guest_id);
-        $following = $this->user->getUserById($following_id);
+            $user = $this->user->getUserById($user->id);
+            $guest = $this->user->getUserById($guest_id);
+            $following = $this->user->getUserById($following_id);
 
-        $following->notifications()
-            ->where('data->following_id', $following->id)
-            ->where('data->follower_id', $user->id)
-            ->delete();
+            $following->notifications()
+                ->where('data->following_id', $following->id)
+                ->where('data->follower_id', $user->id)
+                ->delete();
 
-        return ['user' => $user, 'guest' => $guest];
+            return ['user' => $user, 'guest' => $guest];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function me()
