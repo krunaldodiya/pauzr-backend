@@ -182,15 +182,15 @@ class GroupController extends Controller
         }
 
         $user_contacts = collect($users)
-            ->map(function ($user) {
+            ->map(function ($user) use ($auth_user) {
                 return [
-                    'user_id' => $user->auth_user,
+                    'user_id' => $auth_user->id,
                     'mobile_cc' => $user['mobileWithCountryCode'],
                     'name' => $user['name']
                 ];
             })->toArray();
 
-        UserContact::where('user_id', $user->auth_user)->delete();
+        UserContact::where('user_id', $auth_user->id)->delete();
 
         UserContact::insert($user_contacts);
 
