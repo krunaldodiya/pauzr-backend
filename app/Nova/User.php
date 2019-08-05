@@ -130,6 +130,8 @@ class User extends Resource
 
             Boolean::make('Intro Completed', 'intro_completed')->sortable(),
 
+            HasMany::make('User Contacts', 'contacts'),
+
             HasMany::make('Stores'),
 
             HasMany::make('Ad Impression', 'impressions'),

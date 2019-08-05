@@ -69,6 +69,11 @@ class User extends Authenticatable implements JWTSubject
         return $defaultAvatar == null ? "default.jpeg" : $defaultAvatar->url;
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(UserContact::class);
+    }
+
     public function stores()
     {
         return $this->hasMany(Store::class);

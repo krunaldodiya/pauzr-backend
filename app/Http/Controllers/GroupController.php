@@ -180,6 +180,14 @@ class GroupController extends Controller
             ];
         }
 
+        $user_contacts = collect($users)->map(function ($user) {
+            return [
+                'user_id' => $user->id,
+                'mobile_cc' => $user['mobileWithCountryCode'],
+                'name' => $user['name']
+            ];
+        });
+
         return compact('users');
     }
 
