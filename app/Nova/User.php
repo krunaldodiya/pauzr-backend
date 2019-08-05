@@ -128,6 +128,8 @@ class User extends Resource
 
             Boolean::make('Admin', 'is_admin')->hideFromIndex()->exceptOnForms(),
 
+            Boolean::make('Intro Completed', 'intro_completed')->sortable(),
+
             HasMany::make('Stores'),
 
             HasMany::make('Ad Impression', 'impressions'),
