@@ -135,7 +135,10 @@ class UserController extends Controller
     {
         $user = auth('api')->user();
 
-        $notifications = $user->notifications->where('created_at', '>', Carbon::now()->subDays(30));
+        $notifications = $user
+            ->notifications
+            ->where('created_at', '>', Carbon::now()->subDays(30))
+            ->where('type', '!=', 'App\\Notifications\\PostCreated');
 
         return response(['notifications' => $notifications], 200);
     }
