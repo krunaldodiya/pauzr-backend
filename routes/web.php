@@ -2,7 +2,9 @@
 
 Auth::routes();
 
-Route::get('/test/check', 'TestController@check');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/test/check', 'TestController@check');
+});
 
 Route::get('/users/list', 'HomeController@exportUsers');
 
