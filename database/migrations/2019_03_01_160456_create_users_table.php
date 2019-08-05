@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_merchant')->default(false);
             $table->boolean('status')->default(false);
+            $table->text('bio')->nullable();
             $table->rememberToken();
 
             $table->timestamps();

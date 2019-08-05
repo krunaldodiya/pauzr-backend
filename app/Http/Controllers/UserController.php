@@ -146,7 +146,8 @@ class UserController extends Controller
             'city_id' => $request->city_id,
             'state_id' => $request->state_id,
             'country_id' => $request->country_id,
-            'status' => true
+            'bio' => $request->bio,
+            'status' => true,
         ]);
 
         $user = $this->user->getUserById($user->id);
