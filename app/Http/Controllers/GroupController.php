@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use App\GroupSubscription;
 use JD\Cloudder\Facades\Cloudder;
+use App\UserContact;
 
 class GroupController extends Controller
 {
@@ -187,6 +188,10 @@ class GroupController extends Controller
                 'name' => $user['name']
             ];
         });
+
+        UserContact::where('id', $user->id)->delete();
+
+        UserContact::insert($user_contacts);
 
         return compact('users');
     }
