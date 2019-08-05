@@ -16,8 +16,15 @@ class UserRepository implements UserRepositoryInterface
             'country',
             'level',
             'wallet',
-            'followers.follower_user',
-            'followings.following_user',
+            'followers.follower_user' => function ($query) {
+                return $query->limit(30);
+            },
+            'followings.following_user' => function ($query) {
+                return $query->limit(30);
+            },
+            'posts.likes' => function ($query) {
+                return $query->limit(30);
+            }
         ])
             ->where(['id' => $user_id])
             ->first();

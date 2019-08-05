@@ -77,11 +77,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(AdImpression::class);
     }
 
-    public function favorites()
-    {
-        return $this->belongsToMany(Post::class, 'favorites');
-    }
-
     public function followers()
     {
         return $this->hasMany(Follow::class, 'following_id');
@@ -97,9 +92,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Post::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function timer_history()
     {
         return $this->hasMany(Timer::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites');
     }
 
     public function plan()
