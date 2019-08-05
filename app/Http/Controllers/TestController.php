@@ -21,8 +21,7 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        // $user = auth('api')->user();
-        $user = User::first();
+        $user = env('APP_ENV') == "production" ? auth('api')->user() : User::first();
 
         $already_following = $user->followings->pluck('following_id');
 
@@ -30,7 +29,9 @@ class TestController extends Controller
 
         $city_wise = User::where('city_id', $user->city->id)->pluck('id');
 
-        $contact_wise = UserContact::where('user_id', $user->id)->pluck('mobile_cc');
+        $contacts = UserContact::where('user_id', $user->id)->pluck('mobile_cc');
+
+        $contact_wise = User::whereIn('mobile_cc', $contacts)->pluck('id');
 
         return compact('already_following', 'post_like_wise', 'city_wise', 'contact_wise');
     }
