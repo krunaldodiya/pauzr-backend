@@ -16,14 +16,19 @@ class UserRepository implements UserRepositoryInterface
             'country',
             'level',
             'wallet',
-            'followers.follower_user' => function ($query) {
-                return $query->limit(300);
+            'followers' => function ($query) {
+                return $query->limit(500);
             },
-            'followings.following_user' => function ($query) {
-                return $query->limit(300);
+            'followings' => function ($query) {
+                return $query->limit(500);
+            },
+            'followers.follower_user',
+            'followings.following_user',
+            'posts' => function ($query) {
+                return $query->limit(120);
             },
             'posts.likes' => function ($query) {
-                return $query->limit(1);
+                return $query->limit(500);
             }
         ])
             ->where(['id' => $user_id])
