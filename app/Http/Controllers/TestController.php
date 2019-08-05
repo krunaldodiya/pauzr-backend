@@ -30,7 +30,7 @@ class TestController extends Controller
         $city_wise = User::where('city_id', $user->city->id)->pluck('id');
         $contact_wise = UserContact::where('user_id', $user->id)->pluck('mobile_cc');
 
-        $followable_users = User::whereNot('id', $user->id)
+        $followable_users = User::where('id', '!=', $user->id)
             ->where(function ($query) use ($post_like_wise, $city_wise, $contact_wise) {
                 return $query
                     ->whereIn('id', $post_like_wise)
