@@ -73,6 +73,14 @@ class UserController extends Controller
         }
     }
 
+    public function completeIntro()
+    {
+        $user = auth('api')->user();
+        $intro_completed = User::where('id', $user->id)->update(['intro_completed' => true]);
+
+        return ['intro_completed' => $intro_completed];
+    }
+
     public function me()
     {
         $user = $this->user->getUserById(auth('api')->user()->id);

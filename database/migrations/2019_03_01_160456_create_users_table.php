@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_merchant')->default(false);
             $table->boolean('status')->default(false);
             $table->text('bio')->nullable();
+            $table->boolean('intro_completed')->default(false);
             $table->rememberToken();
 
             $table->timestamps();
