@@ -189,7 +189,7 @@ class GroupController extends Controller
             ];
         });
 
-        UserContact::where('id', $user->id)->delete();
+        UserContact::where('user_id', $user->auth_user)->delete();
 
         UserContact::insert($user_contacts);
 
