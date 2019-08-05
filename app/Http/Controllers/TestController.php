@@ -34,12 +34,13 @@ class TestController extends Controller
 
         $contact_wise = User::whereIn('mobile_cc', $contacts)->pluck('id');
 
-        $followable_user_ids = array_merge($post_like_wise, $city_wise, $contact_wise);
+        // $followable_user_ids = array_merge($post_like_wise, $city_wise, $contact_wise);
 
-        $followable_users = User::whereIn('id', $followable_user_ids)
-            ->whereNotIn('id', array_merge($already_following, [$user->id]))
-            ->get();
+        // $followable_users = User::whereIn('id', $followable_user_ids)
+        //     ->whereNotIn('id', array_merge($already_following, [$user->id]))
+        //     ->get();
 
-        return compact('already_following', 'post_like_wise', 'city_wise', 'contact_wise', 'followable_users');
+        return compact('post_like_wise', 'city_wise', 'contact_wise');
+        // return compact('already_following', 'post_like_wise', 'city_wise', 'contact_wise', 'followable_users');
     }
 }
