@@ -5,6 +5,8 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
 
 class UserContact extends Resource
 {
@@ -41,6 +43,12 @@ class UserContact extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            BelongsTo::make('User'),
+
+            Text::make('name')->sortable(),
+
+            Text::make('Mobile With Country Code', 'mobile_cc')->sortable(),
         ];
     }
 
