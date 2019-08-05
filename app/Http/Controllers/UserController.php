@@ -57,14 +57,15 @@ class UserController extends Controller
         try {
             Follow::where(['follower_id' => $user->id, 'following_id' => $following_id])->delete();
 
-            $user = $this->user->getUserById($user->id);
-            $guest = $this->user->getUserById($guest_id);
-            $following = $this->user->getUserById($following_id);
 
+            $following = $this->user->getUserById($following_id);
             $following->notifications()
                 ->where('data->following_id', $following->id)
                 ->where('data->follower_id', $user->id)
                 ->delete();
+
+            $user = $this->user->getUserById($user->id);
+            $guest = $this->user->getUserById($guest_id);
 
             return ['user' => $user, 'guest' => $guest];
         } catch (\Throwable $th) {
