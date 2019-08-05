@@ -90,8 +90,12 @@ class FollowController extends Controller
         return response(['followable_users' => $followable_users], 200);
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        //
+        $keywords = $request->keywords;
+
+        $users = User::where('name', 'LIKE', "%$keywords%")->get();
+
+        return response(['users' => $users], 200);
     }
 }
