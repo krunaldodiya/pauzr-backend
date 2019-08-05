@@ -27,20 +27,18 @@ class TestController extends Controller
         $already_following = $user->followings->pluck('following_id');
 
         $post_like_wise = $user->favorites->pluck('user_id');
-
         $city_wise = User::where('city_id', $user->city->id)->pluck('id');
+        $contact_wise = UserContact::where('user_id', $user->id)->pluck('mobile_cc');
 
-        $contacts = UserContact::where('user_id', $user->id)->pluck('mobile_cc');
+        $followable_users = User::where(function ($query) use ($post_like_wise, $city_wise, $contact_wise) {
+            return $query
+                ->whereIn('id', $post_like_wise)
+                ->orWhereIn('id', $city_wise)
+                ->orWhereIn('mobile_cc', $contact_wise);
+        })
+            ->whereNotIn('id', $already_following)
+            ->get();
 
-        $contact_wise = User::whereIn('mobile_cc', $contacts)->pluck('id');
-
-        $followable_user_ids = array_merge($post_like_wise, $city_wise, $contact_wise);
-
-        // $followable_users = User::whereIn('id', $followable_user_ids)
-        //     ->whereNotIn('id', array_merge($already_following, [$user->id]))
-        //     ->get();
-
-        return compact('post_like_wise', 'city_wise', 'contact_wise');
-        // return compact('already_following', 'post_like_wise', 'city_wise', 'contact_wise', 'followable_users');
+        return compact('post_like_wise', 'city_wise', 'contact_wise', 'followable_users');
     }
 }
