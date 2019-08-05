@@ -17,13 +17,13 @@ class UserRepository implements UserRepositoryInterface
             'level',
             'wallet',
             'followers.follower_user' => function ($query) {
-                return $query->limit(30);
+                return $query->limit(300);
             },
             'followings.following_user' => function ($query) {
-                return $query->limit(30);
+                return $query->limit(300);
             },
             'posts.likes' => function ($query) {
-                return $query->limit(30);
+                return $query->limit(300);
             }
         ])
             ->where(['id' => $user_id])
