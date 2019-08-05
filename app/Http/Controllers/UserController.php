@@ -9,10 +9,8 @@ use App\User;
 
 use Illuminate\Http\Request;
 use JD\Cloudder\Facades\Cloudder;
-use App\Follow;
 use App\Post;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\UserFollowed;
 use App\Notifications\PostCreated;
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
@@ -24,53 +22,6 @@ class UserController extends Controller
     public function __construct(UserRepository $user)
     {
         $this->user = $user;
-    }
-
-    public function followUser(Request $request)
-    {
-        $user = auth('api')->user();
-        $following_id = $request->following_id;
-        $guest_id = $request->guest_id;
-
-        try {
-            Follow::create(['follower_id' => $user->id, 'following_id' => $following_id]);
-
-            $following = $this->user->getUserById($following_id);
-            Notification::send($following, new UserFollowed($following->toArray(), $user->toArray()));
-
-            $user = $this->user->getUserById($user->id);
-            $guest = $this->user->getUserById($guest_id);
-
-            return ['user' => $user, 'guest' => $guest];
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function unfollowUser(Request $request)
-    {
-        $user = auth('api')->user();
-
-        $following_id = $request->following_id;
-        $guest_id = $request->guest_id;
-
-        try {
-            Follow::where(['follower_id' => $user->id, 'following_id' => $following_id])->delete();
-
-
-            $following = $this->user->getUserById($following_id);
-            $following->notifications()
-                ->where('data->following_id', $following->id)
-                ->where('data->follower_id', $user->id)
-                ->delete();
-
-            $user = $this->user->getUserById($user->id);
-            $guest = $this->user->getUserById($guest_id);
-
-            return ['user' => $user, 'guest' => $guest];
-        } catch (\Throwable $th) {
-            throw $th;
-        }
     }
 
     public function completeIntro()

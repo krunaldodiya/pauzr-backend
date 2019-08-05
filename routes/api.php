@@ -33,8 +33,10 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/guest', 'UserController@guest');
     Route::post('/update', 'UserController@update');
     Route::post('/avatar/upload', 'UserController@uploadAvatar');
-    Route::post('/follow', 'UserController@followUser');
-    Route::post('/unfollow', 'UserController@unfollowUser');
+    Route::post('/follow', 'FollowController@followUser');
+    Route::post('/unfollow', 'FollowController@unfollowUser');
+    Route::post('/suggest', 'FollowController@suggest');
+    Route::post('/search', 'FollowController@search');
 });
 
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
