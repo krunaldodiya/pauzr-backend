@@ -21,7 +21,7 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $user = env('APP_ENV') == "production" ? auth('api')->user() : User::first();
+        $user = User::first();
 
         $already_following = $user->followings->pluck('following_id');
 
