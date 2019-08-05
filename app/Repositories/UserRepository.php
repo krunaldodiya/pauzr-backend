@@ -23,7 +23,7 @@ class UserRepository implements UserRepositoryInterface
                 return $query->limit(300);
             },
             'posts.likes' => function ($query) {
-                return $query->limit(300);
+                return $query->limit(10);
             }
         ])
             ->where(['id' => $user_id])
