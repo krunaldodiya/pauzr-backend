@@ -37,8 +37,9 @@ class TestController extends Controller
                 ->orWhereIn('mobile_cc', $contact_wise);
         })
             ->whereNotIn('id', $already_following)
+            ->whereNotIn('id', $user->id)
             ->get();
 
-        return compact('post_like_wise', 'city_wise', 'contact_wise', 'followable_users');
+        return compact('followable_users');
     }
 }
