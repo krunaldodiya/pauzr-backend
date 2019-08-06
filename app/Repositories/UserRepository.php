@@ -17,18 +17,18 @@ class UserRepository implements UserRepositoryInterface
             'level',
             'wallet',
             'followers' => function ($query) {
-                return $query->limit(500);
+                return $query->paginate(500);
             },
             'followings' => function ($query) {
-                return $query->limit(500);
+                return $query->paginate(500);
             },
             'followers.follower_user',
             'followings.following_user',
             'posts' => function ($query) {
-                return $query->limit(120);
+                return $query->paginate(300);
             },
             'posts.likes' => function ($query) {
-                return $query->limit(500);
+                return $query->paginate(500);
             },
             'posts.likes.user'
         ])
