@@ -22,7 +22,15 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $user = User::with('posts')->paginate(10)
+        $user = User::with([
+            'posts' => function ($query) {
+                return $query->paginate(10);
+            },
+            'posts.likes' => function ($query) {
+                return $query->paginate(1);
+            },
+            'posts.likes.user'
+        ])
             ->where(['email' => 'kunal.dodiya1@gmail.com'])
             ->first();
 
