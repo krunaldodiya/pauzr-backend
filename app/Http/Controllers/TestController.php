@@ -22,9 +22,9 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $auth_user = User::where(['email' => 'kunal.dodiya1@gmail.com'])->first();
-
-        $user = $this->userRepository->getUserById($auth_user->id);
+        $user = User::with('posts')->paginate(10)
+            ->where(['email' => 'kunal.dodiya1@gmail.com'])
+            ->first();
 
         return compact('user');
     }

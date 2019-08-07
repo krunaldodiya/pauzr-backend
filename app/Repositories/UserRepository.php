@@ -32,9 +32,9 @@ class UserRepository implements UserRepositoryInterface
             },
             'posts.likes.user'
         ])
-            ->with('paginated_posts')->paginate(300)
-            ->with('paginated_posts.likes')->paginate(500)
-            ->with('paginated_posts.likes.user')
+            // ->with('paginated_posts')->paginate(300)
+            // ->with('paginated_posts.likes')->paginate(500)
+            // ->with('paginated_posts.likes.user')
             ->where(['id' => $user_id])
             ->first();
     }
