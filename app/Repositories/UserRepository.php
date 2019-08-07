@@ -24,14 +24,10 @@ class UserRepository implements UserRepositoryInterface
             },
             'followers.follower_user',
             'followings.following_user',
-            'posts' => function ($query) {
-                return $query->paginate(300);
-            },
-            'posts.likes' => function ($query) {
-                return $query->paginate(500);
-            },
-            'posts.likes.user'
         ])
+            ->with('posts')->paginate(300)
+            ->with('posts.likes')->paginate(500)
+            ->with('posts.likes.user')
             ->where(['id' => $user_id])
             ->first();
     }
