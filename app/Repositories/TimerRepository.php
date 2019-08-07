@@ -14,7 +14,7 @@ class TimerRepository implements TimerRepositoryInterface
 {
     public function setTimer($user, $duration)
     {
-        $points = ["1" => "1", "2" => "3", "3" => "5", "20" => "1", "40" => "3", "60" => "5"];
+        $points = ["10" => "5", "20" => "1", "30" => "20", "40" => "3", "50" => "50", "60" => "5"];
 
         $timer = Timer::create([
             'user_id' => $user->id,

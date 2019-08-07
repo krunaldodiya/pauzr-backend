@@ -28,7 +28,7 @@ class FollowController extends Controller
         try {
             Follow::create(['follower_id' => $user->id, 'following_id' => $following_id]);
 
-            $following = $this->user->getUserById($following_id);
+            $following = User::find($following_id);
             Notification::send($following, new UserFollowed($following->toArray(), $user->toArray()));
 
             $user = $this->user->getUserById($user->id);
