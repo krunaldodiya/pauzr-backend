@@ -22,25 +22,10 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $user = User::first();
+        $auth_user = User::where(['email' => 'kunal.dodiya1@gmail.com'])->first();
 
-        $already_following = $user->followings->pluck('following_id');
+        $user = $this->userRepository->getUserById($auth_user->id);
 
-        $post_like_wise = $user->favorites->pluck('user_id');
-        $city_wise = User::where('city_id', $user->city->id)->pluck('id');
-        $contact_wise = UserContact::where('user_id', $user->id)->pluck('mobile_cc');
-
-        $followable_users = User::where('id', '!=', $user->id)
-            ->where('status', true)
-            ->where(function ($query) use ($post_like_wise, $city_wise, $contact_wise) {
-                return $query
-                    ->whereIn('id', $post_like_wise)
-                    ->orWhereIn('id', $city_wise)
-                    ->orWhereIn('mobile_cc', $contact_wise);
-            })
-            ->whereNotIn('id', $already_following)
-            ->get();
-
-        return compact('followable_users');
+        return compact('user');
     }
 }
