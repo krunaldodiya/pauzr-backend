@@ -14,7 +14,7 @@ class TimerRepository implements TimerRepositoryInterface
 {
     public function setTimer($user, $duration)
     {
-        if ($user->version <= "1.0.24") {
+        if ($user->version <= "1.0.25") {
             $points = ["10" => "1", "20" => "1", "30" => "3", "40" => "3", "50" => "5", "60" => "5"];
         } else {
             $points = ["10" => "5", "20" => "10", "30" => "20", "40" => "35", "50" => "50", "60" => "80"];
