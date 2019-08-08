@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->boolean('status')->default(false);
             $table->text('bio')->nullable();
             $table->boolean('intro_completed')->default(false);
+            $table->integer('version')->nullable();
             $table->rememberToken();
 
             $table->timestamps();

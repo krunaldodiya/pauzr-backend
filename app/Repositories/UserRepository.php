@@ -55,10 +55,14 @@ class UserRepository implements UserRepositoryInterface
     protected function login($user, $request)
     {
         $fcm_token = $request->fcm_token;
-
+        $version = $request->version;
         $country_id = $request->country['id'];
 
-        $user->update(['fcm_token' => $fcm_token, 'country_id' => $country_id]);
+        $user->update([
+            'fcm_token' => $fcm_token,
+            'country_id' => $country_id,
+            'version' => $version,
+        ]);
 
         $token = auth('api')->tokenById($user->id);
 
