@@ -103,6 +103,9 @@ class User extends Resource
                 ->rules('required', 'size:10')
                 ->hideFromIndex(),
 
+            Text::make('Version')
+                ->sortable(),
+
             BelongsTo::make('Country')
                 ->searchable()
                 ->sortable(),
