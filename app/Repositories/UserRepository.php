@@ -61,7 +61,7 @@ class UserRepository implements UserRepositoryInterface
         $user->update([
             'fcm_token' => $fcm_token,
             'country_id' => $country_id,
-            'version' => intval($version),
+            'version' => $version,
         ]);
 
         $token = auth('api')->tokenById($user->id);
