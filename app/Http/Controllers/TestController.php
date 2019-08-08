@@ -8,6 +8,8 @@ use App\Repositories\TimerRepository;
 use App\User;
 use App\UserContact;
 use Illuminate\Support\Arr;
+use App\Post;
+use App\Favorite;
 
 class TestController extends Controller
 {
@@ -22,18 +24,43 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $user = User::with([
-            'posts' => function ($query) {
-                return $query->paginate(10);
-            },
-            'posts.likes' => function ($query) {
-                return $query->paginate(1);
-            },
-            'posts.likes.user'
-        ])
-            ->where(['email' => 'kunal.dodiya1@gmail.com'])
+        if (!$request->email) {
+            return response(['error' => "Enter your email"]);
+        }
+
+        if (!$request->action) {
+            return response(['error' => "Enter some action"]);
+        }
+
+        $user = User::with('posts')
+            ->where(['email' => $request->email])
             ->first();
 
-        return compact('user');
+        if ($request->action == 'show_posts') {
+            return $user->posts;
+        }
+
+        if ($request->action == 'give_likes') {
+            if ($request->post_id) {
+                $post = Post::with('likes')->where('id', $request->post_id)->first();
+
+                $users = User::whereNotIn('id', $post->likes->pluck('user_id'))->limit(50)->pluck('id');
+
+                $data = collect($users)
+                    ->map(function ($user) use ($post) {
+                        return [
+                            'post_id' => $post->id,
+                            'user_id' => $user
+                        ];
+                    })
+                    ->toArray();
+
+                Favorite::insert($data);
+
+                return response(['error' => "Done"]);
+            }
+
+            return response(['error' => "Enter post id"]);
+        }
     }
 }
