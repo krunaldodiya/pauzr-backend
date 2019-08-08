@@ -57,7 +57,7 @@ class TestController extends Controller
 
                 Favorite::insert($data);
 
-                return response(['error' => "Done"]);
+                return response(['status' => "Done"]);
             }
 
             return response(['error' => "Enter post id"]);
