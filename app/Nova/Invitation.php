@@ -46,7 +46,7 @@ class Invitation extends Resource
 
             Text::make('Mobile', "mobile_cc"),
 
-            BelongsTo::make('Sender'),
+            BelongsTo::make('User', 'sender'),
         ];
     }
 
