@@ -79,7 +79,7 @@ class HomeController extends Controller
     {
         $agent = new Agent();
 
-        Refer::create([
+        $data = [
             'utm' => $request->utm,
             'ip_address' => $request->ip(),
             'languages' => json_encode($agent->languages()),
@@ -89,7 +89,11 @@ class HomeController extends Controller
             'browser' => $agent->browser(),
             'browser_version' => $agent->version($agent->browser()),
             'robot' => $agent->robot(),
-        ]);
+        ];
+
+        dd($data);
+
+        Refer::create($data);
 
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
     }
