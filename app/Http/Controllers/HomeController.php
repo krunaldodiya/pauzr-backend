@@ -91,8 +91,6 @@ class HomeController extends Controller
             'robot' => $agent->robot(),
         ];
 
-        dd($data);
-
         Refer::create($data);
 
         return redirect("https://play.google.com/store/apps/details?id=com.pauzr.org");
