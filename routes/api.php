@@ -1,9 +1,5 @@
 <?php
 
-Route::group(['prefix' => 'error'], function () {
-    Route::post('/notify', 'HomeController@notifyError');
-});
-
 Route::group(['prefix' => 'home'], function () {
     Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
     Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
@@ -37,6 +33,10 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/unfollow', 'FollowController@unfollowUser');
     Route::post('/suggest', 'FollowController@suggest');
     Route::post('/search', 'FollowController@search');
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/users/me', 'Api\V1\UserController@me');
 });
 
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {

@@ -150,11 +150,6 @@ class HomeController extends Controller
         return view('privacy');
     }
 
-    public function notifyError(Request $request)
-    {
-        return $request->all();
-    }
-
     public function getAssets(Request $request)
     {
         if (Str::contains($request->url, 'https://')) {
