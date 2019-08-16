@@ -8,6 +8,10 @@ Route::group(['prefix' => 'home'], function () {
     Route::post('/keywords', 'HomeController@getAdsKeywords');
 });
 
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('/location/countries', 'Api\V1\LocationController@getCountries');
+});
+
 Route::group(['prefix' => 'ads', 'middleware' => 'auth:api'], function () {
     Route::post('/impression', 'HomeController@setAdImpression');
 });
