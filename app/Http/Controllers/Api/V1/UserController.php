@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use App\Http\Resources\V1\GetUserResource;
+use App\Http\Resources\V1\MeResource;
 
 class UserController extends Controller
 {
@@ -14,6 +14,6 @@ class UserController extends Controller
     {
         $me = auth('api')->user();
 
-        return new GetUserResource($me);
+        return new MeResource($me);
     }
 }
