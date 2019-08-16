@@ -25,6 +25,11 @@ Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
     Route::post('/verify-otp', 'OtpController@verifyOtp');
 });
 
+Route::group(['prefix' => 'v1', 'middleware' => 'guest:api'], function () {
+    Route::post('/otp/request-otp', 'Api/V1/OtpController@requestOtp');
+    Route::post('/otp/verify-otp', 'Api/V1/OtpController@verifyOtp');
+});
+
 Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/notifications', 'UserController@getNotifications');
     Route::post('/notifications/read', 'UserController@markNotificationAsRead');
