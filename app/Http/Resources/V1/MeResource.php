@@ -21,4 +21,9 @@ class MeResource extends JsonResource
             'status' => $this->status,
         ];
     }
+
+    public function with($request)
+    {
+        return 'user';
+    }
 }
