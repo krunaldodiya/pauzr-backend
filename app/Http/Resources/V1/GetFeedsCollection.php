@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class GetFeedsCollection extends ResourceCollection
 {
+    public static $wrap = 'feeds';
+
     /**
      * Transform the resource collection into an array.
      *
