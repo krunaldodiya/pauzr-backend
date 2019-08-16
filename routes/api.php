@@ -26,8 +26,8 @@ Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'guest:api'], function () {
-    Route::post('/otp/request-otp', 'Api/V1/OtpController@requestOtp');
-    Route::post('/otp/verify-otp', 'Api/V1/OtpController@verifyOtp');
+    Route::post('/otp/request-otp', 'Api\V1\OtpController@requestOtp');
+    Route::post('/otp/verify-otp', 'Api\V1\OtpController@verifyOtp');
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
