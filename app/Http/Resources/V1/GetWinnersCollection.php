@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class GetWinnersCollection extends ResourceCollection
 {
+    public static $wrap = 'winners';
+
     /**
      * Transform the resource collection into an array.
      *
