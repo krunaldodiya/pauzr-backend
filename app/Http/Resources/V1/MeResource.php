@@ -19,8 +19,10 @@ class MeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'gender' => $this->gender,
+            'dob' => $this->dob,
             'avatar' => $this->avatar,
-            'status' => $this->status,
+            'status' => $this->status
         ];
     }
 }

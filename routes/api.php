@@ -51,6 +51,10 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/image/upload', 'PostController@uploadImage');
 });
 
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/posts/feeds', 'Api\V1\PostController@getFeeds');
+});
+
 Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
     Route::post('/minutes', 'TimerController@getMinutesHistory');
     Route::post('/points', 'TimerController@getPointsHistory');
