@@ -70,6 +70,10 @@ Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () 
     Route::post('/withdraw', 'LotteryController@withdrawAmount');
 });
 
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/lotteries/winners', 'Api\V1\LotteryController@getWinners');
+});
+
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/exit', 'GroupController@exitGroup');
     Route::post('/delete', 'GroupController@deleteGroup');
