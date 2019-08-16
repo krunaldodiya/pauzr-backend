@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class MeResource extends JsonResource
 {
+    public $wrap = "user";
+
     /**
      * Transform the resource into an array.
      *
@@ -20,10 +22,5 @@ class MeResource extends JsonResource
             'avatar' => $this->avatar,
             'status' => $this->status,
         ];
-    }
-
-    public function with($request)
-    {
-        return 'user';
     }
 }
