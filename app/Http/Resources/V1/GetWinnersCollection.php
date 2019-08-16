@@ -15,7 +15,12 @@ class GetWinnersCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->transform(function ($item) {
-            $data = $item->only(['id', 'user_id', 'amount', 'type', 'status']);
+            $data = $item->only(['id', 'user_id', 'amount', 'type', 'status', 'created_at']);
+
+            $created_at = $item->created_at;
+
+            $data['date'] = $created_at->format("d-m-Y");
+            $data['time'] = $created_at->format("h:i A");
 
             $data['user'] = [
                 'id' => $item->user->id,
