@@ -25,7 +25,7 @@ class CreateTimersTable extends Migration
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
-            $table->enum("duration", [20, 40, 60]);
+            $table->string("duration");
 
             $table->timestamps();
         });
