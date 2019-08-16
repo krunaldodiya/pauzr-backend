@@ -17,7 +17,7 @@ class GetFeedsCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->transform(function ($item) {
-            $data = $item->only(['id', 'user_id', 'description', 'url']);
+            $data = $item->only(['id', 'user_id', 'url', 'description', 'when']);
 
             $data['owner'] = [
                 'id' => $item->owner->id,
