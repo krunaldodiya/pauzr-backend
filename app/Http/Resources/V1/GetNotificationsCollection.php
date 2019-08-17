@@ -35,20 +35,11 @@ class GetNotificationsCollection extends ResourceCollection
             }
 
             if (optional($item->data)['follower']) {
-                $data['follower'] = [
+                $data['user'] = [
                     'id' => optional($item->data)['follower']['id'],
                     'name' => optional($item->data)['follower']['name'],
                     'avatar' => optional($item->data)['follower']['avatar'],
                     'status' => optional($item->data)['follower']['status'],
-                ];
-            }
-
-            if (optional($item->data)['following']) {
-                $data['following'] = [
-                    'id' => optional($item->data)['following']['id'],
-                    'name' => optional($item->data)['following']['name'],
-                    'avatar' => optional($item->data)['following']['avatar'],
-                    'status' => optional($item->data)['following']['status'],
                 ];
             }
 
