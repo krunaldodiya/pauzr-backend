@@ -21,6 +21,7 @@ class MeResource extends JsonResource
             'name' => $this->name,
             'gender' => $this->gender,
             'dob' => $this->dob,
+            'bio' => $this->bio,
             'avatar' => $this->avatar,
             'status' => $this->status
         ];

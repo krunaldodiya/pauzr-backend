@@ -24,6 +24,7 @@ class GetFeedsCollection extends ResourceCollection
                 'name' => $item->owner->name,
                 'gender' => $item->owner->gender,
                 'dob' => $item->owner->dob,
+                'bio' => $item->owner->bio,
                 'avatar' => $item->owner->avatar,
                 'status' => $item->owner->status
             ];
