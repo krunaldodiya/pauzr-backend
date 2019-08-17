@@ -13,8 +13,7 @@ class UserController extends Controller
 {
     public function me(Request $request)
     {
-        $me = User::where('id', auth('api')->user()->id)
-            ->first();
+        $me = User::where('id', auth('api')->user()->id)->first();
 
         return new MeResource($me);
     }

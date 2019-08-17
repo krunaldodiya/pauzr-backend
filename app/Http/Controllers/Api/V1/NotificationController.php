@@ -16,10 +16,11 @@ class NotificationController extends Controller
 
         $type = ["App\\Notifications\\PostLiked", "App\\Notifications\\UserFollowed"];
 
-        $notifications = $user
-            ->notifications
+        $notifications = DatabaseNotification::where('notifiable_id', $user->id)
             ->whereIn('type', $type)
-            ->where('created_at', '>', Carbon::now()->subDays(30));
+            ->orderBy('created_at', 'desc')
+            ->where('created_at', '>', Carbon::now()->subDays(30))
+            ->paginate(50);
 
         return new GetNotificationsCollection($notifications);
     }
