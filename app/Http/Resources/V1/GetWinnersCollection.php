@@ -27,6 +27,9 @@ class GetWinnersCollection extends ResourceCollection
             $data['user'] = [
                 'id' => $item->user->id,
                 'name' => $item->user->name,
+                'gender' => $item->user->gender,
+                'dob' => $item->user->dob,
+                'bio' => $item->user->bio,
                 'avatar' => $item->user->avatar,
                 'status' => $item->user->status
             ];
