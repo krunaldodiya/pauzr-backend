@@ -55,7 +55,10 @@ class GetNotificationsCollection extends ResourceCollection
             if (optional($item->data)['post']) {
                 $data['post'] = [
                     'id' => optional($item->data)['post']['id'],
+                    'user_id' => optional($item->data)['post']['user_id'],
                     'url' => optional($item->data)['post']['url'],
+                    'description' => optional($item->data)['post']['description'],
+                    'when' => optional($item->data)['post']['when'],
                 ];
             }
 
