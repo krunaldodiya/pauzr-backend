@@ -19,11 +19,8 @@ class GetNotificationsCollection extends ResourceCollection
         return $this->collection->transform(function ($item) {
             $data = $item->only(['id', 'type', 'notifiable_type', 'notifiable_id']);
 
-            $created_at = $item->created_at;
-            $read_at = $item->read_at;
-
-            $data['when'] = $created_at->diffForHumans();
-            $data['read'] = $read_at ? true : false;
+            $data['when'] = $item->created_at->diffForHumans();
+            $data['read'] = isNull($item->read_at) ? false : true;
 
             if (optional($item->data)['user']) {
                 $data['user'] = [
