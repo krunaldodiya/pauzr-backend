@@ -1,15 +1,41 @@
 <?php
 
+// version v1
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('/location/countries', 'Api\V1\LocationController@getCountries');
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'guest:api'], function () {
+    Route::post('/otp/request-otp', 'Api\V1\OtpController@requestOtp');
+    Route::post('/otp/verify-otp', 'Api\V1\OtpController@verifyOtp');
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/users/me', 'Api\V1\UserController@me');
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/notifications/show', 'Api\V1\NotificationController@getNotifications');
+    Route::post('/notifications/mark-as-read', 'Api\V1\NotificationController@markNotificationAsRead');
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/posts/feeds', 'Api\V1\PostController@getFeeds');
+});
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/lotteries/winners', 'Api\V1\LotteryController@getWinners');
+});
+
+// version v1
+
 Route::group(['prefix' => 'home'], function () {
     Route::post('/init', 'HomeController@getInitialData')->middleware("auth:api");
     Route::post('/cities', 'HomeController@getCities')->middleware("auth:api");
     Route::post('/countries', 'HomeController@getCountries');
     Route::post('/quotes', 'HomeController@getQuotes');
     Route::post('/keywords', 'HomeController@getAdsKeywords');
-});
-
-Route::group(['prefix' => 'v1'], function () {
-    Route::post('/location/countries', 'Api\V1\LocationController@getCountries');
 });
 
 Route::group(['prefix' => 'ads', 'middleware' => 'auth:api'], function () {
@@ -23,11 +49,6 @@ Route::get('/refer', 'HomeController@getRefer');
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
     Route::post('/request-otp', 'OtpController@requestOtp');
     Route::post('/verify-otp', 'OtpController@verifyOtp');
-});
-
-Route::group(['prefix' => 'v1', 'middleware' => 'guest:api'], function () {
-    Route::post('/otp/request-otp', 'Api\V1\OtpController@requestOtp');
-    Route::post('/otp/verify-otp', 'Api\V1\OtpController@verifyOtp');
 });
 
 Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
@@ -44,10 +65,6 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
     Route::post('/search', 'FollowController@search');
 });
 
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
-    Route::post('/users/me', 'Api\V1\UserController@me');
-});
-
 Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/redeem', 'PostController@redeemPoints');
     Route::post('/like', 'PostController@toggleLike');
@@ -58,10 +75,6 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth:api'], function () {
     Route::post('/edit', 'PostController@editPost');
     Route::post('/delete', 'PostController@deletePost');
     Route::post('/image/upload', 'PostController@uploadImage');
-});
-
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
-    Route::post('/posts/feeds', 'Api\V1\PostController@getFeeds');
 });
 
 Route::group(['prefix' => 'timer', 'middleware' => 'auth:api'], function () {
@@ -79,10 +92,6 @@ Route::group(['prefix' => 'lotteries', 'middleware' => 'auth:api'], function () 
     Route::post('/withdraw', 'LotteryController@withdrawAmount');
 });
 
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
-    Route::post('/lotteries/winners', 'Api\V1\LotteryController@getWinners');
-});
-
 Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/exit', 'GroupController@exitGroup');
     Route::post('/delete', 'GroupController@deleteGroup');
@@ -93,8 +102,4 @@ Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/remove-participants', 'GroupController@removeParticipants');
     Route::post('/sync-contacts', 'GroupController@syncContacts');
     Route::post('/image/upload', 'GroupController@uploadImage');
-});
-
-Route::post('testing', function () {
-    return ['testing' => 'testing'];
 });
