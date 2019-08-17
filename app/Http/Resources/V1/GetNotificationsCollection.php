@@ -20,7 +20,7 @@ class GetNotificationsCollection extends ResourceCollection
             $data = $item->only(['id', 'type', 'notifiable_type', 'notifiable_id']);
 
             $data['when'] = $item->created_at->diffForHumans();
-            $data['read'] = isNull($item->read_at) ? false : true;
+            $data['read'] = $item->read_at == null ? false : true;
 
             if (optional($item->data)['user']) {
                 $data['user'] = [
