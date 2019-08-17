@@ -30,6 +30,7 @@ class GetNotificationsCollection extends ResourceCollection
                     'id' => optional($item->data)['user']['id'],
                     'name' => optional($item->data)['user']['name'],
                     'avatar' => optional($item->data)['user']['avatar'],
+                    'status' => optional($item->data)['user']['status'],
                 ];
             }
 
@@ -38,6 +39,7 @@ class GetNotificationsCollection extends ResourceCollection
                     'id' => optional($item->data)['follower']['id'],
                     'name' => optional($item->data)['follower']['name'],
                     'avatar' => optional($item->data)['follower']['avatar'],
+                    'status' => optional($item->data)['follower']['status'],
                 ];
             }
 
@@ -46,6 +48,7 @@ class GetNotificationsCollection extends ResourceCollection
                     'id' => optional($item->data)['following']['id'],
                     'name' => optional($item->data)['following']['name'],
                     'avatar' => optional($item->data)['following']['avatar'],
+                    'status' => optional($item->data)['following']['status'],
                 ];
             }
 
