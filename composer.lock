@@ -1478,16 +1478,16 @@
         },
         {
             "name": "krunaldodiya/wallet",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kunaldodiya/wallet.git",
-                "reference": "30eec3d758f03ee3e732ae3328d540b6d4a938d0"
+                "reference": "6ae026f1dc411e6ae8c3c3367dea838860010835"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kunaldodiya/wallet/zipball/30eec3d758f03ee3e732ae3328d540b6d4a938d0",
-                "reference": "30eec3d758f03ee3e732ae3328d540b6d4a938d0",
+                "url": "https://api.github.com/repos/kunaldodiya/wallet/zipball/6ae026f1dc411e6ae8c3c3367dea838860010835",
+                "reference": "6ae026f1dc411e6ae8c3c3367dea838860010835",
                 "shasum": ""
             },
             "type": "library",
@@ -1517,7 +1517,7 @@
                 }
             ],
             "description": "Laravel Wallet",
-            "time": "2019-05-11T05:54:30+00:00"
+            "time": "2019-08-19T13:37:57+00:00"
         },
         {
             "name": "laravel/framework",
