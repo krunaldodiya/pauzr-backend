@@ -52,6 +52,10 @@ class Transaction extends Resource
                 ->searchable()
                 ->sortable(),
 
+            Text::make('Status')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
             Text::make('Amount')
                 ->sortable()
                 ->rules('required', 'max:255'),
