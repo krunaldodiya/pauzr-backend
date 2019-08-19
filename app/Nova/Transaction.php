@@ -44,6 +44,10 @@ class Transaction extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make('User')
+                ->searchable()
+                ->sortable(),
+
             BelongsTo::make('Wallet')
                 ->searchable()
                 ->sortable(),
