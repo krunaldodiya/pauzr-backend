@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bffa55a1606e4c30eb8837bea8d39682",
+    "content-hash": "42fd2071a73bdc658701348a4f8b4c21",
     "packages": [
+        {
+            "name": "64robots/nova-fields",
+            "version": "0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/64robots/nova-fields.git",
+                "reference": "7e6c7047af9f44ec6ce0ae76d5e7677610cd1bff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/64robots/nova-fields/zipball/7e6c7047af9f44ec6ce0ae76d5e7677610cd1bff",
+                "reference": "7e6c7047af9f44ec6ce0ae76d5e7677610cd1bff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "R64\\NovaFields\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "R64\\NovaFields\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-08-21T09:26:26+00:00"
+        },
         {
             "name": "algolia/algoliasearch-client-php",
             "version": "2.3.0",

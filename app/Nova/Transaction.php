@@ -8,6 +8,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Text;
 
+use R64\NovaFields\JSON;
+
 class Transaction extends Resource
 {
     /**
@@ -68,9 +70,9 @@ class Transaction extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Description', 'meta')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            JSON::make('Meta', [
+                Text::make('Description'),
+            ]),
         ];
     }
 
