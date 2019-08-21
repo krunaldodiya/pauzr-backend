@@ -139,6 +139,8 @@ class User extends Resource
 
             HasMany::make('Ad Impression', 'impressions'),
 
+            HasMany::make('Timer History', 'timer_history'),
+
             HasOne::make('PlanSubscriptions', 'subscription'),
 
             HasOne::make('Plan'),
