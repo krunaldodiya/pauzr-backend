@@ -46,7 +46,8 @@ class Lottery extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Amount'),
+            Text::make('Amount')
+                ->sortable(),
 
             BelongsTo::make('User'),
 
