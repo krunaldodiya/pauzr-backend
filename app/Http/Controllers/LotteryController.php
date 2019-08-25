@@ -122,24 +122,22 @@ class LotteryController extends Controller
             ->get()
             ->sum('duration');
 
-        if (($minutes >= 0) && ($minutes <= 500)) {
-            return $lottery[1];
+        $slopes = [
+            ["id" => 1, "min" => 0, "max" => 200],
+            ["id" => 2, "min" => 201, "max" => 1000],
+            ["id" => 3, "min" => 1001, "max" => 2000],
+            ["id" => 4, "min" => 2001, "max" => 5000],
+            ["id" => 5, "min" => 5001, "max" => 20000],
+        ];
+
+        $current = null;
+
+        foreach ($slopes as $slope) {
+            if (($minutes >= $slope['min']) && ($minutes <= $slope['max'])) {
+                $current = $lottery[$slope['id']];
+            }
         }
 
-        if (($minutes >= 501) && ($minutes <= 2000)) {
-            return $lottery[2];
-        }
-
-        if (($minutes >= 2001) && ($minutes <= 5000)) {
-            return $lottery[3];
-        }
-
-        if (($minutes >= 5001) && ($minutes <= 10000)) {
-            return $lottery[4];
-        }
-
-        if (($minutes >= 10001) && ($minutes <= 20000)) {
-            return $lottery[5];
-        }
+        return $current;
     }
 }

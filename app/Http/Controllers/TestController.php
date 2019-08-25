@@ -10,6 +10,8 @@ use App\UserContact;
 use Illuminate\Support\Arr;
 use App\Post;
 use App\Favorite;
+use App\Timer;
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
@@ -24,43 +26,29 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        if (!$request->email) {
-            return response(['error' => "Enter your email"]);
-        }
+        $lottery = config('lottery');
 
-        if (!$request->action) {
-            return response(['error' => "Enter some action"]);
-        }
+        $minutes = Timer::where(['user_id' => 1])
+            ->where('created_at', '>=', Carbon::now()->startOfMonth())
+            ->get()
+            ->sum('duration');
 
-        $user = User::with('posts')
-            ->where(['email' => $request->email])
-            ->first();
+        $slopes = [
+            ["id" => 1, "min" => 0, "max" => 500],
+            ["id" => 2, "min" => 501, "max" => 2000],
+            ["id" => 3, "min" => 2001, "max" => 5000],
+            ["id" => 4, "min" => 5001, "max" => 10000],
+            ["id" => 5, "min" => 10001, "max" => 20000],
+        ];
 
-        if ($request->action == 'show_posts') {
-            return $user->posts;
-        }
+        $current = null;
 
-        if ($request->action == 'give_likes') {
-            if ($request->post_id) {
-                $post = Post::with('likes')->where('id', $request->post_id)->first();
-
-                $users = User::whereNotIn('id', $post->likes->pluck('user_id'))->limit(50)->pluck('id');
-
-                $data = collect($users)
-                    ->map(function ($user) use ($post) {
-                        return [
-                            'post_id' => $post->id,
-                            'user_id' => $user
-                        ];
-                    })
-                    ->toArray();
-
-                Favorite::insert($data);
-
-                return response(['status' => "Done"]);
+        foreach ($slopes as $slope) {
+            if (($minutes >= $slope['min']) && ($minutes <= $slope['max'])) {
+                $current = $lottery[$slope['id']];
             }
-
-            return response(['error' => "Enter post id"]);
         }
+
+        return $current;
     }
 }
