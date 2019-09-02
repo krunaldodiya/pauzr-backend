@@ -23,4 +23,14 @@ class PostController extends Controller
 
         return new GetFeedsCollection($feeds);
     }
+
+    public function getPosts(Request $request)
+    {
+        $posts = Post::with('owner')
+            ->where('user_id', $request->user_id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(30);
+
+        return new GetPostsCollection($posts);
+    }
 }

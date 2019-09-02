@@ -22,6 +22,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('/posts/feeds', 'Api\V1\PostController@getFeeds');
+    Route::post('/posts/list', 'Api\V1\PostController@getPosts');
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
