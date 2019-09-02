@@ -28,6 +28,10 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::post('/lotteries/winners', 'Api\V1\LotteryController@getWinners');
 });
 
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+    Route::post('/home/quotes', 'Api\V1\HomeController@getQuotes');
+});
+
 // version v1
 
 Route::group(['prefix' => 'home'], function () {
