@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class GetQuotesCollection extends ResourceCollection
 {
+    public static $wrap = 'quotes';
+
     /**
      * Transform the resource collection into an array.
      *
