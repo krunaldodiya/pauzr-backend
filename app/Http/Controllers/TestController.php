@@ -23,7 +23,7 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        $user = User::where("id", "1572")->first();
+        $user = User::find(1);
 
         dd($user);
 
