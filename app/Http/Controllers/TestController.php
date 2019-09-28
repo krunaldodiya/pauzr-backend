@@ -37,9 +37,7 @@ class TestController extends Controller
             ->get()
             ->sum('amount');
 
-        dump($lotteries);
-        dump($max_redeem);
-        dd($earnings);
+        dd($lotteries);
     }
 
     private function getLotterySlope($user)
