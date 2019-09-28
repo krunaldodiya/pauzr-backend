@@ -127,7 +127,7 @@ class LotteryController extends Controller
             ["id" => 2, "min" => 201, "max" => 1000],
             ["id" => 3, "min" => 1001, "max" => 2000],
             ["id" => 4, "min" => 2001, "max" => 5000],
-            ["id" => 5, "min" => 5001, "max" => 20000],
+            ["id" => 5, "min" => 5001, "max" => 200000],
         ];
 
         $current = null;

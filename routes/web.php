@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-Route::get('/hello', 'TestController@check');
+Route::get('/test/check', 'LotteryController@getLotteries');
 
 Route::get('/users/list', 'HomeController@exportUsers');
 
