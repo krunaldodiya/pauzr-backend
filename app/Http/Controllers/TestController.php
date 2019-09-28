@@ -23,9 +23,9 @@ class TestController extends Controller
 
     public function check(Request $request)
     {
-        return 'hello';
+        $user = User::find(1572);
 
-        // $user = User::find(1572);
+        dd($user);
 
         // $getLotterySlope = $this->getLotterySlope($user);
 
