@@ -27,17 +27,18 @@ class TestController extends Controller
 
         $getLotterySlope = $this->getLotterySlope($user);
 
-        $lotteries = $getLotterySlope['lotteries'];
-        $max_redeem = $getLotterySlope['max_redeem'];
+        dd($getLotterySlope);
 
-        $earnings = Lottery::with('user.city')
-            ->where('type', 'credited')
-            ->where(['user_id' => $user->id])
-            ->where('created_at', '>=', Carbon::now()->startOfMonth())
-            ->get()
-            ->sum('amount');
 
-        dd($lotteries);
+        // $lotteries = $getLotterySlope['lotteries'];
+        // $max_redeem = $getLotterySlope['max_redeem'];
+
+        // $earnings = Lottery::with('user.city')
+        //     ->where('type', 'credited')
+        //     ->where(['user_id' => $user->id])
+        //     ->where('created_at', '>=', Carbon::now()->startOfMonth())
+        //     ->get()
+        //     ->sum('amount');
     }
 
     private function getLotterySlope($user)
