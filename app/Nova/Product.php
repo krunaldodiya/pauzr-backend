@@ -51,6 +51,8 @@ class Product extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make("Store")->searchable(),
+
             Text::make('Title')
                 ->sortable()
                 ->rules('required'),
@@ -58,35 +60,11 @@ class Product extends Resource
             Trix::make('Description')
                 ->rules('required'),
 
-            RadioButton::make('Coupon Type', 'type')
-                ->sortable()
-                ->options(['coupon' => 'Coupon', 'discount' => 'Discount'])
-                ->default('coupon')
-                ->hideWhenUpdating(),
-
-            BelongsTo::make("Store")->searchable(),
-
-            Text::make('Coupon Code', 'coupon'),
-
-            Avatar::make('Logo'),
+            Text::make('Coupon Coins', 'coupon_coins'),
 
             Text::make('Link')->hideFromIndex()->exceptOnForms(),
 
             Text::make('Aff Link')->hideFromIndex()->exceptOnForms(),
-
-            Date::make('Start Date')
-                ->sortable()
-                ->rules('required', 'size:10'),
-
-            Date::make('Expiry Date')
-                ->resolveUsing(function ($date) {
-                    return $date->format('d/m/Y');
-                })
-                ->sortable()
-                ->rules('required', 'size:10'),
-
-            BelongsToMany::make('Categories')
-                ->searchable(),
 
             Text::make('Sort Order', 'sort_order')->sortable(),
         ];

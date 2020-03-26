@@ -61,21 +61,15 @@ class Coupon extends Resource
             Trix::make('Description')
                 ->rules('required'),
 
+            BelongsTo::make("Product")->searchable(),
+
             RadioButton::make('Coupon Type', 'type')
                 ->sortable()
                 ->options(['coupon' => 'Coupon', 'discount' => 'Discount'])
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
-            BelongsTo::make("Store")->searchable(),
-
             Text::make('Coupon Code', 'coupon'),
-
-            Avatar::make('Logo'),
-
-            Text::make('Link')->hideFromIndex()->exceptOnForms(),
-
-            Text::make('Aff Link')->hideFromIndex()->exceptOnForms(),
 
             Date::make('Start Date')
                 ->sortable()
@@ -87,11 +81,6 @@ class Coupon extends Resource
                 })
                 ->sortable()
                 ->rules('required', 'size:10'),
-
-            BelongsToMany::make('Categories')
-                ->searchable(),
-
-            Text::make('Sort Order', 'sort_order')->sortable(),
         ];
     }
 

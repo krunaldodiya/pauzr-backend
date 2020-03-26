@@ -21,9 +21,9 @@ class Coupon extends Model
         'expiry_date' => 'date:d-m-Y',
     ];
 
-    public function store()
+    public function product()
     {
-        return $this->belongsTo(Store::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function categories()
