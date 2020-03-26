@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('image');
 
+            $table->mediumInteger('sort_order')->unsigned()->default(0);
             $table->timestamps();
         });
     }

@@ -16,19 +16,16 @@ class CreateCouponsTable extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('store_id');
-            $table->foreign('store_id')->references('id')->on('stores')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('title');
             $table->text('description');
-            $table->enum('type', ['Coupon', 'Discount'])->default('Coupon');
             $table->string('coupon')->nullable();
-            $table->string('logo')->nullable();
-            $table->text('link')->nullable();
-            $table->text('aff_link')->nullable();
+            $table->enum('type', ['Coupon', 'Discount'])->default('Coupon');
+
             $table->timestamp('start_date')->nullable();
             $table->timestamp('expiry_date')->nullable();
-            $table->tinyInteger('sort_order')->default(0);
 
             $table->timestamps();
         });
