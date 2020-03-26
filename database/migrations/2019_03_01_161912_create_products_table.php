@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->text('aff_link')->nullable();
 
             $table->mediumInteger('sort_order')->unsigned()->default(0);
+            $table->boolean('featured')->default(false);
 
             $table->timestamps();
         });

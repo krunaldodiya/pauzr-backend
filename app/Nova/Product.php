@@ -4,28 +4,23 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Text;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\BelongsToMany;
 
-class Category extends Resource
+class Product extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Category';
+    public static $model = 'App\Product';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -33,10 +28,8 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id',
     ];
-
-    public static $with = ['coupons'];
 
     /**
      * Get the fields displayed by the resource.
@@ -46,20 +39,8 @@ class Category extends Resource
      */
     public function fields(Request $request)
     {
-        $categories = Category::where('parent_id', null)->pluck('name', 'id');
-
         return [
             ID::make()->sortable(),
-
-            Image::make('Image'),
-
-            Select::make('Parent Category', 'parent_id')->sortable()->options($categories),
-
-            BelongsToMany::make('Best Offers', 'coupons', Coupon::class)->searchable(),
-
-            Text::make('Name')->sortable(),
-
-            Text::make('Sort Order')->sortable(),
         ];
     }
 
@@ -104,8 +85,6 @@ class Category extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new DownloadExcel
-        ];
+        return [];
     }
 }
