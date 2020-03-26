@@ -57,7 +57,7 @@ class Store extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make("User")->hideWhenUpdating(),
+            BelongsTo::make("Category")->hideWhenUpdating(),
 
             Avatar::make('Logo'),
 

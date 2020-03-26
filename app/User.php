@@ -13,12 +13,15 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 use Laravel\Nova\Actions\Actionable;
 use KD\Wallet\Traits\HasWallet;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable implements JWTSubject
 {
     use HasWallet;
 
     use Actionable, Notifiable;
+
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
