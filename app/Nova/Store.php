@@ -77,13 +77,13 @@ class Store extends Resource
 
             Place::make('City')->onlyCities()->countries(['IN'])->sortable(),
 
-            Text::make('Website')->nullable()->withMeta(['placeholder' => 'https://www.google.com']),
+            Text::make('Website')->withMeta(['placeholder' => 'https://www.google.com']),
 
-            Text::make('Facebook')->nullable()->withMeta(['placeholder' => 'https://www.facebook.com']),
+            Text::make('Facebook')->withMeta(['placeholder' => 'https://www.facebook.com']),
 
-            Text::make('Instagram')->nullable()->withMeta(['placeholder' => 'https://www.instagram.com']),
+            Text::make('Instagram')->withMeta(['placeholder' => 'https://www.instagram.com']),
 
-            Text::make('Twitter')->nullable()->withMeta(['placeholder' => 'https://www.twitter.com']),
+            Text::make('Twitter')->withMeta(['placeholder' => 'https://www.twitter.com']),
 
             Boolean::make('Top Brand', 'top_brand')->sortable(),
 
