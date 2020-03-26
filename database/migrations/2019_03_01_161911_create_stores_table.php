@@ -23,6 +23,9 @@ class CreateStoresTable extends Migration
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('website')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
             $table->string('logo')->nullable();
             $table->string('city')->nullable();
             $table->boolean('active')->default(false);

@@ -69,8 +69,7 @@ class Store extends Resource
                 ->canSee(function ($request) {
                     return $request->user()->isAdmin();
                 })
-                ->sortable()
-                ->hideWhenUpdating(),
+                ->sortable(),
 
             HasMany::make('Coupons'),
 
