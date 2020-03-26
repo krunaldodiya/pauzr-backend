@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
@@ -49,6 +50,8 @@ class Category extends Resource
 
         return [
             ID::make()->sortable(),
+
+            Image::make('Image'),
 
             Select::make('Parent Category', 'parent_id')->sortable()->options($categories),
 
