@@ -11,7 +11,7 @@ class Store extends Model
     use Actionable;
 
     protected $fillable = [
-        'user_id', 'type', 'name', 'description', 'website', 'logo', 'city', 'active', 'top_brand', 'sort_order'
+        'user_id', 'type', 'name', 'description', 'website', 'facebook', 'instagram', 'twitter', 'logo', 'city', 'active', 'top_brand', 'sort_order'
     ];
 
     protected $dates = ['created_at', 'updated_at'];
