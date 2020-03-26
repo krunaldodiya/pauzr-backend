@@ -45,7 +45,7 @@ class Category extends Resource
      */
     public function fields(Request $request)
     {
-        $categories = Category::where('parent_id', 0)->pluck('name', 'id');
+        $categories = Category::where('parent_id', null)->pluck('name', 'id');
 
         return [
             ID::make()->sortable(),
@@ -57,7 +57,7 @@ class Category extends Resource
             Text::make('Name')->sortable(),
         ];
     }
-    
+
     /**
      * Get the cards available for the request.
      *
