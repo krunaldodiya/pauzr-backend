@@ -59,6 +59,8 @@ class Store extends Resource
 
             BelongsTo::make("Category")->hideWhenUpdating(),
 
+            HasMany::make("Products"),
+
             Avatar::make('Logo'),
 
             Text::make('Name'),
