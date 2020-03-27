@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ProductImage extends Resource
@@ -44,6 +45,8 @@ class ProductImage extends Resource
             ID::make()->sortable(),
 
             BelongsTo::make("Product")->searchable(),
+
+            Image::make('image')
         ];
     }
 
