@@ -27,6 +27,8 @@ class CreateCouponsTable extends Migration
             $table->timestamp('start_date')->nullable();
             $table->timestamp('expiry_date')->nullable();
 
+            $table->boolean('redeemed')->default(false);
+
             $table->timestamps();
         });
     }

@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 
 class Coupon extends Resource
 {
@@ -81,6 +82,8 @@ class Coupon extends Resource
                 })
                 ->sortable()
                 ->rules('required', 'size:10'),
+
+            Boolean::make("Reedemed")->exceptOnForms()
         ];
     }
 
