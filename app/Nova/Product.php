@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -67,7 +68,9 @@ class Product extends Resource
 
             Text::make('Link')->hideFromIndex()->exceptOnForms(),
 
-            Text::make('Aff Link')->hideFromIndex()->exceptOnForms(),
+            Text::make('Affiliate Link', 'aff_link')->hideFromIndex()->exceptOnForms(),
+
+            Boolean::make('Featured'),
 
             Text::make('Sort Order', 'sort_order')->sortable(),
         ];

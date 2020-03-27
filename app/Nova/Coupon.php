@@ -61,7 +61,7 @@ class Coupon extends Resource
             Trix::make('Description')
                 ->rules('required'),
 
-            BelongsTo::make("Product")->searchable(),
+            BelongsTo::make("Product"),
 
             RadioButton::make('Coupon Type', 'type')
                 ->sortable()
