@@ -71,8 +71,6 @@ class Store extends Resource
                 })
                 ->sortable(),
 
-            HasMany::make('Coupons'),
-
             Trix::make('Description'),
 
             Place::make('City')->onlyCities()->countries(['IN'])->sortable(),

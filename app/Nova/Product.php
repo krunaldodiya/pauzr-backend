@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Product extends Resource
@@ -52,6 +53,8 @@ class Product extends Resource
             ID::make()->sortable(),
 
             BelongsTo::make("Store")->searchable(),
+
+            HasMany::make("Product Images")->searchable(),
 
             Text::make('Title')
                 ->sortable()
