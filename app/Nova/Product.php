@@ -66,9 +66,9 @@ class Product extends Resource
 
             Text::make('Coupon Coins', 'coupon_coins'),
 
-            Text::make('Link')->hideFromIndex()->exceptOnForms(),
+            Text::make('Link')->hideFromIndex(),
 
-            Text::make('Affiliate Link', 'aff_link')->hideFromIndex()->exceptOnForms(),
+            Text::make('Affiliate Link', 'aff_link')->hideFromIndex(),
 
             Boolean::make('Featured'),
 
