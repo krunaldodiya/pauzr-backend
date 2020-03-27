@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Text;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\HasMany;
 
 class Category extends Resource
 {
@@ -58,6 +59,8 @@ class Category extends Resource
             Select::make('Parent Category', 'parent_id')->sortable()->options($categories),
 
             BelongsToMany::make('Best Offers', 'coupons', Coupon::class)->searchable(),
+
+            HasMany::make("Stores")->hideWhenUpdating(),
 
             Text::make('Name')->sortable(),
 
