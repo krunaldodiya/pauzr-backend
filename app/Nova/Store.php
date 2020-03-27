@@ -64,8 +64,8 @@ class Store extends Resource
             Text::make('Name'),
 
             RadioButton::make('Store Type', 'type')
-                ->options(['offline' => 'Offline', 'online' => 'Online'])
-                ->default('offline')
+                ->options(['Offline' => 'Offline', 'Online' => 'Online'])
+                ->default('Offline')
                 ->canSee(function ($request) {
                     return $request->user()->isAdmin();
                 })
