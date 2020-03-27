@@ -54,7 +54,7 @@ class Product extends Resource
 
             BelongsTo::make("Store")->searchable(),
 
-            HasMany::make("Product Images")->searchable(),
+            HasMany::make("Product Images", "images"),
 
             Text::make('Title')
                 ->sortable()
