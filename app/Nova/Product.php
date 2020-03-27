@@ -31,7 +31,12 @@ class Product extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
+
+    public function title()
+    {
+        return $this->title;
+    }
 
     /**
      * The columns that should be searched.
@@ -39,7 +44,7 @@ class Product extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title', 'description'
     ];
 
     /**
