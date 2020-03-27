@@ -13,6 +13,11 @@ class Product extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
     public function coupon()
     {
         return $this->hasOne(Coupon::class);
@@ -21,10 +26,5 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
-    }
-
-    public function store()
-    {
-        return $this->belongsTo(Store::class);
     }
 }

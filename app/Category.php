@@ -21,7 +21,7 @@ class Category extends Model
 
     public function products()
     {
-        return $this->hasManyThrough(Store::class, Product::class);
+        return $this->hasManyThrough(Product::class, Store::class);
     }
 
     public function coupons()
