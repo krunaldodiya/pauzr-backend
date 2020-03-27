@@ -110,5 +110,5 @@ Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'categories', 'middleware' => 'auth:api'], function () {
-    Route::get('/all', 'CategoryController@categories');
+    Route::post('/all', 'CategoryController@categories');
 });
