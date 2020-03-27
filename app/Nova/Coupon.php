@@ -41,7 +41,7 @@ class Coupon extends Resource
         'id', 'title', 'type', 'start_date', 'expiry_date'
     ];
 
-    public static $with = ['store', 'categories'];
+    public static $with = ['categories'];
 
     /**
      * Get the fields displayed by the resource.
