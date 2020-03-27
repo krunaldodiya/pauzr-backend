@@ -14,6 +14,11 @@ class Category extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    public function stores()
+    {
+        return $this->hasMany(Store::class);
+    }
+
     public function coupons()
     {
         return $this->belongsToMany(Coupon::class, 'category_coupon');

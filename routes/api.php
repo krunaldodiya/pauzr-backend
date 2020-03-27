@@ -108,3 +108,7 @@ Route::group(['prefix' => 'groups', 'middleware' => 'auth:api'], function () {
     Route::post('/sync-contacts', 'GroupController@syncContacts');
     Route::post('/image/upload', 'GroupController@uploadImage');
 });
+
+Route::group(['prefix' => 'categories', 'middleware' => 'auth:api'], function () {
+    Route::get('/all', 'CategoryController@categories');
+});
