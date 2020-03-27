@@ -19,6 +19,11 @@ class Category extends Model
         return $this->hasMany(Store::class);
     }
 
+    public function products()
+    {
+        return $this->hasManyThrough(Store::class, Product::class);
+    }
+
     public function coupons()
     {
         return $this->belongsToMany(Coupon::class, 'category_coupon');

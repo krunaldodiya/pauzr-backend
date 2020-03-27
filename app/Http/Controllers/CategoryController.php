@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function categories(Request $request)
     {
-        $categories = Category::with('stores.products.images')->get();
+        $categories = Category::with('products.images', 'products.store')->get();
 
         return compact('categories');
     }
