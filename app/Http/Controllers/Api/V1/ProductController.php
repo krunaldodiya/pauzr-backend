@@ -12,8 +12,10 @@ class ProductController extends Controller
 {
     public function getProductInfo(Request $request)
     {
-        $categories = Product::get();
+        $product = Product::with('store', 'store.category')
+            ->where('id', $request->product_id)
+            ->first();
 
-        return compact('categories');
+        return compact('product');
     }
 }

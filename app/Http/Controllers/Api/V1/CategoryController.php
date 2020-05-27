@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Category;
+use App\Store;
 
 class CategoryController extends Controller
 {
@@ -19,15 +20,17 @@ class CategoryController extends Controller
 
     public function getCategoryInfo(Request $request)
     {
-        $categories = Category::get();
+        $category = Category::where('id', $request->store_id)->first();
 
-        return compact('categories');
+        return compact('category');
     }
 
     public function getStoresByCategory(Request $request)
     {
-        $categories = Category::get();
+        $stores = Store::with('category')
+            ->where('category_id', $request->category_id)
+            ->paginate();
 
-        return compact('categories');
+        return compact('stores');
     }
 }
