@@ -39,11 +39,11 @@ class CategoryController extends Controller
 
     public function getProductsByCategory(Request $request)
     {
-        $category = Category::with('store')->find($request->category_id);
-
-        $products = Product::with('store')
-            ->where('store_id', $category->store_id)
-            ->paginate();
+        $products = Product::whereHas('store', function ($query) use ($request) {
+            return $query->whereHas('category', function ($query) use ($request) {
+                return $query->where('id', $request->category_id);
+            });
+        })->paginate();
 
         return compact('products');
     }
