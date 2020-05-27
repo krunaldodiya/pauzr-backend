@@ -22,7 +22,7 @@ class StoreController extends Controller
     public function getStoreInfo(Request $request)
     {
         $store = Store::with('category')
-            ->where('store_id', $request->store_id)
+            ->where('id', $request->store_id)
             ->first();
 
         return compact('store');
