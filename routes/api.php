@@ -37,6 +37,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/category/all', 'Api\V1\CategoryController@getCategories');
     Route::get('/category/{category_id}/info', 'Api\V1\CategoryController@getCategoryInfo');
     Route::get('/category/{category_id}/stores', 'Api\V1\CategoryController@getStoresByCategory');
+    Route::get('/category/{category_id}/products', 'Api\V1\CategoryController@getProductsByCategory');
     Route::get('/store/all', 'Api\V1\StoreController@getStores');
     Route::get('/store/{store_id}/info', 'Api\V1\StoreController@getStoreInfo');
     Route::get('/store/{store_id}/products', 'Api\V1\StoreController@getProductsByStore');

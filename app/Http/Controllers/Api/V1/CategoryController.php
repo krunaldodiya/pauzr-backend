@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Category;
+use App\Product;
 use App\Store;
 
 class CategoryController extends Controller
@@ -20,7 +21,9 @@ class CategoryController extends Controller
 
     public function getCategoryInfo(Request $request)
     {
-        $category = Category::where('id', $request->category_id)->first();
+        $category = Category::with('products')
+            ->where('id', $request->category_id)
+            ->first();
 
         return compact('category');
     }
@@ -32,5 +35,16 @@ class CategoryController extends Controller
             ->paginate();
 
         return compact('stores');
+    }
+
+    public function getProductsByCategory(Request $request)
+    {
+        $category = Category::with('store')->find($request->category_id);
+
+        $products = Product::with('store')
+            ->where('store_id', $category->store_id)
+            ->paginate();
+
+        return compact('products');
     }
 }
