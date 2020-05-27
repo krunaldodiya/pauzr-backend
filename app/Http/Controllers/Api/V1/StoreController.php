@@ -14,21 +14,25 @@ class StoreController extends Controller
 {
     public function getStores(Request $request)
     {
-        $stores = Store::paginate();
+        $stores = Store::get();
 
         return compact('stores');
     }
 
     public function getStoreInfo(Request $request)
     {
-        $store = Store::find($request->store_id);
+        $store = Store::with('category')
+            ->where('store_id', $request->store_id)
+            ->first();
 
         return compact('store');
     }
 
     public function getProductsByStore(Request $request)
     {
-        $products = Product::where('store_id', $request->store_id)->paginate();
+        $products = Product::with('store')
+            ->where('store_id', $request->store_id)
+            ->paginate();
 
         return compact('products');
     }
