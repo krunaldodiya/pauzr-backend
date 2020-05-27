@@ -6,28 +6,30 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Product;
+
 use App\Store;
 
 class StoreController extends Controller
 {
     public function getStores(Request $request)
     {
-        $categories = Store::get();
+        $stores = Store::paginate();
 
-        return compact('categories');
+        return compact('stores');
     }
 
     public function getStoreInfo(Request $request)
     {
-        $categories = Store::get();
+        $store = Store::find($request->store_id);
 
-        return compact('categories');
+        return compact('store');
     }
 
     public function getProductsByStore(Request $request)
     {
-        $categories = Store::get();
+        $products = Product::where('store_id', $request->store_id)->paginate();
 
-        return compact('categories');
+        return compact('products');
     }
 }
