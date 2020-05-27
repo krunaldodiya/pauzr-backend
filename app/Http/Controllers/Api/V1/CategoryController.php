@@ -20,7 +20,7 @@ class CategoryController extends Controller
 
     public function getCategoryInfo(Request $request)
     {
-        $category = Category::where('id', $request->store_id)->first();
+        $category = Category::where('id', $request->category_id)->first();
 
         return compact('category');
     }
