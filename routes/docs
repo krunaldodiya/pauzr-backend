@@ -1,0 +1,12 @@
+API ENDPOINT https://api.pauzr.com/api
+
+GET /v1/category/all
+GET /v1/category/<ID>/info
+GET /v1/category/<ID>/stores
+
+GET /v1/store/all
+GET /v1/store/<ID>/info
+GET /v1/store/<ID>/products
+
+GET /v1/product/<ID>/info
+
