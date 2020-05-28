@@ -21,6 +21,9 @@ class CreateCouponsTable extends Migration
 
             $table->string('title');
             $table->text('description');
+
+            $table->string('image');
+
             $table->string('coupon')->nullable();
             $table->enum('type', ['Coupon', 'Discount'])->default('Coupon');
 

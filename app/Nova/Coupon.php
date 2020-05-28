@@ -70,6 +70,8 @@ class Coupon extends Resource
                 ->default('coupon')
                 ->hideWhenUpdating(),
 
+            Avatar::make('Image'),
+
             Text::make('Coupon Code', 'coupon'),
 
             Date::make('Start Date')

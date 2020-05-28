@@ -22,6 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->text('description');
 
+            $table->string('image');
+
             $table->integer('coupon_coins');
 
             $table->text('link')->nullable();
