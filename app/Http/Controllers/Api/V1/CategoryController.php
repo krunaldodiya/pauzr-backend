@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
     public function getProductsByCategory(Request $request)
     {
-        $products = Product::with('store', 'store.category', 'coupon')
+        $products = Product::with('images', 'store', 'store.category', 'coupon')
             ->whereHas('store', function ($query) use ($request) {
                 return $query->whereHas('category', function ($query) use ($request) {
                     return $query->where('id', $request->category_id);
