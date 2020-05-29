@@ -69,8 +69,6 @@ class Product extends Resource
             Trix::make('Description')
                 ->rules('required'),
 
-            Avatar::make('Image'),
-
             Text::make('Coupon Coins', 'coupon_coins'),
 
             Text::make('Link')->hideFromIndex(),
