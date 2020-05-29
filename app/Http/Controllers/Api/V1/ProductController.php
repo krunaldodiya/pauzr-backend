@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function getProductInfo(Request $request)
     {
-        $product = Product::with('store', 'store.category', 'coupon')
+        $product = Product::with('images', 'store', 'store.category', 'coupon')
             ->where('id', $request->product_id)
             ->first();
 

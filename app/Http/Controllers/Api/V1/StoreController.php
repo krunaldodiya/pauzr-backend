@@ -30,7 +30,7 @@ class StoreController extends Controller
 
     public function getProductsByStore(Request $request)
     {
-        $products = Product::with('store')
+        $products = Product::with('images', 'store')
             ->where('store_id', $request->store_id)
             ->paginate();
 
