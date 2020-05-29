@@ -74,6 +74,12 @@ class Coupon extends Resource
 
             Text::make('Coupon Code', 'coupon'),
 
+            Trix::make('Terms')
+                ->rules('required'),
+                
+            Trix::make('Instructions')
+                ->rules('required'),
+
             Date::make('Start Date')
                 ->sortable()
                 ->rules('required', 'size:10'),

@@ -32,6 +32,9 @@ class CreateCouponsTable extends Migration
 
             $table->boolean('redeemed')->default(false);
 
+            $table->text('terms')->nullable();
+            $table->text('instructions')->nullable();
+
             $table->timestamps();
         });
     }
